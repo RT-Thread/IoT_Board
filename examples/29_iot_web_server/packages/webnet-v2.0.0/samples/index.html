@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title> WebNet </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+  </head>
+ 
+  <body>
+    <h1>WebNet</h1>
+    WebNet 是 RT-Thread RTOS 上的新一代 web server，贴身为小型嵌入式设备定制，具有低资源占用，扩展性好的特点。
+    <hr>
+    
+    <h2>WebNet 功能</h2>  
+    <ul>
+      <li>支持 HTTP 1.0/1.1 规范
+      <li>支持 AUTH 基本认证
+      <li>支持 CGI 事件处理
+      <li>支持 ASP 变量替换
+      <li>支持 SSI 文件嵌入
+      <li>支持 INDEX 目录显示
+      <li>支持 ALIAS 别名
+      <li>支持 upload 文件上传
+    </ul>
+    
+    <hr>
+    <h3>1. AUTH Test</h3>
+    WebNet 基本认证功能设计成与 URL 目录相挂钩，在使用时可以<b>根据目录划分访问权限</b>。
+    <br/><br/>
+    <a href="/admin/">基本认证功能测试：用户名及密码为 <b>admin:admin</b></a>
+    <br/><br/>
+    
+    <hr>
+    <h3>2. CGI Test</h3>
+    WebNet CGI 功能可以让用户执行指定的函数，CGI测试：
+    <br/><br/>
+    <a href="/cgi-bin/hello">> hello world</a>
+    <br/>
+    <a href="/cgi-bin/calc">> calc</a>
+    <br/><br/>
+    
+    <hr>
+    <h3>3. ASP Test</h3>
+    WebNet 实现的是一种简化方式的 ASP 变量替换，即当页面中有<b><% %></b> 标记出现时，将自动替换成用户注册的字符串并输。
+    <br/><br/>
+    <a href="/version.asp">ASP 功能测试：访问 version.asp 文件，打印当前 RT-Thread 系统版本号</a>
+    <br/><br/>
+    
+    <hr>
+    <h3>4. SSI Test</h3>
+    SSI 功能模块可以用于执行服务器上程序或者插入文本内容到网页中页面代码中有 <b>#include virtual="/xxx"</b> 或者 <b>#include file="/xxx"</b> 标记存在时，将自动解析成对应文件中的信息。
+    <br/><br/>
+    <a href="/index.shtml">SSI 功能测试：访问 /version.shtml 页面，其中嵌套了 /index.html 页面</a>
+    <br/><br/>
+    
+    <hr>
+    <h3>5. INDEX Test</h3>
+    INDEX 功能模块可以自动显示目录下文件列表，当访问目录中不存在 index.htm, index.html, index.asp 等文件时，将自动显示这个目录下的文件列表。
+    <br/><br/>
+    <a href="/admin/">INDEX 功能测试：访问/admin 目录，列出目录下所有文件</a>
+    <br/><br/>
+    
+    <hr>
+    <h3>6. ALIAS Test</h3>
+    ALIAS 别名模块可以给当前资源文件夹设置多个别名，可以用于<b>长路径的简化操作</b>，方便用户对资源的访问。
+    <br/><br/>
+    <a href="/test/">ALIAS 功能测试：访问 /test 目录会跳转到 /admin 目录</a>
+    <br/><br/>
+    
+    <hr>
+    <h3>7. Upload File Test</h3>
+    文件上传模块可以用于上传文件到指定的目录，这里上传到根目录下的 /upload 目录。
+    <br/><br/>
+    <form name="upload" method="POST" enctype="multipart/form-data" action="/upload">
+      <input type="file" name="file1" >
+      <input type="submit" name="submit" value="上传">
+    </form>
+    <br/>
+    <a href="/upload/">点击浏览上传文件的目录</a>
+    <br/><br/>
+  </body>
+</html>

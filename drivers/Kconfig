@@ -1,0 +1,147 @@
+menu "Hardware Drivers Config"
+
+    menu "Onboard Peripheral Drivers"
+        config BSP_USING_FLASH
+            bool "Enable Flash"
+            select BSP_USING_QSPI
+            select RT_USING_SFUD
+            default n
+
+        config BSP_USING_TF_CARD
+            bool "Enable TF_CARD"
+            select BSP_USING_SPI1
+            select RT_USING_SPI_MSD
+            default n
+
+        config BSP_USING_WIFI
+            bool "Enable WiFi"
+            select BSP_USING_SDIO
+            select BSP_USING_FLASH
+            select RT_USING_WIFI
+            select RT_WLAN_PROT_LWIP_PBUF_FORCE
+            select RT_USING_LWIP
+            select RT_USING_LIBC
+            select RT_USING_POSIX
+            select RT_USING_DFS
+            select PKG_USING_FAL
+            select PKG_USING_EASYFLASH
+            select RT_USING_WIFI_6181_LIB
+            select RT_USING_OTA_LIB
+            default n
+
+            if BSP_USING_WIFI
+                config BSP_USING_WIFI_THREAD_INIT
+                    bool "Using Thread Initialize WiFi"
+                    default n
+
+                config BSP_USING_WIFI_AUTO_INIT
+                    bool "Using WiFi Automatically Initialization"
+                    depends on RT_USING_COMPONENTS_INIT
+                    default y
+            endif
+
+        config BSP_USING_LCD
+            bool "Enable LCD"
+            select BSP_USING_SPI3
+            default n
+
+        config BSP_USING_AUDIO
+            bool "Enable Audio"
+            select RT_USING_AUDIO
+            select BSP_USING_I2C
+            default n
+    endmenu
+
+    menu "Offboard Peripheral Drivers"
+        config BSP_USING_ENC28J60
+            bool "Enable ENC28J60"
+            select BSP_USING_SPI2
+            select RT_USING_ENC28J60
+            default n
+
+        config BSP_USING_ESP8266
+            bool "Enable ESP8266"
+            select BSP_USING_UART2
+            select RT_USING_AT
+            select AT_USING_CLIENT
+            default n
+    endmenu
+
+    menu "On-chip Peripheral Drivers"
+        config BSP_USING_UART1
+            bool "Enable UART1"
+            select RT_USING_SERIAL
+            default y
+
+        config BSP_USING_UART2
+            bool "Enable UART2"
+            select RT_USING_SERIAL
+            default n
+
+        config BSP_USING_UART3
+            bool "Enable UART3"
+            select RT_USING_SERIAL
+            default n
+
+        config BSP_USING_LPUART1
+            bool "Enable LPUART1"
+            select RT_USING_SERIAL
+            default n
+
+        config BSP_UART_USING_DMA_RX
+            bool "Enable UART RX DMA support"
+            default y
+
+        config BSP_USING_I2C
+            bool "Enable I2C BUS"
+            select RT_USING_I2C
+            select RT_USING_I2C_BITOPS
+            default n
+
+        config BSP_USING_SPI1
+            bool "Enable SPI1 BUS"
+            select RT_USING_SPI
+            default n
+
+        config BSP_USING_SPI2
+            bool "Enable SPI2 BUS"
+            select RT_USING_SPI
+            default n
+
+        config BSP_USING_SPI3
+            bool "Enable SPI3 BUS"
+            select RT_USING_SPI
+            default n
+
+        config BSP_USING_QSPI
+            bool "Enable QSPI BUS"
+            select RT_USING_SPI
+            default n
+
+        config BSP_USING_SDIO
+            bool "Enable SDIO"
+            select RT_USING_SDIO
+            select PKG_USING_STM32_SDIO
+            default n
+
+        config BSP_USING_GPIO
+            bool "Enable GPIO"
+            select RT_USING_PIN
+            default y
+
+        config BSP_USING_PM
+            bool "Enable Power Management"
+            select RT_USING_PM
+            select RT_USING_HOOK
+            default n
+
+        config BSP_USING_INFRARED
+            bool "Enable INFRARED"
+            default n
+            
+        config BSP_USING_USBD
+            bool "Enable USBD"
+            default n
+    endmenu
+
+endmenu

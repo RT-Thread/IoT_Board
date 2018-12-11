@@ -1,0 +1,20 @@
+import rtconfig
+from building import *
+
+cwd = GetCurrentDir()
+
+src = ['Device/ST/STM32L4xx/Source/Templates/system_stm32l4xx.c']
+
+#add for startup script
+if rtconfig.CROSS_TOOL == 'gcc':
+    src += ['Device/ST/STM32L4xx/Source/Templates/gcc/startup_stm32l475xx.s']
+elif rtconfig.CROSS_TOOL == 'keil':
+    src += ['Device/ST/STM32L4xx/Source/Templates/arm/startup_stm32l475xx.s']
+elif rtconfig.CROSS_TOOL == 'iar':
+    src += ['Device/ST/STM32L4xx/Source/Templates/iar/startup_stm32l475xx.s']
+
+path = [cwd + '/Device/ST/STM32L4xx/Include', cwd + '/Include']
+
+group = DefineGroup('STM32L4xx_HAL_Driver', src, depend = [''], CPPPATH = path)
+
+Return('group')

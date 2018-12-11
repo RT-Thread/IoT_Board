@@ -1,0 +1,12 @@
+[
+ {
+  "path": "/packages/tools/EasyFlash", 
+  "ver": "v3.2.1", 
+  "name": "EASYFLASH"
+ }, 
+ {
+  "path": "/packages/system/fal", 
+  "ver": "v0.2.0", 
+  "name": "FAL"
+ }
+]

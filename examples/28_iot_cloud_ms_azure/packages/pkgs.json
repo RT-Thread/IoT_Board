@@ -1,0 +1,32 @@
+[
+ {
+  "path": "/packages/iot/netutils", 
+  "ver": "v1.0.0", 
+  "name": "NETUTILS"
+ }, 
+ {
+  "path": "/packages/iot/iot_cloud/azure-iot-sdk", 
+  "ver": "v1.2.8", 
+  "name": "AZURE"
+ }, 
+ {
+  "path": "/packages/security/mbedtls", 
+  "ver": "v2.6.0", 
+  "name": "MBEDTLS"
+ }, 
+ {
+  "path": "/packages/tools/EasyFlash", 
+  "ver": "v3.2.1", 
+  "name": "EASYFLASH"
+ }, 
+ {
+  "path": "/packages/system/fal", 
+  "ver": "v0.2.0", 
+  "name": "FAL"
+ }, 
+ {
+  "path": "/packages/peripherals/stm32_sdio", 
+  "ver": "v1.0.0", 
+  "name": "STM32_SDIO"
+ }
+]

@@ -1,0 +1,18 @@
+
+from building import *
+import rtconfig
+
+cwd = GetCurrentDir()
+
+src = []
+
+src += Glob('*.c')
+
+if not GetDepend(['PKG_USING_FLEX_BUTTON_SAMPLE']):
+    SrcRemove(src, 'flexible_button_demo.c')
+
+CPPPATH = [cwd]
+
+group = DefineGroup('flex_button', src, depend = ["PKG_USING_FLEX_BUTTON"], CPPPATH = CPPPATH)
+
+Return('group')

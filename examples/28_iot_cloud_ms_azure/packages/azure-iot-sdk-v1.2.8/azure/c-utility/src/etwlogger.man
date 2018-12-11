@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<instrumentationManifest xsi:schemaLocation="http://schemas.microsoft.com/win/2004/08/events eventman.xsd" xmlns="http://schemas.microsoft.com/win/2004/08/events" xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:trace="http://schemas.microsoft.com/win/2004/08/events/trace">
+	<instrumentation>
+		<events>
+			<provider name="Microsoft-ServiceBus" guid="{4CCAA233-6675-4EC5-B3A6-1AA68B7C8AE9}" symbol="MicrosoftServiceBus" resourceFileName="block_storage_disk_sample.exe" messageFileName="block_storage_disk_sample.exe">
+				<events>
+					<event symbol="LogInfoEvent" value="1" version="0" channel="Operational" level="win:Informational" task="Log" opcode="LogInfo" template="_template_log_info" keywords="LogInfo " message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.event.1.message)"></event>
+					<event symbol="LogErrorEvent" value="2" version="0" channel="Operational" level="win:Error" task="Log" opcode="LogError" template="_template_log_error" keywords="LogError " message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.event.2.message)"></event>
+					<event symbol="LogDebugEvent" value="3" version="0" channel="Debug" level="win:Informational" task="Log" opcode="LogDebug" template="_template_log_error" keywords="LogDebug " message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.event.3.message)"></event>
+					<event symbol="LogLastError" value="4" version="0" channel="Operational" level="win:Error" task="Log" opcode="LogLastError" template="_template_log_last_error" keywords="LogLastError " message="$(string.Microsoft-ServiceBus.event.4.message)"></event>
+				</events>
+				<levels></levels>
+				<tasks>
+					<task name="Log" symbol="Log" value="1" eventGUID="{F66F77B5-170A-41A5-9704-C0CAEAA38F54}" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.task.Log.message)"></task>
+				</tasks>
+				<opcodes>
+					<opcode name="LogInfo" symbol="_loginfo" value="10" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.opcode._loginfo.message)"></opcode>
+					<opcode name="LogError" symbol="_logerror" value="11" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.opcode._logerror.message)"></opcode>
+					<opcode name="LogDebug" symbol="_logdebug" value="12" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.opcode._logdebug.message)"></opcode>
+					<opcode name="LogLastError" symbol="_loglasterror" value="13"></opcode>
+				</opcodes>
+				<channels>
+					<channel name="Debug" chid="Debug" symbol="Debug" type="Debug" enabled="false" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.channel.Debug.message)"></channel>
+					<channel name="Operational" chid="Operational" symbol="Operational" type="Operational" enabled="true" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.channel.Operational.message)"></channel>
+				</channels>
+				<keywords>
+					<keyword name="LogInfo" symbol="_kw_loginfo" mask="0x1" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.keyword._loginfo.message)"></keyword>
+					<keyword name="LogError" symbol="_kw_logerror" mask="0x2" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.Keyword._logerror.message)"></keyword>
+					<keyword name="LogDebug" symbol="_kw_logdebug" mask="0x4" message="$(string.Microsoft-ServiceBus-MessagingStore-BlockStorage.Keyword._logdebug.message)"></keyword>
+					<keyword name="LogLastError" symbol="_kw_loglasterror" mask="0x8" message="$(string.Microsoft-ServiceBus.Keyword._kw_loglasterror.message)"></keyword>
+				</keywords>
+				<templates>
+					<template tid="_template_log_info">
+						<data name="content" inType="win:AnsiString" outType="xs:string"></data>
+					</template>
+					<template tid="_template_log_error">
+						<data name="content" inType="win:AnsiString" outType="xs:string"></data>
+						<data name="file" inType="win:AnsiString" outType="xs:string"></data>
+						<data name="time" inType="win:SYSTEMTIME" outType="xs:dateTime"></data>
+						<data name="function" inType="win:AnsiString" outType="xs:string"></data>
+						<data name="line" inType="win:UInt32" outType="xs:unsignedInt"></data>
+					</template>
+					<template tid="_template_log_last_error">
+						<data name="content" inType="win:AnsiString" outType="xs:string"></data>
+						<data name="file" inType="win:AnsiString" outType="xs:string"></data>
+						<data name="time" inType="win:SYSTEMTIME" outType="xs:dateTime"></data>
+						<data name="function" inType="win:AnsiString" outType="xs:string"></data>
+						<data name="line" inType="win:UInt32" outType="xs:unsignedInt"></data>
+						<data name="getLastError" inType="win:AnsiString" outType="xs:string"></data>
+					</template>
+				</templates>
+			</provider>
+		</events>
+	</instrumentation>
+	<localization>
+		<resources culture="en-US">
+			<stringTable>
+				<string id="level.Informational" value="Information"></string>
+				<string id="level.Error" value="Error"></string>
+				<string id="Microsoft-ServiceBus.event.4.message" value="This event is fired when LogLastError is called in C code"></string>
+				<string id="Microsoft-ServiceBus.Keyword._kw_loglasterror.message" value="this keyword enables collection of last error (GetLastError in windows)"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.task.Log.message" value="This task is about Logging"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.opcode._loginfo.message" value="This opcode describes information logged as &quot;info&quot;. "></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.opcode._logerror.message" value="This opcode is for logerror"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.opcode._logdebug.message" value="This opcode is for logdebug"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.keyword._loginfo.message" value="This keyword enables LogInfo events"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.event.3.message" value="This event is logged when LogDebug is called"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.event.2.message" value="This event is logged when LogError is called"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.event.1.message" value="This event is logged when LogInfo is called"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.channel.Operational.message" value="This channel is for Operational values"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.channel.Debug.message" value="This channel is for debug information (and by default disabled)"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.Keyword._logerror.message" value="This keyword enables LogError events"></string>
+				<string id="Microsoft-ServiceBus-MessagingStore-BlockStorage.Keyword._logdebug.message" value="This keyword enables logdebug events"></string>
+			</stringTable>
+		</resources>
+	</localization>
+</instrumentationManifest>

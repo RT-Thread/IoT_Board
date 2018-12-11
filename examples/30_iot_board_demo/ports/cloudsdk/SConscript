@@ -1,0 +1,8 @@
+from building import *
+
+cwd     = GetCurrentDir()
+src     = Glob('*.c')
+CPPPATH = [cwd]
+group   = DefineGroup('cloudsdk', src, depend = ['RT_USING_CLOUDSDK_LIB'], CPPPATH = CPPPATH)
+
+Return('group')

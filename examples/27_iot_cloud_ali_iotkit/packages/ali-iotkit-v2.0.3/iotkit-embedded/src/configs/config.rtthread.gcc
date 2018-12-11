@@ -1,0 +1,15 @@
+CONFIG_ENV_CFLAGS = -mcpu=arm968e-s -mthumb-interwork -mthumb -ffunction-sections -fdata-sections \
+                    -D_PLATFORM_IS_RTTHREAD_ -DIOTX_NET_INIT_WITH_PK_EXT 
+
+OVERRIDE_CC      = arm-none-eabi-gcc
+OVERRIDE_CXX     = arm-none-eabi-g++
+OVERRIDE_AS      = arm-none-eabi-gcc
+OVERRIDE_AR      = arm-none-eabi-ar
+OVERRIDE_LINK    = arm-none-eabi-g++
+
+CONFIG_src/platform =
+CONFIG_sample =
+CONFIG_src/sdk-tests =
+CONFIG_src/tls =
+
+CURRENT_PLATFORM = _PLATFORM_IS_RTTHREAD_

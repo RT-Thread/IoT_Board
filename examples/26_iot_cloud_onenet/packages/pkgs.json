@@ -1,0 +1,42 @@
+[
+ {
+  "path": "/packages/iot/pahomqtt", 
+  "ver": "v1.0.0", 
+  "name": "PAHOMQTT"
+ }, 
+ {
+  "path": "/packages/iot/webclient", 
+  "ver": "v2.0.0", 
+  "name": "WEBCLIENT"
+ }, 
+ {
+  "path": "/packages/iot/cJSON", 
+  "ver": "v1.0.2", 
+  "name": "CJSON"
+ }, 
+ {
+  "path": "/packages/iot/iot_cloud/onenet", 
+  "ver": "v1.0.0", 
+  "name": "ONENET"
+ }, 
+ {
+  "path": "/packages/tools/EasyFlash", 
+  "ver": "v3.2.1", 
+  "name": "EASYFLASH"
+ }, 
+ {
+  "path": "/packages/system/fal", 
+  "ver": "v0.2.0", 
+  "name": "FAL"
+ }, 
+ {
+  "path": "/packages/peripherals/ap3216c", 
+  "ver": "v1.0.0", 
+  "name": "AP3216C"
+ }, 
+ {
+  "path": "/packages/peripherals/stm32_sdio", 
+  "ver": "v1.0.0", 
+  "name": "STM32_SDIO"
+ }
+]

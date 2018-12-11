@@ -1,0 +1,87 @@
+Import('RTT_ROOT')
+Import('rtconfig')
+from building import *
+
+cwd  = GetCurrentDir()
+
+# add the general drivers.
+src = Split("""
+board.c
+drv_clock.c
+""")
+
+list = os.listdir(cwd)
+CPPPATH = [cwd]
+objs = []
+
+# add key driver code
+if GetDepend('BSP_USING_GPIO'):
+    src = src + ['drv_gpio.c']
+
+# add flash driver code
+if GetDepend('BSP_USING_FLASH'):
+    src = src + ['drv_qspi_flash.c']
+
+# add tf card driver code
+if GetDepend('BSP_USING_TF_CARD'):
+    src = src + ['drv_spi_tfcard.c']
+
+# add lcd driver code
+if GetDepend('BSP_USING_LCD'):
+    src = src + ['drv_lcd.c']
+
+# add serial driver code
+if GetDepend('BSP_USING_UART1') or GetDepend('BSP_USING_UART2') or GetDepend('BSP_USING_UART3') or GetDepend('BSP_USING_LPUART1'):
+    src = src + ['drv_usart.c']
+
+# add i2c driver code
+if GetDepend('BSP_USING_I2C'):
+    src = src + ['drv_i2c.c']
+
+# add spi driver code
+if GetDepend('BSP_USING_SPI1') or GetDepend('BSP_USING_SPI2') or GetDepend('BSP_USING_SPI3'):
+    src = src + ['drv_spi.c']
+
+# add sdio driver code
+if GetDepend('BSP_USING_SDIO'):
+    src = src + ['drv_sdio_adapter.c']
+
+# add qspi driver code
+if GetDepend('BSP_USING_QSPI'):
+    src = src + ['drv_qspi.c']
+
+# add enc28j60 driver code
+if GetDepend('BSP_USING_ENC28J60'):
+    src = src + ['drv_enc28j60.c']
+
+# add wlan driver code
+if GetDepend('BSP_USING_WIFI'):
+    src = src + ['drv_wlan.c']
+
+# add pm driver code
+if GetDepend('BSP_USING_PM'):
+    src = src + ['drv_pm.c', 'drv_pmtimer.c', 'drv_wakeup.c']
+
+# add infrared driver code
+if GetDepend('BSP_USING_INFRARED'):
+    src = src + ['drv_infrared.c']
+    
+# add HID USB driver code
+if GetDepend('BSP_USING_USBD'):
+    src = src + ['drv_usbd.c']
+
+# add audio sound driver code
+if GetDepend('BSP_USING_AUDIO'):
+    src += Glob('./audio/*.c')
+    CPPPATH += [cwd + "/audio"] 
+
+group = DefineGroup('Drivers', src, depend = [''], CPPPATH = CPPPATH)
+
+
+for d in list:
+    path = os.path.join(cwd, d)
+    if os.path.isfile(os.path.join(path, 'SConscript')):
+        objs = objs + SConscript(os.path.join(d, 'SConscript'))
+objs = objs + group
+
+Return('objs')
