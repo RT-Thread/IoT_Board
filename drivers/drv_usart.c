@@ -82,7 +82,7 @@
     #define LPUART1_RX_GPIO_PORT              GPIOB
     #define LPUART1_RX_AF                     GPIO_AF8_LPUART1
 
-    #define LPUART1_RX_DMA_CHANNEL            DMA1_Channel7
+    #define LPUART1_RX_DMA_CHANNEL            DMA2_Channel7
     #define LPUART1_RX_DMA_REUQEST            DMA_REQUEST_4
     #define LPUART1_RX_DMA_IRQN               DMA2_Channel7_IRQn
     #define LPUART1_RX_DMA_IRQHandler         DMA2_Channel7_IRQHandler
@@ -347,7 +347,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
         GPIO_InitStruct.Pin       = USART1_TX_PIN;
         GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull      = GPIO_PULLUP;
-        GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
+        GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_LOW;
         GPIO_InitStruct.Alternate = USART1_TX_AF;
 
         HAL_GPIO_Init(USART1_TX_GPIO_PORT, &GPIO_InitStruct);
@@ -380,7 +380,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
         GPIO_InitStruct.Pin       = USART2_TX_PIN;
         GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull      = GPIO_PULLUP;
-        GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
+        GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_LOW;
         GPIO_InitStruct.Alternate = USART2_TX_AF;
 
         HAL_GPIO_Init(USART2_TX_GPIO_PORT, &GPIO_InitStruct);
@@ -413,7 +413,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
         GPIO_InitStruct.Pin       = USART3_TX_PIN;
         GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull      = GPIO_PULLUP;
-        GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
+        GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_LOW;
         GPIO_InitStruct.Alternate = USART3_TX_AF;
 
         HAL_GPIO_Init(USART3_TX_GPIO_PORT, &GPIO_InitStruct);
@@ -446,7 +446,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
         GPIO_InitStruct.Pin       = LPUART1_TX_PIN;
         GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull      = GPIO_PULLUP;
-        GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
+        GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_LOW;
         GPIO_InitStruct.Alternate = LPUART1_TX_AF;
 
         HAL_GPIO_Init(LPUART1_TX_GPIO_PORT, &GPIO_InitStruct);
