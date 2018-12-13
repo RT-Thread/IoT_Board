@@ -16,6 +16,7 @@
 #include <drv_clock.h>
 #include <stm32l4xx_hal.h>
 
+#ifdef  RT_USING_PM
 /**
  * This function will put STM32L4xx into run/sleep mode.
  *
@@ -216,3 +217,4 @@ static int drv_pm_hw_init(void)
     return 0;
 }
 INIT_BOARD_EXPORT(drv_pm_hw_init);
+#endif

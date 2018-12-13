@@ -16,6 +16,8 @@
 #include <rtdevice.h>
 #include <rthw.h>
 
+#ifdef      RT_USING_SERIAL
+
 #ifdef BSP_USING_UART1
     #define USART1_RX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
     #define USART1_TX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
@@ -106,6 +108,7 @@ struct stm32_uart
 
 #ifdef BSP_UART_USING_DMA_RX
 static void stm32_dma_config(struct rt_serial_device *serial);
+static void stm32_usart_dma_rx(struct rt_serial_device *serial);
 #endif
 
 static rt_err_t stm32_configure(struct rt_serial_device *serial, struct serial_configure *cfg)
@@ -260,7 +263,7 @@ static int stm32_getc(struct rt_serial_device *serial)
  *
  * @param serial serial device
  */
-static void uart_isr(struct rt_serial_device *serial)
+static void stm32_uart_isr(struct rt_serial_device *serial)
 {
     struct stm32_uart *uart;
 
@@ -281,19 +284,7 @@ static void uart_isr(struct rt_serial_device *serial)
     else if ((__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_IDLE) != RESET) &&
              (__HAL_UART_GET_IT_SOURCE(&uart->UartHandle, UART_IT_IDLE) != RESET))
     {
-        rt_base_t level;
-        rt_size_t recv_total_index, recv_len;
-        level = rt_hw_interrupt_disable();
-        recv_total_index = serial->config.bufsz - __HAL_DMA_GET_COUNTER(uart->UartHandle.hdmarx);
-        recv_len = recv_total_index - uart->last_index;
-        uart->last_index = recv_total_index;
-        rt_hw_interrupt_enable(level);
-
-        if (recv_len)
-        {
-            rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
-        }
-
+        stm32_usart_dma_rx(serial);        
         __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_IDLE);
     }
 #endif
@@ -358,7 +349,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 
         HAL_GPIO_Init(USART1_RX_GPIO_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(USART1_IRQn, 0, 1);
+        HAL_NVIC_SetPriority(USART1_IRQn, 6, 0);
         HAL_NVIC_EnableIRQ(USART1_IRQn);
     }
     else
@@ -391,7 +382,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 
         HAL_GPIO_Init(USART2_RX_GPIO_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(USART2_IRQn, 0, 1);
+        HAL_NVIC_SetPriority(USART2_IRQn, 7, 0);
         HAL_NVIC_EnableIRQ(USART2_IRQn);
     }
     else
@@ -424,7 +415,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 
         HAL_GPIO_Init(USART3_RX_GPIO_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(USART3_IRQn, 0, 1);
+        HAL_NVIC_SetPriority(USART3_IRQn, 8, 0);
         HAL_NVIC_EnableIRQ(USART3_IRQn);
     }
     else
@@ -457,7 +448,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 
         HAL_GPIO_Init(LPUART1_RX_GPIO_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(LPUART1_IRQn, 0, 1);
+        HAL_NVIC_SetPriority(LPUART1_IRQn, 9, 0);
         HAL_NVIC_EnableIRQ(LPUART1_IRQn);
     }
     else
@@ -587,7 +578,7 @@ void USART1_IRQHandler(void)
     /* enter interrupt */
     rt_interrupt_enter();
 
-    uart_isr(&uart1.serial);
+    stm32_uart_isr(&uart1.serial);
 
     /* leave interrupt */
     rt_interrupt_leave();
@@ -629,7 +620,7 @@ void USART2_IRQHandler(void)
     /* enter interrupt */
     rt_interrupt_enter();
 
-    uart_isr(&uart2.serial);
+    stm32_uart_isr(&uart2.serial);
 
     /* leave interrupt */
     rt_interrupt_leave();
@@ -671,7 +662,7 @@ void USART3_IRQHandler(void)
     /* enter interrupt */
     rt_interrupt_enter();
 
-    uart_isr(&uart3.serial);
+    stm32_uart_isr(&uart3.serial);
 
     /* leave interrupt */
     rt_interrupt_leave();
@@ -729,7 +720,7 @@ void LPUART1_IRQHandler(void)
     /* enter interrupt */
     rt_interrupt_enter();
 
-    uart_isr(&lpuart1.serial);
+    stm32_uart_isr(&lpuart1.serial);
 
     /* leave interrupt */
     rt_interrupt_leave();
@@ -748,6 +739,43 @@ void LPUART1_RX_DMA_IRQHandler(void)
 #endif /* BSP_USING_LPUART1 */
 
 #ifdef BSP_UART_USING_DMA_RX
+
+static void stm32_usart_dma_rx(struct rt_serial_device *serial)
+{
+    struct stm32_uart *uart;
+    rt_base_t level;
+    rt_size_t index, recv_len;
+
+    RT_ASSERT(serial != RT_NULL);
+
+    uart = (struct stm32_uart *) serial->parent.user_data;
+    RT_ASSERT(uart != RT_NULL);
+
+    level = rt_hw_interrupt_disable();
+    index = __HAL_DMA_GET_COUNTER(uart->UartHandle.hdmarx);
+    rt_hw_interrupt_enable(level);
+
+    // ringbuffer 
+    if ( index > uart->last_index)
+    {
+        recv_len = serial->config.bufsz + uart->last_index - index;
+    }
+    else
+    {
+        recv_len = uart->last_index - index;
+    }
+
+    uart->last_index = index;
+
+    if (recv_len)
+    {
+        rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
+    }    
+}
+
+
+
+
 static void stm32_dma_config(struct rt_serial_device *serial)
 {
     struct stm32_uart *uart;
@@ -771,7 +799,7 @@ static void stm32_dma_config(struct rt_serial_device *serial)
         __HAL_RCC_DMA2_CLK_ENABLE();
     }
 
-    HAL_NVIC_SetPriority(uart->dma_irq, 0, 0);
+    HAL_NVIC_SetPriority(uart->dma_irq, 5, 0);
     HAL_NVIC_EnableIRQ(uart->dma_irq);
 
     uart->hdma_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
@@ -779,7 +807,7 @@ static void stm32_dma_config(struct rt_serial_device *serial)
     uart->hdma_rx.Init.MemInc = DMA_MINC_ENABLE;
     uart->hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
     uart->hdma_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    uart->hdma_rx.Init.Mode = DMA_NORMAL;
+    uart->hdma_rx.Init.Mode = DMA_CIRCULAR;
     uart->hdma_rx.Init.Priority = DMA_PRIORITY_LOW;
     if (HAL_DMA_Init(&uart->hdma_rx) != HAL_OK)
     {
@@ -787,6 +815,8 @@ static void stm32_dma_config(struct rt_serial_device *serial)
     }
 
     __HAL_LINKDMA(uart_handle, hdmarx, uart->hdma_rx);
+
+    uart->last_index = 0;
 
     rx_fifo = (struct rt_serial_rx_fifo *)serial->serial_rx;
     if (HAL_UART_Receive_DMA(&uart->UartHandle, rx_fifo->buffer, serial->config.bufsz) != HAL_OK)
@@ -819,6 +849,26 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 }
 
 /**
+  * @brief  Rx Transfer half completed callback
+  * @param  huart: UART handle
+  * @note   This example shows a simple way to report end of DMA Rx transfer, and
+  *         you can add your own implementation.
+  * @retval None
+  */
+
+void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart)
+{
+    struct rt_serial_device *serial;
+    struct stm32_uart *uart;
+
+    RT_ASSERT(huart != NULL);
+    uart = (struct stm32_uart *)huart;
+    serial = &uart->serial;
+
+    stm32_usart_dma_rx(serial);
+}
+
+/**
   * @brief  Rx Transfer completed callback
   * @param  huart: UART handle
   * @note   This example shows a simple way to report end of DMA Rx transfer, and
@@ -829,31 +879,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     struct rt_serial_device *serial;
     struct stm32_uart *uart;
-    struct rt_serial_rx_fifo *rx_fifo;
-    rt_size_t recv_len;
-    rt_base_t level;
 
     RT_ASSERT(huart != NULL);
     uart = (struct stm32_uart *)huart;
     serial = &uart->serial;
-
-    level = rt_hw_interrupt_disable();
-
-    recv_len = serial->config.bufsz - uart->last_index;
-    uart->last_index = 0;
-
-    rt_hw_interrupt_enable(level);
-    if (recv_len)
-    {
-        rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
-    }
-
-    rx_fifo = (struct rt_serial_rx_fifo *)serial->serial_rx;
-    RT_ASSERT(rx_fifo != RT_NULL);
-    if (HAL_UART_Receive_DMA(huart, rx_fifo->buffer, serial->config.bufsz) != HAL_OK)
-    {
-        RT_ASSERT(0);
-    }
+    stm32_usart_dma_rx(serial);
 }
 #endif
 
@@ -898,3 +928,6 @@ int stm32_hw_usart_init(void)
 
     return 0;
 }
+
+#endif
+

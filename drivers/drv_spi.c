@@ -20,7 +20,7 @@
 #define DBG_LEVEL DBG_INFO
 #include <rtdbg.h>
 
-#if !defined(BSP_USING_SPI1) && !defined(BSP_USING_SPI2) && !defined(BSP_USING_SPI3) && !defined(BSP_USING_SPI4) && !defined(BSP_USING_SPI5)
+#if !defined(BSP_USING_SPI1) && !defined(BSP_USING_SPI2) && !defined(BSP_USING_SPI3) 
 #error "Please define at least one BSP_USING_SPIx"
 /* this driver can be disabled at menuconfig → RT-Thread Components → Device Drivers */
 #endif

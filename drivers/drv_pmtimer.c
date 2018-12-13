@@ -14,6 +14,7 @@
 #include <drv_clock.h>
 #include <rtdevice.h>
 
+#ifdef  RT_USING_PM
 static LPTIM_HandleTypeDef LptimHandle;
 
 void HAL_LPTIM_MspInit(LPTIM_HandleTypeDef *hlptim)
@@ -120,3 +121,5 @@ int stm32l4_hw_lptim_init(void)
     return 0;
 }
 INIT_BOARD_EXPORT(stm32l4_hw_lptim_init);
+
+#endif
