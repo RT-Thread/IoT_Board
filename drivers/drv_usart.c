@@ -278,33 +278,37 @@ static void stm32_uart_isr(struct rt_serial_device *serial)
     {
         rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_IND);
         /* Clear RXNE interrupt flag */
-        __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_RXNE);
+        __HAL_UART_SEND_REQ(&uart->UartHandle, UART_RXDATA_FLUSH_REQUEST);
     }
 #ifdef BSP_UART_USING_DMA_RX
     else if ((__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_IDLE) != RESET) &&
              (__HAL_UART_GET_IT_SOURCE(&uart->UartHandle, UART_IT_IDLE) != RESET))
     {
         stm32_usart_dma_rx(serial);        
-        __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_IDLE);
+        __HAL_UART_CLEAR_IDLEFLAG(&uart->UartHandle);
     }
 #endif
     else
     {
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_ORE) != RESET)
         {
-            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_ORE);
+            __HAL_UART_CLEAR_OREFLAG(&uart->UartHandle);
         }
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_NE) != RESET)
         {
-            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_NE);
+            __HAL_UART_CLEAR_NEFLAG(&uart->UartHandle);
         }
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_FE) != RESET)
         {
-            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_FE);
+            __HAL_UART_CLEAR_FEFLAG(&uart->UartHandle);
         }
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_PE) != RESET)
         {
-            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_PE);
+            __HAL_UART_CLEAR_PEFLAG(&uart->UartHandle);
+        }
+        if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_WUF) != RESET)
+        {
+            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_CLEAR_WUF);
         }
     }
 }
