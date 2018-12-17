@@ -12,7 +12,7 @@ ENC28J60 是通过板子上的 WIRELESS 插座连接单片机的，利用 SPI2 �
 
 ![enc28j60 接口原理图](../../docs/figures/18_iot_spi_eth_enc28j60/enc28j60_sch.png)
 
-![enc28j60 实物连接图](../../docs/figures/18_iot_spi_eth_enc28j60/enc28j60&IOT Board.jpg)
+![enc28j60 实物连接图](../../docs/figures/18_iot_spi_eth_enc28j60/enc28j60_IOT_Board.jpg)
 
 ## 软件说明
 
