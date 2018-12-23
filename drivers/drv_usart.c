@@ -274,8 +274,6 @@ static void uart_isr(struct rt_serial_device *serial)
         (__HAL_UART_GET_IT_SOURCE(&uart->UartHandle, UART_IT_RXNE) != RESET))
     {
         rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_IND);
-        /* Clear RXNE interrupt flag */
-        __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_RXNE);
     }
 #ifdef BSP_UART_USING_DMA_RX
     else if ((__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_IDLE) != RESET) &&
@@ -294,27 +292,31 @@ static void uart_isr(struct rt_serial_device *serial)
             rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
         }
 
-        __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_IDLE);
+        __HAL_UART_CLEAR_IDLEFLAG(&uart->UartHandle);
     }
 #endif
     else
     {
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_ORE) != RESET)
         {
-            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_ORE);
+            __HAL_UART_CLEAR_OREFLAG(&uart->UartHandle);
         }
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_NE) != RESET)
         {
-            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_NE);
+            __HAL_UART_CLEAR_NEFLAG(&uart->UartHandle);
         }
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_FE) != RESET)
         {
-            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_FE);
+            __HAL_UART_CLEAR_FEFLAG(&uart->UartHandle);
         }
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_PE) != RESET)
         {
-            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_PE);
+            __HAL_UART_CLEAR_PEFLAG(&uart->UartHandle);
         }
+        if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_WUF) != RESET)
+        {
+            __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_CLEAR_WUF);
+        }        
     }
 }
 
@@ -358,7 +360,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 
         HAL_GPIO_Init(USART1_RX_GPIO_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(USART1_IRQn, 0, 1);
+        HAL_NVIC_SetPriority(USART1_IRQn, 1, 0);
         HAL_NVIC_EnableIRQ(USART1_IRQn);
     }
     else
@@ -391,7 +393,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 
         HAL_GPIO_Init(USART2_RX_GPIO_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(USART2_IRQn, 0, 1);
+        HAL_NVIC_SetPriority(USART2_IRQn, 1, 0);
         HAL_NVIC_EnableIRQ(USART2_IRQn);
     }
     else
@@ -424,7 +426,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 
         HAL_GPIO_Init(USART3_RX_GPIO_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(USART3_IRQn, 0, 1);
+        HAL_NVIC_SetPriority(USART3_IRQn, 1, 0);
         HAL_NVIC_EnableIRQ(USART3_IRQn);
     }
     else
@@ -457,7 +459,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 
         HAL_GPIO_Init(LPUART1_RX_GPIO_PORT, &GPIO_InitStruct);
 
-        HAL_NVIC_SetPriority(LPUART1_IRQn, 0, 1);
+        HAL_NVIC_SetPriority(LPUART1_IRQn, 1, 0);
         HAL_NVIC_EnableIRQ(LPUART1_IRQn);
     }
     else
@@ -779,7 +781,7 @@ static void stm32_dma_config(struct rt_serial_device *serial)
     uart->hdma_rx.Init.MemInc = DMA_MINC_ENABLE;
     uart->hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
     uart->hdma_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    uart->hdma_rx.Init.Mode = DMA_NORMAL;
+    uart->hdma_rx.Init.Mode = DMA_CIRCULAR;
     uart->hdma_rx.Init.Priority = DMA_PRIORITY_LOW;
     if (HAL_DMA_Init(&uart->hdma_rx) != HAL_OK)
     {
@@ -829,7 +831,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     struct rt_serial_device *serial;
     struct stm32_uart *uart;
-    struct rt_serial_rx_fifo *rx_fifo;
     rt_size_t recv_len;
     rt_base_t level;
 
@@ -846,13 +847,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     if (recv_len)
     {
         rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
-    }
-
-    rx_fifo = (struct rt_serial_rx_fifo *)serial->serial_rx;
-    RT_ASSERT(rx_fifo != RT_NULL);
-    if (HAL_UART_Receive_DMA(huart, rx_fifo->buffer, serial->config.bufsz) != HAL_OK)
-    {
-        RT_ASSERT(0);
     }
 }
 #endif
