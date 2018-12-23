@@ -188,6 +188,7 @@ static rt_err_t stm32_configure(struct rt_serial_device *serial, struct serial_c
 static rt_err_t stm32_control(struct rt_serial_device *serial, int cmd, void *arg)
 {
     struct stm32_uart *uart;
+    rt_err_t ret = RT_EOK;
 
     RT_ASSERT(serial != RT_NULL);
 
@@ -218,9 +219,12 @@ static rt_err_t stm32_control(struct rt_serial_device *serial, int cmd, void *ar
         }
         break;
 #endif
+    default:
+        ret = RT_EINVAL;
+        break;
     }
 
-    return RT_EOK;
+    return ret;
 }
 
 static int stm32_putc(struct rt_serial_device *serial, char c)
