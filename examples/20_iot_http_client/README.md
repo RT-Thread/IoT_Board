@@ -223,5 +223,5 @@ RT-Thread is an open source IoT operating system from China!
 
 ## 引用参考
 
-- 《WebClient 软件包用户手册》: docs/um1001-rtthread-package-webclient-manual.pdf
-- 《RT-Thread 编程指南》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《WebClient 软件包用户手册》: docs/UM1001-RT-Thread-WebClient 用户手册.pdf
+- 《RT-Thread 编程指南》: docs/RT-Thread 编程指南.pdf

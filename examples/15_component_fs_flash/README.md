@@ -89,14 +89,15 @@ int main(void)
 [D/FAL] (fal_flash_init:61) Flash device |             onchip_flash | addr: 0x08000000 | len: 0x00080000 | blk_size: 0x0
 [D/FAL] (fal_flash_init:61) Flash device |                nor_flash | addr: 0x00000000 | len: 0x01000000 | blk_size: 0x0
 [I/FAL] ==================== FAL partition table ====================
-[I/FAL] | name         | flash_dev    |   offset   |    length  |
+[I/FAL] | name       | flash_dev    |   offset   |    length  |
 [I/FAL] -------------------------------------------------------------
-[I/FAL] | app          | onchip_flash | 0x00000000 | 0x00060000 |
-[I/FAL] | param        | onchip_flash | 0x00060000 | 0x00020000 |
-[I/FAL] | easyflash    | nor_flash    | 0x00000000 | 0x00080000 |
-[I/FAL] | download     | nor_flash    | 0x00080000 | 0x00100000 |
-[I/FAL] | wifi_image   | nor_flash    | 0x00180000 | 0x00080000 |
-[I/FAL] | filesystem   | nor_flash    | 0x00200000 | 0x00e00000 |
+[I/FAL] | app        | onchip_flash | 0x00000000 | 0x00060000 |
+[I/FAL] | param      | onchip_flash | 0x00060000 | 0x00020000 |
+[I/FAL] | easyflash  | nor_flash    | 0x00000000 | 0x00080000 |
+[I/FAL] | download   | nor_flash    | 0x00080000 | 0x00100000 |
+[I/FAL] | wifi_image | nor_flash    | 0x00180000 | 0x00080000 |
+[I/FAL] | font       | nor_flash    | 0x00200000 | 0x00700000 |
+[I/FAL] | filesystem | nor_flash    | 0x00900000 | 0x00700000 |
 [I/FAL] =============================================================
 [I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/FAL] The FAL block device (filesystem) created successfully
@@ -154,7 +155,7 @@ Directory /:
 msh />
 ```
 
-更多文件系统功能展示可以参考[《文件系统应用笔记》](https://www.rt-thread.org/document/site/rtthread-application-note/components/dfs/an0012-rtthread-system-dfs/)。
+更多文件系统功能展示可以参考[《文件系统应用笔记》](https://www.rt-thread.org/document/site/rtthread-application-note/components/dfs/AN0012-RT-Thread-文件系统应用笔记/)。
 
 ## 注意事项
 
@@ -162,6 +163,6 @@ msh />
 
 ## 引用参考
 
-- 《文件系统应用笔记》: docs/an0012-rtthread-system-dfs.pdf
-- 《SPI 设备应用笔记 》: docs/an0004-rtthread-driver-spi.pdf
+- 《文件系统应用笔记》: docs/AN0012-RT-Thread-文件系统应用笔记.pdf
+- 《SPI 设备应用笔记 》: docs/AN0004-RT-Thread-SPI 设备应用笔记.pdf
 - 《FAL 软件包介绍》    : https://github.com/RT-Thread-packages/fal

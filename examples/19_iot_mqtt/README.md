@@ -164,5 +164,5 @@ static void mqtt_online_callback(MQTTClient *c)
 
 ## 引用参考
 
-- 《MQTT 软件包用户手册 》: docs/um1005-rtthread-package-paho-mqtt-manual.pdf
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《MQTT 软件包用户手册 》: docs/UM1005-RT-Thread-Paho-MQTT 用户手册.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf

@@ -123,5 +123,5 @@ msh >32 bytes from www.rt-thread.org icmp_seq=1 time=9 ms
 
 ## 引用参考
 
-- 《RT-Thread AT 组件应用笔记 - 客户端篇》: an0014-rtthread-system-at-client.pdf
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《RT-Thread AT 组件应用笔记 - 客户端篇》: AN0014-RT-Thread-AT 组件应用笔记-客户端篇.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf

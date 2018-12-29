@@ -760,7 +760,7 @@ rt_err_t iotb_partition_fontlib_check(void)
     rt_err_t rst = RT_EOK;
     const struct fal_partition *font_part;
 
-    if ((font_part = fal_partition_find("filesystem")) != NULL)
+    if ((font_part = fal_partition_find("font")) != NULL)
     {
         fal_partition_read(font_part, 0, (uint8_t*)&iotb_font_info, sizeof(iotb_font_info_t));
         LOG_D("iotb_font_info_t:%d", sizeof(iotb_font_info_t));
@@ -846,10 +846,10 @@ rt_err_t iotb_sdcard_font_upgrade(void)
     iotb_font_info.gbk32size = file_size;
     iotb_font_info.f32addr = iotb_font_info.f24addr + iotb_font_info.gbk24size;
 
-    if ((part = fal_partition_find("filesystem")) == NULL)
+    if ((part = fal_partition_find("font")) == NULL)
     {
-        LOG_E("FAL find failed!");
-        return -RT_ERROR;
+        LOG_E("FAL partition (font) find failed! Please flash new bootloader firmware using ST-Utility!");
+        return -RT_EEMPTY;
     }
 
     lcd_show_string(0, 100 + 26, 24,  "is erasing          ");
@@ -1715,6 +1715,7 @@ static int iotb_rtcld_save_devinfo(struct cld_dev_info *dev_info)
             || ef_set_env(CLD_ENV_PASSWORD, dev_info->password) != EF_NO_ERR
             || ef_set_env(CLD_ENV_DEVICE_ID, dev_info->device_id) != EF_NO_ERR
             || ef_set_env(CLD_ENV_DEVICE_KEY, dev_info->device_key) != EF_NO_ERR
+            || ef_set_env(CLD_ENV_PRODUCT_ID, dev_info->product_id) != EF_NO_ERR
             || ef_set_env(CLD_ENV_SN, dev_info->sn) != EF_NO_ERR
             || ef_set_env(CLD_ENV_MAJOR_VER, "0.0") != EF_NO_ERR)
     {
@@ -1864,12 +1865,47 @@ __exit:
     return ret;
 }
 
+rt_bool_t iotb_rtcld_env_check(void)
+{
+    char *cld_usr = RT_NULL;
+    char *cld_pwd = RT_NULL;
+    char *cld_did = RT_NULL;
+    char *cld_dkey = RT_NULL;
+    char *cld_pid = RT_NULL;
+    char *cld_sn = RT_NULL;
+    char *cld_dev_mver = RT_NULL;
+    char *cld_act = RT_NULL;
+
+    cld_usr  = ef_get_env(CLD_ENV_USERNAME);
+    cld_pwd  = ef_get_env(CLD_ENV_PASSWORD);
+    cld_did  = ef_get_env(CLD_ENV_DEVICE_ID);
+    cld_dkey = ef_get_env(CLD_ENV_DEVICE_KEY);
+    cld_pid  = ef_get_env(CLD_ENV_PRODUCT_ID);
+    cld_sn   = ef_get_env(CLD_ENV_SN);
+    cld_dev_mver = ef_get_env(CLD_ENV_MAJOR_VER);
+    cld_act = ef_get_env(CLD_ENV_ACTIVATE);
+
+    if (!(cld_usr && cld_pwd && cld_did && cld_dkey && cld_pid && cld_sn && cld_dev_mver && cld_act))
+    {
+        return RT_FALSE;
+    }
+    if (!(rt_strlen(cld_usr) > 0 && rt_strlen(cld_pwd) > 0 && rt_strlen(cld_did) > 0 && \
+        rt_strlen(cld_dkey) > 0 && rt_strlen(cld_pid) > 0 && rt_strlen(cld_sn) > 0 && \
+        rt_strlen(cld_dev_mver) > 0 && rt_strlen(cld_act) > 0))
+    {
+        return RT_FALSE;
+    }
+    return RT_TRUE;
+}
+
 /**
  * deactive = 0, active = 1
 */
 rt_bool_t iotb_rtcld_active_status_get(void)
 {
     char *activate = RT_NULL;
+    char *sn = RT_NULL;
+    char *id = RT_NULL;
 
     /* activate device and set information */
     activate = ef_get_env(CLD_ENV_ACTIVATE);
@@ -1881,13 +1917,19 @@ rt_bool_t iotb_rtcld_active_status_get(void)
     }
     else
     {
-        if (rt_memcmp(activate, "true", rt_strlen(activate)) == 0)
+        if ((rt_memcmp(activate, "true", rt_strlen(activate)) == 0) && \
+            iotb_rtcld_env_check())
         {
             LOG_I("The device has been activated successfully!");
+            sn = ef_get_env(CLD_ENV_SN);
+            id = ef_get_env(CLD_ENV_PRODUCT_ID);
+            cld_port_set_device_sn(sn);
+            cld_port_set_product_id(id);
             return RT_TRUE;
         }
         else
         {
+            LOG_I("Please activate your device!");
             return RT_FALSE;
         }
     }

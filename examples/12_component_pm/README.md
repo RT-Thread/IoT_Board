@@ -125,6 +125,6 @@ static void led_app(void)
 
 ## 引用参考
 
-- 《电源管理应用笔记》: docs/an0025-rtthread-system-pm.pdf
-- 《电源管理用户手册》: docs/um1009-rtthread-driver-pm-manual.pdf
-- 《通用 GPIO 设备应用笔记》: docs/an0002-rtthread-driver-gpio.pdf
+- 《电源管理应用笔记》: docs/AN0025-RT-Thread-电源管理组件应用笔记.pdf
+- 《电源管理用户手册》: docs/UM1009-RT-Thread-电源管理组件用户手册.pdf
+- 《通用 GPIO 设备应用笔记》: docs/AN0002-RT-Thread-通用 GPIO 设备应用笔记.pdf

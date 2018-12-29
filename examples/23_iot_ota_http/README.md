@@ -33,7 +33,8 @@ HTTP 是一种超文本传输协议，采用请求应答的通讯模式，可以
 | easyflash  | 片外 Nor FLASH | 0x00000000 | 512K | 0x00080000 | easyflash 存储区 |
 | download   | 片外 Nor FLASH | 0x00080000 | 1M   | 0x00180000 | download 下载存储区 |
 | wifi_image | 片外 Nor FLASH | 0x00180000 | 512K | 0x00200000 | wifi 固件存储区 |
-| filesystem | 片外 Nor FLASH | 0x00200000 | 14M  | 0x01000000 | filesystem 文件系统区 |
+| font | 片外 Nor FLASH | 0x00200000 | 7M | 0x00900000 | font 字库分区 |
+| filesystem | 片外 Nor FLASH | 0x00900000 | 7M  | 0x01000000 | filesystem 文件系统区 |
 
 分区表定义在 **`bootloader 程序`** 中，如果需要修改分区表，则需要修改 bootloader 程序。目前不支持用户自定义 bootloader，如果有商用需求，请联系 **RT-Thread** 获取支持。
 
@@ -248,7 +249,7 @@ System now will restart...
 
 ## 引用参考
 
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
-- 《RT-Thread OTA 用户手册》: docs/um1004-rtthread-package-rt-ota-lib-manual.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf
+- 《RT-Thread OTA 用户手册》: docs/UM1004-RT-Thread-OTA 用户手册.pdf
 - OTA 说明请参考 **Ymodem 固件升级**章节
 - WiFi使用说明请参考 **使用 WiFi Manager 管理、操作 WiFi 网络**章节

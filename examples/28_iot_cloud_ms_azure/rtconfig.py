@@ -1,4 +1,5 @@
 import os
+import sys
 
 # toolchains options
 ARCH='arm'
@@ -28,6 +29,17 @@ if os.getenv('RTT_EXEC_PATH'):
 BUILD = 'release'
 STM32_TYPE = 'STM32L475xx'
 
+SDK_ROOT = os.path.abspath('./')
+
+if os.path.exists(SDK_ROOT + '/drivers'):
+    gcc_linkscripts_path   = 'drivers/linker_scripts/stm32l475ve.ld'
+    armcc_linkscripts_path = 'drivers/linker_scripts/stm32l475ve.sct'
+    iar_linkscripts_path   = 'drivers/linker_scripts/stm32l475ve.icf'
+else:
+    gcc_linkscripts_path   = '../../drivers/linker_scripts/stm32l475ve.ld'
+    armcc_linkscripts_path = '../../drivers/linker_scripts/stm32l475ve.sct'
+    iar_linkscripts_path   = '../../drivers/linker_scripts/stm32l475ve.icf'
+
 if PLATFORM == 'gcc':
     # toolchains
     PREFIX = 'arm-none-eabi-'
@@ -43,7 +55,7 @@ if PLATFORM == 'gcc':
     DEVICE = ' -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -ffunction-sections -fdata-sections'
     CFLAGS = DEVICE + ' -std=c99 -Dgcc'
     AFLAGS = ' -c' + DEVICE + ' -x assembler-with-cpp -Wa,-mimplicit-it=thumb '
-    LFLAGS = DEVICE + ' -Wl,--gc-sections,-Map=rtthread-stm32.map,-cref,-u,Reset_Handler -T ../../drivers/linker_scripts/stm32l475ve.ld'
+    LFLAGS = DEVICE + ' -Wl,--gc-sections,-Map=rtthread-stm32.map,-cref,-u,Reset_Handler -T ' + gcc_linkscripts_path
 
     CPATH = ''
     LPATH = ''
@@ -67,7 +79,8 @@ elif PLATFORM == 'armcc':
     DEVICE = ' --cpu Cortex-M4.fp '
     CFLAGS = '-c ' + DEVICE + ' --apcs=interwork --c99'
     AFLAGS = DEVICE + ' --apcs=interwork '
-    LFLAGS = DEVICE + ' --scatter "../../drivers/linker_scripts/stm32l475ve.sct" --info sizes --info totals --info unused --info veneers --list rtthread-stm32.map --strict'
+    LFLAGS = DEVICE + ' --scatter "' + armcc_linkscripts_path + '" --info sizes --info totals --info unused --info veneers --list rtthread-stm32.map --strict'
+
     CFLAGS += ' -I' + EXEC_PATH + '/ARM/ARMCC/include'
     LFLAGS += ' --libpath=' + EXEC_PATH + '/ARM/ARMCC/lib'
 
@@ -124,8 +137,14 @@ elif PLATFORM == 'iar':
     else:
         CFLAGS += ' -Oh'
 
-    LFLAGS = ' --config "../../drivers/linker_scripts/stm32l475ve.icf"'
+    LFLAGS = ' --config "' + iar_linkscripts_path + '"'
     LFLAGS += ' --entry __iar_program_start'
 
     EXEC_PATH = EXEC_PATH + '/arm/bin/'
     POST_ACTION = 'ielftool --bin $TARGET rt-thread.bin'
+
+def dist_handle(BSP_ROOT):
+    cwd_path = os.getcwd()
+    sys.path.append(os.path.join(os.path.dirname(os.path.dirname(cwd_path)), 'tools'))
+    from sdk_dist import dist_do_building
+    dist_do_building(BSP_ROOT)

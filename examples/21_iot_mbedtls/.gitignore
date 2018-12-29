@@ -39,5 +39,4 @@ DebugConfig/
 RTE/
 settings/
 *.uvguix*
-project.uvoptx
 cconfig.h

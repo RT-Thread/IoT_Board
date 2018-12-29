@@ -10,7 +10,7 @@
 
 ![KEY 电路原理图](../../docs/figures/03_basic_key/key_1.png)
 
-如上图所示，KEY0 引脚连接单片机 PD8（55） 引脚，且外部接 10k 上拉电阻。KEY0 按键按下为低电平，松开为高电平。
+如上图所示，KEY0 引脚连接单片机 PD10（57） 引脚，且外部接 10k 上拉电阻。KEY0 按键按下为低电平，松开为高电平。
 
 KEY 在开发板中的位置如下图所示：
 
@@ -95,5 +95,5 @@ KEY0 pressed!
 
 ## 引用参考
 
-- 《通用GPIO设备应用笔记》: docs/an0002-rtthread-driver-gpio.pdf
-- 《RT-Thread 编程指南》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《通用GPIO设备应用笔记》: docs/AN0002-RT-Thread-通用 GPIO 设备应用笔记.pdf
+- 《RT-Thread 编程指南》: docs/RT-Thread 编程指南.pdf

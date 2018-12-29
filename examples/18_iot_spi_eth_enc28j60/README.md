@@ -12,7 +12,7 @@ ENC28J60 是通过板子上的 WIRELESS 插座连接单片机的，利用 SPI2 �
 
 ![enc28j60 接口原理图](../../docs/figures/18_iot_spi_eth_enc28j60/enc28j60_sch.png)
 
-![enc28j60 实物连接图](../../docs/figures/18_iot_spi_eth_enc28j60/enc28j60&IOT Board.jpg)
+![enc28j60 实物连接图](../../docs/figures/18_iot_spi_eth_enc28j60/enc28j60_IOT_Board.jpg)
 
 ## 软件说明
 
@@ -110,6 +110,6 @@ msh />60 bytes from 118.31.15.152 icmp_seq=0 ttl=52 time=8 ticks
 
 ## 引用参考
 
-- 《GPIO 设备应用笔记》: docs/an0002-rtthread-driver-gpio.pdf
-- 《SPI 设备应用笔记 》: docs/an0004-rtthread-driver-spi.pdf
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《GPIO 设备应用笔记》: docs/AN0002-RT-Thread-通用 GPIO 设备应用笔记.pdf
+- 《SPI 设备应用笔记 》: docs/AN0004-RT-Thread-SPI 设备应用笔记.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf

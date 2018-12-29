@@ -73,20 +73,7 @@ extern const struct fal_flash_dev nor_flash0;
 
 分区表存放在 `/examples/13_component_fal/ports/fal_cfg.h` 文件中，如下所示：
 
-```c
-#ifdef FAL_PART_HAS_TABLE_CFG
-/* partition table */
-#define FAL_PART_TABLE    \
-{                 \
-    {FAL_PART_MAGIC_WROD,        "app", "onchip_flash",                         0,       384 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD,      "param", "onchip_flash",                384 * 1024,       128 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD,  "easyflash",    "nor_flash",                         0,       512 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD,   "download",    "nor_flash",                512 * 1024,      1024 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD, "wifi_image",    "nor_flash",       (512 + 1024) * 1024,       512 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD, "filesystem",    "nor_flash", (512 + 1024 + 512) * 1024, 14 * 1024 * 1024, 0}, \
-}
-#endif /* FAL_PART_HAS_TABLE_CFG */
-```
+![分区表](../../docs/figures/13_component_fal/fal_part_table.png)
 
 这里有一个宏定义 `FAL_PART_HAS_TABLE_CFG`，如果定义，则表示应用程序使用 `fal_cfg.h` 文件中定义的分区表。
 
@@ -331,14 +318,15 @@ for (i = 0; i < partition->len;)
 [D/FAL] (fal_flash_init:61) Flash device | onchip_flash | addr: 0x08000000 | len: 0x00080000 | blk_size: 0x00000800 |initialized finish.
 [D/FAL] (fal_flash_init:61) Flash device |    nor_flash | addr: 0x00000000 | len: 0x01000000 | blk_size: 0x00001000 |initialized finish.
 [I/FAL] ==================== FAL partition table ====================
-[I/FAL] | name         | flash_dev    |   offset   |    length  |
+[I/FAL] | name       | flash_dev    |   offset   |    length  |
 [I/FAL] -------------------------------------------------------------
-[I/FAL] | app          | onchip_flash | 0x00000000 | 0x00060000 |
-[I/FAL] | param        | onchip_flash | 0x00060000 | 0x00020000 |
-[I/FAL] | easyflash    | nor_flash    | 0x00000000 | 0x00080000 |
-[I/FAL] | download     | nor_flash    | 0x00080000 | 0x00100000 |
-[I/FAL] | wifi_image   | nor_flash    | 0x00180000 | 0x00080000 |
-[I/FAL] | filesystem   | nor_flash    | 0x00200000 | 0x00e00000 |
+[I/FAL] | app        | onchip_flash | 0x00000000 | 0x00060000 |
+[I/FAL] | param      | onchip_flash | 0x00060000 | 0x00020000 |
+[I/FAL] | easyflash  | nor_flash    | 0x00000000 | 0x00080000 |
+[I/FAL] | download   | nor_flash    | 0x00080000 | 0x00100000 |
+[I/FAL] | wifi_image | nor_flash    | 0x00180000 | 0x00080000 |
+[I/FAL] | font       | nor_flash    | 0x00200000 | 0x00700000 |
+[I/FAL] | filesystem | nor_flash    | 0x00900000 | 0x00700000 |
 [I/FAL] =============================================================
 [I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/fal] Flash device : onchip_flash   Flash size : 512K   Partition : param   Partition size: 128K
@@ -448,5 +436,5 @@ fal bench <blk_size>             - benchmark test with per block size
 
 ## 引用参考
 
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf
 - 《FAL 软件包介绍》     : https://github.com/RT-Thread-packages/fal

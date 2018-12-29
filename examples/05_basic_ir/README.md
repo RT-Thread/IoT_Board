@@ -151,5 +151,5 @@ void app_ir_learn_and_send(void)
 
 ## 引用参考
 
-- 《通用GPIO设备应用笔记》: docs/an0002-rtthread-driver-gpio.pdf
-- 《RT-Thread 编程指南》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《通用GPIO设备应用笔记》: docs/AN0002-RT-Thread-通用 GPIO 设备应用笔记.pdf
+- 《RT-Thread 编程指南》: docs/RT-Thread 编程指南.pdf

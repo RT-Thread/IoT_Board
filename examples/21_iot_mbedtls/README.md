@@ -282,8 +282,8 @@ msh />
 
 ## 引用参考
 
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
-- 《mbedTLS 用户手册》: docs/um1006-rtthread-package-mbedtls-manual.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf
+- 《mbedTLS 用户手册》: docs/UM1006-RT-Thread-MbedTLS 用户手册.pdf
 - 已支持 TLS 加密连接的软件包
 
     RT-Thread 提供的与网络通讯相关的软件包大多都已经支持 TLS 加密连接，如 [HTTP 客户端](https://github.com/RT-Thread-packages/webclient)、[MQTT 客户端 paho-mqtt](https://github.com/RT-Thread-packages/paho-mqtt)、 [阿里云 iotkit](https://github.com/RT-Thread-packages/ali-iotkit)、[微软云 Azure](https://github.com/RT-Thread-packages/azure-iot-sdk)等，如有需要请访问 [RT-Thread 软件包主页](https://github.com/RT-Thread-packages)获取。

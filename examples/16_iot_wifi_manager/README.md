@@ -329,7 +329,7 @@ int wiced_platform_resource_read(int resource, uint32_t offset, void *buffer, ui
 
 ### 更新 WiFi 模块固件
 
-本例程用到的 AP6181 WiFi 模组，需要配合专用 WiFi 固件使用。开发板在出厂前已经烧录过 WiFi 固件，默认存储在外部 Flash。如果固件被不慎擦除，请参考《WiFi固件烧录说明》(docs/um3001-rtthread-iotboard-wifi-image-download.pdf)，进行重新烧录。
+本例程用到的 AP6181 WiFi 模组，需要配合专用 WiFi 固件使用。开发板在出厂前已经烧录过 WiFi 固件，默认存储在外部 Flash。如果固件被不慎擦除，请参考《IoT-Board WiFi 固件下载》(docs/UM3001-RT-Thread-IoT Board WIFI 模块固件下载手册.pdf)，进行重新烧录。
 
 下面为检测不到 WiFi 固件时的错误信息：
 
@@ -376,5 +376,5 @@ join ssid:test_ssid
 
 ## 引用参考
 
-- 《WLAN框架应用笔记》: docs/an0026-rtthread-driver-wlan.pdf
-- 《RT-Thread 编程指南》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《WLAN框架应用笔记》: docs/AN0026-RT-Thread-WLAN 框架应用笔记.pdf
+- 《RT-Thread 编程指南》: docs/RT-Thread 编程指南.pdf

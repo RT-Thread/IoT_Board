@@ -11,6 +11,6 @@
 #ifndef __IOTB_VERSION_H__
 #define __IOTB_VERSION_H__
 
-#define IOTBOARD_APP_VERSION (0x0100U)
+#define IOTBOARD_APP_VERSION (0x0101U)
 
 #endif

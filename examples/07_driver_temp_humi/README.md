@@ -14,7 +14,7 @@ AHT10 软件包提供了使用温度与湿度传感器 `aht10` 基本功能，�
 
 ![温湿度传感器连接原理图](../../docs/figures/07_driver_temp_humi/aht10-hardware.png)
 
-如上图所示，单片机通过 IIC_SDA(PC1)、IIC_SCL(PC0) 对传感器 `aht10` 发送命令、读取数据等。
+如上图所示，单片机通过 IIC_SDA(PC1)、IIC_SCL2(PD6) 对传感器 `aht10` 发送命令、读取数据等。
 
 温度与湿度传感器在开发板中的位置如下图所示：
 
@@ -106,8 +106,8 @@ read aht10 sensor temperature: 27.4
 
 ## 引用参考
 
-- 《RT-Thread 编程指南》: docs/rtthread_manual.zh-2018-09-30.pdf
-- 《I2C 设备应用笔记》: docs/an0003-rtthread-driver-i2c.pdf
+- 《RT-Thread 编程指南》: docs/RT-Thread 编程指南.pdf
+- 《I2C 设备应用笔记》: docs/AN0003-RT-Thread-I2C 设备应用笔记
 - 《aht10 软件包介绍》：[https://github.com/RT-Thread-packages/aht10](https://github.com/RT-Thread-packages/aht10)
 
 

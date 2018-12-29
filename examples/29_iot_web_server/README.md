@@ -2,7 +2,7 @@
 
 ## 简介
 
-本例程使用 WebNet 软件包创建一个 Web 服务器，并展示 Web 服务器静态页面展示、CGI（事件处理）、AUTH（基本认证）、Upload（文件上传） 等部分功能。
+本例程使用 WebNet 软件包创建一个 Web 服务器，并展示 Web 服务器静态页面、CGI（事件处理）、AUTH（基本认证）、Upload（文件上传） 等部分功能。
 
 ## 硬件说明
 
@@ -197,7 +197,7 @@ calc 例程中使用 CGI 功能在页面上展示了简单的加法计算器功�
 
 ## 引用参考
 
-- 《文件系统应用笔记》: docs/an0012-rtthread-system-dfs.pdf
-- 《WLAN 框架应用笔记》: docs/an0026-rtthread-driver-wlan.pdf
-- 《WEBNET 用户手册》: docs/um1010-rtthread-package-webnet-manual.pdf
-- 《RT-Thread 编程指南》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《文件系统应用笔记》: docs/AN0012-RT-Thread-文件系统应用笔记.pdf
+- 《WLAN 框架应用笔记》: docs/AN0026-RT-Thread-WLAN 框架应用笔记.pdf
+- 《WEBNET 用户手册》: docs/UM1010-RT-Thread-Web 服务器(WebNet)用户手册.pdf
+- 《RT-Thread 编程指南》: docs/RT-Thread 编程指南.pdf

@@ -29,13 +29,15 @@ extern const struct fal_flash_dev nor_flash0;
 /* ====================== Partition Configuration ========================== */
 #ifdef FAL_PART_HAS_TABLE_CFG
 /* partition table */
-#define FAL_PART_TABLE                                                                                                         \
-{                                                                                                     \
-    {FAL_PART_MAGIC_WROD,        "app", "onchip_flash",                         0,       512 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD,  "easyflash",    "nor_flash",                         0,       512 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD,   "download",    "nor_flash",                512 * 1024,      1024 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD, "wifi_image",    "nor_flash",       (512 + 1024) * 1024,       512 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD, "filesystem",    "nor_flash", (512 + 1024 + 512) * 1024, 14 * 1024 * 1024, 0}, \
+#define FAL_PART_TABLE                                                                                              \
+{                                                                                                                   \
+    {FAL_PART_MAGIC_WROD, "bootloader", "onchip_flash",                                    0,        64 * 1024, 0}, \
+    {FAL_PART_MAGIC_WROD,        "app", "onchip_flash",                            64 * 1024,       448 * 1024, 0}, \
+    {FAL_PART_MAGIC_WROD,  "easyflash",    "nor_flash",                                    0,       512 * 1024, 0}, \
+    {FAL_PART_MAGIC_WROD,   "download",    "nor_flash",                           512 * 1024,      1024 * 1024, 0}, \
+    {FAL_PART_MAGIC_WROD, "wifi_image",    "nor_flash",                  (512 + 1024) * 1024,       512 * 1024, 0}, \
+    {FAL_PART_MAGIC_WROD,       "font",    "nor_flash",            (512 + 1024 + 512) * 1024,  7 * 1024 * 1024, 0}, \
+    {FAL_PART_MAGIC_WROD, "filesystem",    "nor_flash", (512 + 1024 + 512 + 7 * 1024) * 1024,  7 * 1024 * 1024, 0}, \
 }
 #endif /* FAL_PART_HAS_TABLE_CFG */
 #endif /* _FAL_CFG_H_ */

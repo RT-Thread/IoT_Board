@@ -1,6 +1,6 @@
 # RT-Thread 设备维护云平台接入例程
 
-本例程演示如何使用 RT-Thread 提供的 CloudSDK 库接入 RT-Thread 云平台，实现远程 Shell 控制 、远程 Log 存储 和 OTA 升级功能。初次使用 RT-Thread 云平台的用户请先阅读 《RT-Thread 云平台用户手册》(docs/um1008-rtthread-package-cloudsdk-manual.pdf)。
+本例程演示如何使用 RT-Thread 提供的 CloudSDK 库接入 RT-Thread 云平台，实现远程 Shell 控制 、远程 Log 存储 和 OTA 升级功能。初次使用 RT-Thread 云平台的用户请先阅读 《RT-Thread 云平台用户手册》(docs/UM1008-RT-Thread-设备维护云平台用户手册.pdf)。
 
 ## 平台简介
 
@@ -30,7 +30,7 @@
 
 ### 准备工作
 
-在使用本例程前需要先在 [RT-Thread 云平台](http://iot.rt-thread.com) 注册账号，使用该账号在云平台中创建新产品，然后使用设备唯一标识符**SN**（该示例中 **SN** 可以由用户自定义）在云端创建新设备，具体的流程参考《RT-Thread 云平台用户手册》(docs/um1008-rtthread-package-cloudsdk-manual.pdf)。
+在使用本例程前需要先在 [RT-Thread 云平台](http://iot.rt-thread.com) 注册账号，使用该账号在云平台中创建新产品，然后使用设备唯一标识符**SN**（该示例中 **SN** 可以由用户自定义）在云端创建新设备，具体的流程参考《RT-Thread 云平台用户手册》(docs/UM1008-RT-Thread-设备维护云平台用户手册.pdf)。
 
 产品和设备创建完成后，记录下**产品信息**页面的**产品ID（ProductID**）和 **产品密钥（ProductKey）**。下图为本次演示使用的 **ProductID** 和 **ProductKey** 位置：
 
@@ -154,7 +154,8 @@ RT-Thread Bootloader Starting...
 [I/FAL] | easyflash    | nor_flash    | 0x00000000 | 0x00080000 |
 [I/FAL] | download     | nor_flash    | 0x00080000 | 0x00100000 |
 [I/FAL] | wifi_image   | nor_flash    | 0x00180000 | 0x00080000 |
-[I/FAL] | filesystem   | nor_flash    | 0x00200000 | 0x00e00000 |
+[I/FAL] | font         | nor_flash    | 0x00200000 | 0x00700000 |
+[I/FAL] | filesystem   | nor_flash    | 0x00900000 | 0x00700000 |
 [I/FAL] =============================================================
 [I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/OTA] RT-Thread OTA package(V0.1.2) initialize success.
@@ -344,7 +345,7 @@ OTA 固件打包工具的界面如下图所示：
 
 设备升级完成后会自动运行新的固件，从上图中的日志上可以看到，app 固件已经从 **1.0.0 版本**升级到了 **2.0.0 版本**，设备 OTA 升级完成。
 
-更多详细介绍，请阅读《RT-Thread 云平台用户手册》(docs/um1008-rtthread-package-cloudsdk-manual.pdf)。
+更多详细介绍，请阅读《RT-Thread 云平台用户手册》(docs/UM1008-RT-Thread-设备维护云平台用户手册.pdf)。
 
 ## 注意事项
 
@@ -355,5 +356,5 @@ OTA 固件打包工具的界面如下图所示：
 
 ## 引用参考
 
-- 《RT-Thread 云平台用户手册》: docs/um1008-rtthread-package-cloudsdk-manual.pdf
+- 《RT-Thread 云平台用户手册》: docs/UM1008-RT-Thread-设备维护云平台用户手册.pdf
 

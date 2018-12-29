@@ -816,6 +816,9 @@ def EndBuilding(target, program = None):
     Clean(target, 'rtua.py')
     Clean(target, 'rtua.pyc')
 
+    if hasattr(rtconfig, 'dist_handle'):
+        Env['dist_handle'] = rtconfig.dist_handle
+
     if GetOption('target'):
         GenTargetProject(program)
 

@@ -88,7 +88,7 @@ static const uint16_t menu_refresh_time[IOTB_LCD_MENU_MAX + 1] =
     20,   /* menu9  show wechat scan page */
     20,   /* menu10  show wait connect page */
     2,    /* menu11  show net info content */
-    20,   /* menu12 RTT Cloud */
+    100,   /* menu12 RTT Cloud */
     20,   /* menu13 show pm page */
     99    /* menu14 enter pm mode*/
 };

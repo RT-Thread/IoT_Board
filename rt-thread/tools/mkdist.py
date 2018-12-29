@@ -163,11 +163,17 @@ def MkDist_Strip(program, BSP_ROOT, RTT_ROOT, Env):
     print('make distribution and strip useless files....')
 
     dist_name = os.path.basename(BSP_ROOT)
-    dist_dir  = os.path.join(BSP_ROOT, 'dist-strip', dist_name)
+    dist_dir = os.path.join(BSP_ROOT, 'dist-strip', dist_name)
     target_path = os.path.join(dist_dir, 'rt-thread')
 
     print('=> %s' % os.path.basename(BSP_ROOT))
     bsp_copy_files(BSP_ROOT, dist_dir)
+
+    # do bsp special dist handle
+    if 'dist_handle' in Env:
+        print("=> start dist handle")
+        dist_handle = Env['dist_handle']
+        dist_handle(BSP_ROOT)
 
     # get all source files from program
     for item in program:
@@ -272,13 +278,19 @@ def MkDist(program, BSP_ROOT, RTT_ROOT, Env):
     print('make distribution....')
 
     dist_name = os.path.basename(BSP_ROOT)
-    dist_dir  = os.path.join(BSP_ROOT, 'dist', dist_name)
+    dist_dir = os.path.join(BSP_ROOT, 'dist', dist_name)
 
     target_path = os.path.join(dist_dir, 'rt-thread')
 
     # copy BSP files
     print('=> %s' % os.path.basename(BSP_ROOT))
     bsp_copy_files(BSP_ROOT, dist_dir)
+
+    # do bsp special dist handle
+    if 'dist_handle' in Env:
+        print("=> start dist handle")
+        dist_handle = Env['dist_handle']
+        dist_handle(BSP_ROOT)
 
     # copy tools directory
     print('=> components')

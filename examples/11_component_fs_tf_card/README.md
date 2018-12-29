@@ -126,7 +126,7 @@ Directory /:
 msh />
 ```
 
-更多文件系统功能展示可以参考[《文件系统应用笔记》](https://www.rt-thread.org/document/site/rtthread-application-note/components/dfs/an0012-rtthread-system-dfs/)。
+更多文件系统功能展示可以参考[《文件系统应用笔记》](https://www.rt-thread.org/document/site/rtthread-application-note/components/dfs/AN0012-RT-Thread-文件系统应用笔记/)。
 
 ## 注意事项
 
@@ -134,5 +134,5 @@ msh />
 
 ## 引用参考
 
-- 《文件系统应用笔记》: docs/an0012-rtthread-system-dfs.pdf
-- 《SPI 设备应用笔记》: docs/an0004-rtthread-driver-spi.pdf
+- 《文件系统应用笔记》: docs/AN0012-RT-Thread-文件系统应用笔记.pdf
+- 《SPI 设备应用笔记》: docs/AN0004-RT-Thread-SPI 设备应用笔记.pdf

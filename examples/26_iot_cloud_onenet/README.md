@@ -331,6 +331,6 @@ msh />[D/ONENET] (response_register_handlers:266) response is {"errno":0,"data":
 
 ## 引用参考
 
-- 《GPIO 设备应用笔记》: docs/an0002-rtthread-driver-gpio.pdf
-- 《OneNET 用户手册》: docs/um1003-rtthread-package-onenet-manual.pdf
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《GPIO 设备应用笔记》: docs/AN0002-RT-Thread-通用 GPIO 设备应用笔记.pdf
+- 《OneNET 用户手册》: docs/UM1003-RT-Thread-OneNET 用户手册.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf

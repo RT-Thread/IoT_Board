@@ -333,7 +333,7 @@
               <MiscControls />
               <Define>USE_HAL_DRIVER, STM32L475xx</Define>
               <Undefine />
-              <IncludePath>.;applications;..\..\rt-thread\include;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\finsh;..\..\drivers;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc</IncludePath>
+              <IncludePath>.;applications;..\..\rt-thread\include;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\finsh;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\drivers</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -642,37 +642,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Drivers</GroupName>
-          <Files>
-            <File>
-              <FileName>board.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\board.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_clock.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_clock.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_gpio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_usart.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>STM32L4xx_HAL_Driver</GroupName>
           <Files>
             <File>
@@ -784,6 +753,37 @@
               <FileName>stm32l4xx_hal_uart_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_uart_ex.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\board.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_clock.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_gpio.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_usart.c</FilePath>
             </File>
           </Files>
         </Group>

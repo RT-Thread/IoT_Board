@@ -126,7 +126,8 @@ OTA 升级流程如下图所示：
 | easyflash  | Nor FLASH | 0x00000000 | 512K | 0x00080000 | easyflash 存储区 |
 | download   | Nor FLASH | 0x00080000 | 1M   | 0x00180000 | download 下载存储区 |
 | wifi_image | Nor FLASH | 0x00180000 | 512K | 0x00200000 | wifi 固件存储区 |
-| filesystem | Nor FLASH | 0x00200000 | 14M  | 0x01000000 | filesystem 文件系统区 |
+| font | Nor FLASH | 0x00200000 | 7M | 0x00900000 | font 字库分区 |
+| filesystem | Nor FLASH | 0x00900000 | 7M  | 0x01000000 | filesystem 文件系统区 |
 
 分区表定义在 **`bootloader 程序`** 中，如果需要修改分区表，则需要修改 bootloader 程序。目前不支持用户自定义 bootloader，如果有商用需求，请联系 **RT-Thread** 获取支持。
 
@@ -329,5 +330,5 @@ System now will restart...
 
 ## 引用参考
 
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
-- 《RT-Thread OTA 用户手册》: docs/um1004-rtthread-package-rt-ota-lib-manual.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf
+- 《RT-Thread OTA 用户手册》: docs/UM1004-RT-Thread-OTA 用户手册.pdf

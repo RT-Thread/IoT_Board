@@ -73,16 +73,26 @@ int main(void)
 
     if (iotb_partition_fontlib_check() != RT_EOK)
     {
-        if (iotb_sdcard_font_upgrade() != RT_EOK)
+        if (iotb_sdcard_font_upgrade() == (-RT_EEMPTY))
+        {
+            lcd_set_color(BLACK, WHITE);
+            lcd_clear(BLACK);
+            lcd_show_string(0, 100, 24, "No font partition  ");
+            lcd_show_string(0, 100 + 26, 24, "Using ST-Utility  ");
+            lcd_show_string(0, 100 + 26 + 26, 24, "Flash new bootloader");
+            rt_thread_mdelay(2000);
+            return 0;
+        }
+        else if (iotb_sdcard_font_upgrade() == (-RT_ERROR))
         {
             LOG_E("sdcard upgrad 'font library' failed!");
             LOG_E("Input 'ymodem_start' cmd to try to upgrade!");
             lcd_set_color(BLACK, WHITE);
             lcd_clear(BLACK);
-            lcd_show_string(0, 120 - 26 - 26, 24,  "SDCard upgrade font");
-            lcd_show_string(0, 120 - 26, 24,  "library failed!");
-            lcd_show_string(0, 120, 24,  "Input 'ymodem_start'");
-            lcd_show_string(0, 120 + 26, 24,  "cmd to upgrade");
+            lcd_show_string(0, 120 - 26 - 26, 24, "SDCard upgrade font");
+            lcd_show_string(0, 120 - 26, 24, "library failed!");
+            lcd_show_string(0, 120, 24, "Input 'ymodem_start'");
+            lcd_show_string(0, 120 + 26, 24, "cmd to upgrade");
             rt_thread_mdelay(2000);
             return 0;
         }

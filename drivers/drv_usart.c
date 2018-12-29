@@ -274,6 +274,8 @@ static void uart_isr(struct rt_serial_device *serial)
         (__HAL_UART_GET_IT_SOURCE(&uart->UartHandle, UART_IT_RXNE) != RESET))
     {
         rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_IND);
+        /* Clear RXNE interrupt flag */
+        __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_FLAG_RXNE);
     }
 #ifdef BSP_UART_USING_DMA_RX
     else if ((__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_IDLE) != RESET) &&
@@ -316,7 +318,7 @@ static void uart_isr(struct rt_serial_device *serial)
         if (__HAL_UART_GET_FLAG(&uart->UartHandle, UART_FLAG_WUF) != RESET)
         {
             __HAL_UART_CLEAR_FLAG(&uart->UartHandle, UART_CLEAR_WUF);
-        }        
+        }
     }
 }
 

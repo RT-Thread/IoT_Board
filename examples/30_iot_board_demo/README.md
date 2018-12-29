@@ -347,4 +347,4 @@ int main(void)
 
 ## 引用参考
 
-- 《RT-Thread 编程指南》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《RT-Thread 编程指南》: docs/RT-Thread 编程指南.pdf

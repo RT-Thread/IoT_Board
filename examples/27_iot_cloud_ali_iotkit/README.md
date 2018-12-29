@@ -42,7 +42,7 @@ ali-iotkit 例程位于 `/examples/27_iot_cloud_ali_iotkit` 目录下，重要�
 
 **1. 设置激活凭证**
 
-使用 menuconfig 设置设备激活凭证（从 [LinkDevelop](https://linkdevelop.aliyun.com) 平台获取），如下图所示：
+使用 menuconfig 设置设备激活凭证（从阿里云—— [LinkDevelop](https://linkdevelop.aliyun.com) 平台获取），如下图所示：
 
 ![设置激活凭证](../../docs/figures/27_iot_cloud_ali_iotkit/menuconfig.png)
 
@@ -435,5 +435,5 @@ mqtt_client|329 :: out of sample!
 
 ## 引用参考
 
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
-- 《ali-iotkit 用户手册》: docs/um1002-rtthread-package-ali-iotkit-manual.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf
+- 《ali-iotkit 用户手册》: docs/UM1002-RT-Thread-ali-iotkit 用户手册.pdf

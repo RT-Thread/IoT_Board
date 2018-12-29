@@ -225,6 +225,6 @@ static int application_usb_init(void)
 
 ## 引用参考
 
-- 《RT-Thread 编程指南》: docs/rtthread_manual.zh-2018-09-30.pdf
-- 《I2C 设备应用笔记》: docs/an0003-rtthread-driver-i2c.pdf
+- 《RT-Thread 编程指南》: docs/RT-Thread 编程指南.pdf
+- 《I2C 设备应用笔记》: docs/AN0003-RT-Thread-I2C 设备应用笔记
 - 《icm20608 软件包介绍》：[https://github.com/RT-Thread-packages/icm20608](https://github.com/RT-Thread-packages/icm20608)

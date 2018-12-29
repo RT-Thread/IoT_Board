@@ -41,6 +41,8 @@
 #define CLD_ENV_PASSWORD               "cld_pwd"
 #define CLD_ENV_DEVICE_ID              "cld_did"
 #define CLD_ENV_DEVICE_KEY             "cld_dkey"
+#define CLD_ENV_PRODUCT_ID             "cld_pid"
+#define CLD_ENV_PRODUCT_KEY            "cld_pkey"
 #define CLD_ENV_SN                     "cld_sn"
 #define CLD_ENV_MAJOR_VER              "cld_dev_mver"
 #define CLD_ENV_OTA_MAJOR_VER          "cld_ota_mver"

@@ -295,4 +295,4 @@ Azure Sample Exit     #收到一定数量的下发数据，功能示例自动退
 
 ## 引用参考
 
-- 《Azure 云平台软件包用户手册》: docs/um1007-azure-iot-sdk-manual.pdf
+- 《Azure 云平台软件包用户手册》: docs/UM1007-RT-Thread-Azure-IoT-SDK 用户手册.pdf

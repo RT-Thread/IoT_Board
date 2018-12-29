@@ -87,5 +87,5 @@ int main(void)
 
 ## 引用参考
 
-- 《SPI 设备应用笔记 》: docs/an0004-rtthread-driver-spi.pdf
-- 《RT-Thread 编程指南 》: docs/rtthread_manual.zh-2018-09-30.pdf
+- 《SPI 设备应用笔记 》: docs/AN0004-RT-Thread-SPI 设备应用笔记.pdf
+- 《RT-Thread 编程指南 》: docs/RT-Thread 编程指南.pdf
