@@ -1,0 +1,7 @@
+[
+ {
+  "path": "/packages/peripherals/icm20608", 
+  "ver": "v1.0.0", 
+  "name": "ICM20608"
+ }
+]
