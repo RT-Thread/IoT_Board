@@ -1,7 +1,7 @@
 [
  {
   "path": "/packages/iot/webnet", 
-  "ver": "v2.0.0", 
+  "ver": "v2.0.1", 
   "name": "WEBNET"
  }, 
  {
@@ -16,7 +16,7 @@
  }, 
  {
   "path": "/packages/peripherals/stm32_sdio", 
-  "ver": "v1.0.0", 
+  "ver": "v1.0.1", 
   "name": "STM32_SDIO"
  }
 ]

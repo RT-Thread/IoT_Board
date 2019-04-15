@@ -61,19 +61,21 @@ iot_board_demo 综合例程位于 `/examples/30_iot_board_demo` 目录下，重�
 ```c
 int main(void)
 {
-    iotb_lcd_show_startup_page(); /* 显示启动页 */
+    /* 显示启动页 */
+    iotb_lcd_show_startup_page();
 
-    if (iotb_sensor_sdcard_fs_init() != RT_EOK) /* 在 SD 卡上挂载文件系统 */
+    /* 在 SD 卡上挂载文件系统 */
+    if (iotb_sensor_sdcard_fs_init() != RT_EOK)
     {
         LOG_E("Init sdcard fs failed!");
     }
 
-    /* Need to init wifi before all others thread */
+    /* 初始化 WIFI */
     if (iotb_sensor_wifi_init() != RT_EOK)
     {
         if (iotb_sdcard_wifi_image_upgrade() != RT_EOK)
         {
-            /* use 'ymodem start' cmd to update wifi image */
+            /* 使用 'ymodem start' 命令升级 WIFI 固件 */
             LOG_E("sdcard upgrad 'wifi image' failed!");
             LOG_E("Input 'ymodem_start' cmd to try to upgrade!");
             lcd_set_color(BLACK, WHITE);
@@ -86,18 +88,29 @@ int main(void)
         }
     }
 
+    /* 检测是否存在字库 */
     if (iotb_partition_fontlib_check() != RT_EOK)
     {
-        if (iotb_sdcard_font_upgrade() != RT_EOK)
+        if (iotb_sdcard_font_upgrade() == (-RT_EEMPTY))
+        {
+            lcd_set_color(BLACK, WHITE);
+            lcd_clear(BLACK);
+            lcd_show_string(0, 100, 24, "No font partition  ");
+            lcd_show_string(0, 100 + 26, 24, "Using ST-Utility  ");
+            lcd_show_string(0, 100 + 26 + 26, 24, "Flash new bootloader");
+            rt_thread_mdelay(2000);
+            return 0;
+        }
+        else if (iotb_sdcard_font_upgrade() == (-RT_ERROR))
         {
             LOG_E("sdcard upgrad 'font library' failed!");
             LOG_E("Input 'ymodem_start' cmd to try to upgrade!");
             lcd_set_color(BLACK, WHITE);
             lcd_clear(BLACK);
-            lcd_show_string(0, 120 - 26 - 26, 24,  "SDCard upgrade font");
-            lcd_show_string(0, 120 - 26, 24,  "library failed!");
-            lcd_show_string(0, 120, 24,  "Input 'ymodem_start'");
-            lcd_show_string(0, 120 + 26, 24,  "cmd to upgrade");
+            lcd_show_string(0, 120 - 26 - 26, 24, "SDCard upgrade font");
+            lcd_show_string(0, 120 - 26, 24, "library failed!");
+            lcd_show_string(0, 120, 24, "Input 'ymodem_start'");
+            lcd_show_string(0, 120 + 26, 24, "cmd to upgrade");
             rt_thread_mdelay(2000);
             return 0;
         }

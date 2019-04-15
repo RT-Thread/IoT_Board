@@ -15,19 +15,22 @@
 #include <fal.h>
 #include "wifi_config.h"
 
-#define FS_PARTITION_NAME  "filesystem"
+#define DBG_SECTION_NAME "main"
+#define DBG_LEVEL DBG_LOG
+#include <rtdbg.h>
+
+#define FS_PARTITION_NAME "filesystem"
 
 int fs_init();
 
 int main(void)
 {
-    /* Config the dependencies of the wlan autoconnect function */
+    /* 配置 wlan 自动连接功能的依赖项 */
     wlan_autoconnect_init();
 
-    /* Enable wlan auto connect function */
+    /* 开启 wlan 自动连接 */
     rt_wlan_config_autoreconnect(RT_TRUE);
-
-    /* Filesystem init */
+    /* 初始化文件系统 */
     fs_init();
 
     return 0;
@@ -39,24 +42,23 @@ int fs_init()
     struct rt_device *flash_dev = fal_blk_device_create(FS_PARTITION_NAME);
     if (flash_dev == NULL)
     {
-        rt_kprintf("Can't create a block device on '%s' partition.\n", FS_PARTITION_NAME);
+        LOG_E("Can't create a block device on '%s' partition.", FS_PARTITION_NAME);
     }
     else
     {
-        rt_kprintf("Create a block device on the %s partition of flash successful.\n", FS_PARTITION_NAME);
+        LOG_D("Create a block device on the %s partition of flash successful.", FS_PARTITION_NAME);
     }
 
     /* mount the file system from "filesystem" partition of spi flash. */
     if (dfs_mount(FS_PARTITION_NAME, "/", "elm", 0, 0) == 0)
     {
-        rt_kprintf("Filesystem initialized!\n");
+        LOG_D("Filesystem initialized!");
     }
     else
     {
-        rt_kprintf("Failed to initialize filesystem!\n");
-        rt_kprintf("You should create a filesystem on the block device first!\n");
+        LOG_E("Failed to initialize filesystem!");
+        LOG_E("You should create a filesystem on the block device first!");
     }
-	
-	return 0;
-}
 
+    return 0;
+}

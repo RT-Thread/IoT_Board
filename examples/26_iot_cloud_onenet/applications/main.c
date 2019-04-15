@@ -19,34 +19,34 @@
 #include <easyflash.h>
 #include <drv_gpio.h>
 
-#define I2C_BUS_NAME         "i2c1"
-#define LED_PIN              PIN_LED_R
-#define NUMBER_OF_UPLOADS    100
+#define DBG_SECTION_NAME "main"
+#define DBG_LEVEL DBG_LOG
+#include <rtdbg.h>
+
+#define I2C_BUS_NAME "i2c1"
+#define LED_PIN PIN_LED_R
+#define NUMBER_OF_UPLOADS 100
 
 ap3216c_device_t dev;
 static void onenet_cmd_rsp_cb(uint8_t *recv_data, size_t recv_size, uint8_t **resp_data, size_t *resp_size);
 
 int main(void)
 {
-    /* initializes led */
     rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
 
-    /* waiting for ap3216c work */
-    rt_thread_mdelay(2000);
-
-    /* initializes ap3216c, registered device driver */
+    /* 初始化 ap3216c */
     dev = ap3216c_init(I2C_BUS_NAME);
     if (dev == RT_NULL)
     {
-        rt_kprintf(" The sensor initializes failure\n");
+        LOG_E(" The sensor initializes failure");
         return 0;
     }
 
-    /* register the wlan ready callback function */
-    rt_wlan_register_event_handler(RT_WLAN_EVT_READY, (void ( *)(int , struct rt_wlan_buff *, void *))onenet_mqtt_init, RT_NULL);
-    /* initialize the autoconnect configuration */
+    /* 注册 wlan 事件回调函数 */
+    rt_wlan_register_event_handler(RT_WLAN_EVT_READY, (void (*)(int, struct rt_wlan_buff *, void *))onenet_mqtt_init, RT_NULL);
+    /* 初始化 wlan 自动连接 */
     wlan_autoconnect_init();
-    /* enable wlan auto connect */
+    /* 使能 wlan 自动连接 */
     rt_wlan_config_autoreconnect(RT_TRUE);
 
     return 0;
@@ -57,22 +57,22 @@ static void onenet_upload_entry(void *parameter)
     int value = 0;
     int i = 0;
 
-    /* upload ambient light value to topic light*/
+    /* 往 light 数据流上传环境光数据 */
     for (i = 0; i < NUMBER_OF_UPLOADS; i++)
     {
         value = (int)ap3216c_read_ambient_light(dev);
 
         if (onenet_mqtt_upload_digit("light", value) < 0)
         {
-            rt_kprintf("upload has an error, stop uploading\n");
+            LOG_E("upload has an error, stop uploading");
             break;
         }
         else
         {
-            rt_kprintf("buffer : {\"light\":%d}\n", value);
+            LOG_D("buffer : {\"light\":%d}", value);
         }
 
-        rt_thread_mdelay(5 * 1000);
+        rt_thread_mdelay(5 * 100);
     }
 }
 
@@ -80,10 +80,10 @@ void onenet_upload_cycle(void)
 {
     rt_thread_t tid;
 
-    /* set the command response call back function */
+    /* 设置 onenet 回调响应函数 */
     onenet_set_cmd_rsp_cb(onenet_cmd_rsp_cb);
 
-    /* create the ambient light data upload thread */
+    /* 传创建线程 */
     tid = rt_thread_create("onenet_send",
                            onenet_upload_entry,
                            RT_NULL,
@@ -100,27 +100,27 @@ rt_err_t onenet_port_save_device_info(char *dev_id, char *api_key)
 {
     EfErrCode err = EF_NO_ERR;
 
-    /* save device id */
+    /* 保存设备 ID */
     err = ef_set_and_save_env("dev_id", dev_id);
     if (err != EF_NO_ERR)
     {
-        rt_kprintf("save device info(dev_id : %s) failed!\n", dev_id);
+        LOG_E("save device info(dev_id : %s) failed!", dev_id);
         return -RT_ERROR;
     }
 
-    /* save device api_key */
+    /* 保存设备 api_key */
     err = ef_set_and_save_env("api_key", api_key);
     if (err != EF_NO_ERR)
     {
-        rt_kprintf("save device info(api_key : %s) failed!\n", api_key);
+        LOG_E("save device info(api_key : %s) failed!", api_key);
         return -RT_ERROR;
     }
 
-    /* save already_register environment variable */
+    /* 保存环境变量：已经注册 */
     err = ef_set_and_save_env("already_register", "1");
     if (err != EF_NO_ERR)
     {
-        rt_kprintf("save already_register failed!\n");
+        LOG_E("save already_register failed!");
         return -RT_ERROR;
     }
 
@@ -132,19 +132,19 @@ rt_err_t onenet_port_get_register_info(char *dev_name, char *auth_info)
     rt_uint32_t cpuid[2] = {0};
     EfErrCode err = EF_NO_ERR;
 
-    /* get stm32 uid */
+    /* 获取 stm32 uid */
     cpuid[0] = *(volatile rt_uint32_t *)(0x1FFF7590);
     cpuid[1] = *(volatile rt_uint32_t *)(0x1FFF7590 + 4);
 
-    /* set device name and auth_info */
+    /* 设置设备名和鉴权信息 */
     rt_snprintf(dev_name, ONENET_INFO_AUTH_LEN, "%d%d", cpuid[0], cpuid[1]);
     rt_snprintf(auth_info, ONENET_INFO_AUTH_LEN, "%d%d", cpuid[0], cpuid[1]);
 
-    /* save device auth_info */
+    /* 保存设备鉴权信息 */
     err = ef_set_and_save_env("auth_info", auth_info);
     if (err != EF_NO_ERR)
     {
-        rt_kprintf("save auth_info failed!\n");
+        LOG_E("save auth_info failed!");
         return -RT_ERROR;
     }
 
@@ -155,11 +155,11 @@ rt_err_t onenet_port_get_device_info(char *dev_id, char *api_key, char *auth_inf
 {
     char *info = RT_NULL;
 
-    /* get device id */
+    /* 获取设备 ID */
     info = ef_get_env("dev_id");
     if (info == RT_NULL)
     {
-        rt_kprintf("read dev_id failed!\n");
+        LOG_E("read dev_id failed!");
         return -RT_ERROR;
     }
     else
@@ -167,11 +167,11 @@ rt_err_t onenet_port_get_device_info(char *dev_id, char *api_key, char *auth_inf
         rt_snprintf(dev_id, ONENET_INFO_AUTH_LEN, "%s", info);
     }
 
-    /* get device api_key */
+    /* 获取 api_key */
     info = ef_get_env("api_key");
     if (info == RT_NULL)
     {
-        rt_kprintf("read api_key failed!\n");
+        LOG_E("read api_key failed!");
         return -RT_ERROR;
     }
     else
@@ -179,11 +179,11 @@ rt_err_t onenet_port_get_device_info(char *dev_id, char *api_key, char *auth_inf
         rt_snprintf(api_key, ONENET_INFO_AUTH_LEN, "%s", info);
     }
 
-    /* get device auth_info */
+    /* 获取设备鉴权信息 */
     info = ef_get_env("auth_info");
     if (info == RT_NULL)
     {
-        rt_kprintf("read auth_info failed!\n");
+        LOG_E("read auth_info failed!");
         return -RT_ERROR;
     }
     else
@@ -198,7 +198,7 @@ rt_bool_t onenet_port_is_registed(void)
 {
     char *already_register = RT_NULL;
 
-    /* check the device has been registered or not */
+    /* 检查设备是否已经注册 */
     already_register = ef_get_env("already_register");
     if (already_register == RT_NULL)
     {
@@ -210,32 +210,32 @@ rt_bool_t onenet_port_is_registed(void)
 
 static void onenet_cmd_rsp_cb(uint8_t *recv_data, size_t recv_size, uint8_t **resp_data, size_t *resp_size)
 {
-    char res_buf[20] = { 0 };
+    char res_buf[20] = {0};
 
-    rt_kprintf("recv data is %.s\n", recv_size, recv_data);
+    LOG_D("recv data is %.*s", recv_size, recv_data);
 
-    /* match the command */
+    /* 命令匹配 */
     if (rt_strncmp(recv_data, "ledon", 5) == 0)
     {
-        /* led on */
+        /* 开灯 */
         rt_pin_write(LED_PIN, PIN_LOW);
 
         rt_snprintf(res_buf, sizeof(res_buf), "led is on");
 
-        rt_kprintf("led is on\n");
+        LOG_D("led is on");
     }
     else if (rt_strncmp(recv_data, "ledoff", 6) == 0)
     {
-        /* led off */
+        /* 关灯 */
         rt_pin_write(LED_PIN, PIN_HIGH);
 
         rt_snprintf(res_buf, sizeof(res_buf), "led is off");
 
-        rt_kprintf("led is off\n");
+        LOG_D("led is off");
     }
 
-    /* user have to use ONENET_MALLOC malloc memory for response data */
-    *resp_data = (uint8_t *) ONENET_MALLOC(strlen(res_buf) + 1);
+    /* 开发者必须使用 ONENET_MALLOC 为响应数据申请内存 */
+    *resp_data = (uint8_t *)ONENET_MALLOC(strlen(res_buf) + 1);
 
     strncpy(*resp_data, res_buf, strlen(res_buf));
 

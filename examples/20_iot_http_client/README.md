@@ -73,7 +73,7 @@ int main(void)
     result = rt_sem_init(&net_ready, "net_ready", 0, RT_IPC_FLAG_FIFO);
     if (result != RT_EOK)
     {
-        return -RT_ERROR
+        return -RT_ERROR;
     }
 
     /* 注册 wlan 连接网络成功的回调，wlan 连接网络成功后释放 'net_ready' 信号量 */
@@ -85,7 +85,7 @@ int main(void)
     result = rt_sem_take(&net_ready, RT_WAITING_FOREVER);
     if (result != RT_EOK)
     {
-        rt_kprintf("Wait net ready failed!\n");
+        LOG_E("Wait net ready failed!");
         rt_sem_delete(&net_ready);
         return -RT_ERROR;
     }
@@ -119,12 +119,12 @@ int webclient_get_data(void)
     length = webclient_request(HTTP_GET_URL, RT_NULL, RT_NULL, &buffer);
     if (length < 0)
     {
-        rt_kprintf("webclient GET request response data error.\n");
+        LOG_E("webclient GET request response data error.");
         return -RT_ERROR;
     }
 
-    rt_kprintf("webclient GET request response data :\n");
-    rt_kprintf("%s\n", buffer);
+    LOG_D("webclient GET request response data :");
+    LOG_D("%s", buffer);
     
     web_free(buffer);  
     return RT_EOK;
@@ -151,12 +151,12 @@ int webclient_post_data(void)
     length = webclient_request(HTTP_POST_URL, RT_NULL, post_data, &buffer);
     if (length < 0)
     {
-        rt_kprintf("webclient POST request response data error.\n");
+        LOG_E("webclient POST request response data error.");
         return -RT_ERROR;
     }
 
-    rt_kprintf("webclient POST request response data :\n");
-    rt_kprintf("%s\n", buffer);
+    LOG_D("webclient POST request response data :");
+    LOG_D("%s", buffer);
     
     web_free(buffer);  
     return RT_EOK;
@@ -177,16 +177,16 @@ int webclient_post_data(void)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.1 build Sep 18 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 27 2019
+ 2006 - 2019 Copyright by rt-thread team
 lwIP-2.0.2 initialized!
-[I/SAL_SOC] Socket Abstraction Layer initialize success.
+[I/SAL_SKT] Socket Abstraction Layer initialize success.
 [SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
 msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
 [I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.
-[I/WICED] wifi initialize done!
+[I/WICED] wifi initialize done. wiced version 3.3.1
 [I/WLAN.dev] wlan init success
 [I/WLAN.lwip] eth device init ok name:w0
 [Flash] EasyFlash V3.2.1 is initialize success.
@@ -210,11 +210,11 @@ msh />[I/WLAN.lwip] Got IP address : 192.168.12.155
 WiFi 连接成功后，先运行 HTTP GET 请求，获取并打印 GET 请求接收的数据，接着运行 HTTP POST 请求，上传指定数据到服务器并获取服务器响应数据。如下所示：
 
 ```shell
-msh />webclient GET request response data :                # GET 请求接收数据
-RT-Thread is an open source IoT operating system from China, which has strong scalability: from a tiny kernel running on a tiny core, for example ARM Cortex-M0, or Cortex-M3/4/7, to a rich feature system running on MIPS32, ARM Cortex-A8, ARM Cortex-A9 DualCore etc.
+[D/main] webclient GET request response data :               # GET 请求接收数据
+[D/main] RT-Thread is an open source IoT operating system from China, which has strong scalability: from a tiny kernel running on a tiny core, for example ARM Cortex-M0, or Cortex-M3/4/7, to a rich feature system running on MIPS32, ARM Cortex-A8, ARM Cortex-A9 DualCore etc.
 
-webclient POST request response data :                     # POST 请求响应数据
-RT-Thread is an open source IoT operating system from China!
+[D/main] webclient POST request response data :              # POST 请求响应数据
+[D/main] RT-Thread is an open source IoT operating system from China!
 ```
 
 ## 注意事项

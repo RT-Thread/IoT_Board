@@ -25,23 +25,41 @@ RGB-LED 对应的单片机引脚定义可以通过查阅头文件 `/drivers/drv_
 #define PIN_LED_B     39        // PE8 :  LED_B        --> LED
 #define PIN_LED_G     40        // PE9 :  LED_G        --> LED
 ```
+
 RGB-LED 灯变换的源代码位于 `/examples/02_basic_rgb_led/applications/main.c` 中。
-在 main 函数中，将三个引脚配置为输出模式，并在下面的 while 循环中，每500毫秒变化一次 RGB 颜色，同时输出一些日志信息，一共有 8 组变化。其中函数 `void rgb_ctrl(rt_uint8_t color)` 的输入参数为（0-7）代表 RGB 灯的 8 组变化.
+
+在 main 函数中，将三个引脚配置为输出模式，并在下面的 while 循环中，每500毫秒变化一次 RGB 颜色，同时输出一些日志信息，一共有 8 组变化。
 
 ```c
 int main(void)
 {
     unsigned int count = 1;
-    /* 设置 RGB 三个引脚的模式为输出模式 */
-    rt_pin_mode(PIN_RGB_R, PIN_MODE_OUTPUT);
-    rt_pin_mode(PIN_RGB_G, PIN_MODE_OUTPUT);
-    rt_pin_mode(PIN_RGB_B, PIN_MODE_OUTPUT);
+    unsigned int group_num = sizeof(_blink_tab)/sizeof(_blink_tab[0]);
+    unsigned int group_current;
+
+    /* 设置 RGB 灯引脚为输出模式 */
+    rt_pin_mode(PIN_LED_R, PIN_MODE_OUTPUT);
+    rt_pin_mode(PIN_LED_G, PIN_MODE_OUTPUT);
+    rt_pin_mode(PIN_LED_B, PIN_MODE_OUTPUT);
 
     while (count > 0)
     {
-        rt_kprintf("group: %d | ", (count % 8));
+        /* 获得组编号 */
+        group_current = count % group_num;
+
         /* 控制 RGB 灯 */
-        rgb_ctrl(count % 8);
+        rt_pin_write(PIN_LED_R, _blink_tab[group_current][0]);
+        rt_pin_write(PIN_LED_G, _blink_tab[group_current][1]);
+        rt_pin_write(PIN_LED_B, _blink_tab[group_current][2]);
+
+        /* 输出 LOG 信息 */
+        LOG_D("group: %d | red led [%-3.3s] | green led [%-3.3s] | blue led [%-3.3s]",
+            group_current,
+            _blink_tab[group_current][0] == LED_ON ? "ON" : "OFF",
+            _blink_tab[group_current][1] == LED_ON ? "ON" : "OFF",
+            _blink_tab[group_current][2] == LED_ON ? "ON" : "OFF");
+
+        /* 延时一段时间 */
         rt_thread_mdelay(500);
         count++;
     }
@@ -67,22 +85,14 @@ int main(void)
 此时也可以在 PC 端使用终端工具打开开发板的 ST-Link 提供的虚拟串口，设置 115200 8 1 N 。开发板的运行日志信息即可实时输出出来。
 
 ```shell
- group: 0 | red led [OFF] | green led [OFF] | blue led [OFF]
- group: 1 | red led [ON ] | green led [OFF] | blue led [OFF]
- group: 2 | red led [OFF] | green led [ON ] | blue led [OFF]
- group: 3 | red led [OFF] | green led [OFF] | blue led [ON ]
- group: 4 | red led [ON ] | green led [ON ] | blue led [OFF]
- group: 5 | red led [OFF] | green led [ON ] | blue led [ON ]
- group: 6 | red led [ON ] | green led [OFF] | blue led [ON ]
- group: 7 | red led [ON ] | green led [ON ] | blue led [ON ]
- group: 0 | red led [OFF] | green led [OFF] | blue led [OFF]
- group: 1 | red led [ON ] | green led [OFF] | blue led [OFF]
- group: 2 | red led [OFF] | green led [ON ] | blue led [OFF]
- group: 3 | red led [OFF] | green led [OFF] | blue led [ON ]
- group: 4 | red led [ON ] | green led [ON ] | blue led [OFF]
- group: 5 | red led [OFF] | green led [ON ] | blue led [ON ]
- group: 6 | red led [ON ] | green led [OFF] | blue led [ON ]
- group: 7 | red led [ON ] | green led [ON ] | blue led [ON ]
+[D/main] group: 0 | red led [ON ] | green led [ON ] | blue led [ON ]
+[D/main] group: 1 | red led [OFF] | green led [ON ] | blue led [ON ]
+[D/main] group: 2 | red led [ON ] | green led [OFF] | blue led [ON ]
+[D/main] group: 3 | red led [ON ] | green led [ON ] | blue led [OFF]
+[D/main] group: 4 | red led [OFF] | green led [OFF] | blue led [ON ]
+[D/main] group: 5 | red led [ON ] | green led [OFF] | blue led [OFF]
+[D/main] group: 6 | red led [OFF] | green led [ON ] | blue led [OFF]
+[D/main] group: 7 | red led [OFF] | green led [OFF] | blue led [OFF]
 ```
 
 ## 注意事项

@@ -13,6 +13,7 @@
 #define RT_TICK_PER_SECOND 1000
 #define RT_USING_OVERFLOW_CHECK
 #define RT_USING_HOOK
+#define RT_USING_IDLE_HOOK
 #define RT_IDEL_HOOK_LIST_SIZE 4
 #define IDLE_THREAD_STACK_SIZE 256
 
@@ -27,6 +28,7 @@
 /* Memory Management */
 
 #define RT_USING_MEMPOOL
+#define RT_USING_MEMHEAP
 #define RT_USING_SMALL_MEM
 #define RT_USING_HEAP
 
@@ -36,6 +38,7 @@
 #define RT_USING_CONSOLE
 #define RT_CONSOLEBUF_SIZE 256
 #define RT_CONSOLE_DEVICE_NAME "uart1"
+#define RT_VER_NUM 0x40001
 
 /* RT-Thread Components */
 
@@ -77,6 +80,8 @@
 #define RT_USING_DEVICE_IPC
 #define RT_PIPE_BUFSZ 512
 #define RT_USING_SERIAL
+#define RT_SERIAL_USING_DMA
+#define RT_SERIAL_RB_BUFSZ 64
 #define RT_USING_PIN
 #define RT_USING_SDIO
 #define RT_SDIO_STACK_SIZE 512
@@ -225,6 +230,7 @@
 #define PKG_EASYFLASH_ERASE_GRAN 4096
 #define PKG_EASYFLASH_START_ADDR 0
 #define PKG_USING_EASYFLASH_V321
+#define PKG_EASYFLASH_VER_NUM 0x30201
 
 /* system packages */
 
@@ -239,26 +245,18 @@
 #define SDIO_BUFF_SIZE 4096
 #define SDIO_MAX_FREQ 24000000
 #define SDIO_ALIGN_LEN 32
-#define PKG_USING_STM32_SDIO_V100
+#define PKG_USING_STM32_SDIO_V101
 
 /* miscellaneous packages */
 
 
-/* sample package */
-
 /* samples: kernel and components samples */
-
-
-/* example package: hello */
 
 
 /* Privated Packages of RealThread */
 
 
 /* Network Utilities */
-
-
-/* Test Packages of RealThread */
 
 
 /* Hardware Drivers Config */
@@ -275,6 +273,7 @@
 /* On-chip Peripheral Drivers */
 
 #define BSP_USING_UART1
+#define BSP_UART_USING_DMA_RX
 #define BSP_USING_QSPI
 #define BSP_USING_SDIO
 #define BSP_USING_GPIO

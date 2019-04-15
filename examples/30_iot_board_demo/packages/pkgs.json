@@ -58,5 +58,10 @@
   "path": "/packages/peripherals/icm20608", 
   "ver": "v1.0.0", 
   "name": "ICM20608"
+ }, 
+ {
+  "path": "/packages/peripherals/infrared", 
+  "ver": "v0.1.0", 
+  "name": "INFRARED"
  }
 ]

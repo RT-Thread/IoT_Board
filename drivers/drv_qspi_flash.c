@@ -12,7 +12,6 @@
 #include <drv_qspi.h>
 #include <rtdevice.h>
 #include <rthw.h>
-#include <finsh.h>
 
 #ifdef BSP_USING_FLASH
 
@@ -21,7 +20,7 @@
 
 static struct rt_spi_device *spi_dev_w25q128;
 
-static int rt_hw_qspi_flash_with_sfud_init(void)
+int rt_hw_qspi_flash_with_sfud_init(void)
 {
     rt_uint8_t w25x_enter_qspi_mode = 0x38;
     rt_uint8_t w25x_write_status_reg2 = 0x31;

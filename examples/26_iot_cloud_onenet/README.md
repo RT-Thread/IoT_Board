@@ -20,11 +20,11 @@ onenet 例程需要依赖 IoTBoard 板卡上的 WiFi 模块完成网络通信，
 
 ![设备信息](../../docs/figures/26_iot_cloud_onenet/device_info1.png)
 
-切换到设备管理界面，记录下正式环境注册码。
+切换到设备管理界面，记录下设备注册码。
 
 ![环境注册码](../../docs/figures/26_iot_cloud_onenet/device_info2.png)
 
-打开 `/examples/26_cloud_onenet/rtconfig.h`，找到 `ONENET_REGISTRATION_CODE`，`ONENET_INFO_PROID`，`ONENET_MASTER_APIKEY` 这三个宏定义，将原来的内容替换成刚刚记录下来的环境注册码，产品 ID 和 APIKey，然后保存文件。
+打开 `/examples/26_cloud_onenet/rtconfig.h`，找到 `ONENET_REGISTRATION_CODE`，`ONENET_INFO_PROID`，`ONENET_MASTER_APIKEY` 这三个宏定义，将原来的内容分别替换成刚刚记录下来的设备注册码、产品 ID 和 APIKey，然后保存文件。
 
 ### 代码移植
 
@@ -37,31 +37,31 @@ onenet 例程需要依赖 IoTBoard 板卡上的 WiFi 模块完成网络通信，
 ```c
 rt_err_t onenet_port_save_device_info(char *dev_id, char *api_key)
 {
-    EfErrCode err=EF_NO_ERR;
-    
+    EfErrCode err=EF_NO_ERR;    
+
     /* 保存设备 ID */
-    err = ef_set_and_save_env("dev_id",dev_id);
-    if(err != EF_NO_ERR)
+    err = ef_set_and_save_env("dev_id", dev_id);
+    if (err != EF_NO_ERR)
     {
-        rt_kprintf("save device info(dev_id : %s) failed!\n", dev_id);
+        LOG_E("save device info(dev_id : %s) failed!", dev_id);
         return -RT_ERROR;
     }
-    
+
     /* 保存设备 api_key */
     err = ef_set_and_save_env("api_key", api_key);
-    if(err != EF_NO_ERR)
+    if (err != EF_NO_ERR)
     {
-        rt_kprintf("save device info(api_key : %s) failed!\n", api_key);
+        LOG_E("save device info(api_key : %s) failed!", api_key);
         return -RT_ERROR;
     }
-    
+
     /* 保存环境变量：已经注册 */
-    err = ef_set_and_save_env("already_register","1");
-    if(err != EF_NO_ERR)
+    err = ef_set_and_save_env("already_register", "1");
+    if (err != EF_NO_ERR)
     {
-        rt_kprintf("save already_register failed!\n");
+        LOG_E("save already_register failed!");
         return -RT_ERROR;
-    }
+    } 
     
     return RT_EOK;
 }
@@ -89,7 +89,7 @@ rt_err_t onenet_port_get_register_info(char *dev_name, char *auth_info)
     err = ef_set_and_save_env("auth_info",auth_info);
     if(err != EF_NO_ERR)
     {
-        rt_kprintf("save auth_info failed!\n");
+        LOG_E("save auth_info failed!");
         return -RT_ERROR;
     }
     
@@ -104,42 +104,44 @@ rt_err_t onenet_port_get_register_info(char *dev_name, char *auth_info)
 ```c
 rt_err_t onenet_port_get_device_info(char *dev_id, char *api_key, char *auth_info)
 {
-    char *info =RT_NULL;
-    
+	char *info = RT_NULL;
+
     /* 获取设备 ID */
     info = ef_get_env("dev_id");
-    if( info == RT_NULL)
+    if (info == RT_NULL)
     {
-        rt_kprintf("read dev_id failed!\n");
+        LOG_E("read dev_id failed!");
         return -RT_ERROR;
     }
     else
     {
-        rt_snprintf(dev_id,ONENET_INFO_AUTH_LEN,"%s",info);
-    }    
-    
+        rt_snprintf(dev_id, ONENET_INFO_AUTH_LEN, "%s", info);
+    }
+
     /* 获取 api_key */
     info = ef_get_env("api_key");
-    if( info == RT_NULL)
+    if (info == RT_NULL)
     {
-        rt_kprintf("read api_key failed!\n");
+        LOG_E("read api_key failed!");
         return -RT_ERROR;
-    }else
+    }
+    else
     {
-        rt_snprintf(api_key,ONENET_INFO_AUTH_LEN,"%s",info);
-    }   
-        
+        rt_snprintf(api_key, ONENET_INFO_AUTH_LEN, "%s", info);
+    }
+
     /* 获取设备鉴权信息 */
     info = ef_get_env("auth_info");
-    if( info == RT_NULL)
+    if (info == RT_NULL)
     {
-        rt_kprintf("read auth_info failed!\n");
+        LOG_E("read auth_info failed!");
         return -RT_ERROR;
-    }else
+    }
+    else
     {
-        rt_snprintf(auth_info,ONENET_INFO_AUTH_LEN,"%s",info);
-    }   
-    
+        rt_snprintf(auth_info, ONENET_INFO_AUTH_LEN, "%s", info);
+    }
+
     return RT_EOK;
 }
 ```
@@ -192,12 +194,12 @@ static void onenet_upload_entry(void *parameter)
 
         if (onenet_mqtt_upload_digit("light", value) < 0)
         {
-            rt_kprintf("upload has an error, stop uploading\n");
+            LOG_E("upload has an error, stop uploading\n");
             break;
         }
         else
         {
-            rt_kprintf("buffer : {\"light\":%d}\n", value);
+            LOG_D("buffer : {\"light\":%d}\n", value);
         }
 
         rt_thread_mdelay(5 * 1000);
@@ -212,29 +214,29 @@ static void onenet_cmd_rsp_cb(uint8_t *recv_data, size_t recv_size, uint8_t **re
 {
     char res_buf[20] = { 0 };
 
-    rt_kprintf("recv data is %.s\n", recv_size, recv_data);
+    LOG_D("recv data is %.*s\n", recv_size, recv_data);
 
     /* 命令匹配 */
     if (rt_strncmp(recv_data, "ledon", 5) == 0)
     {
-        /* led on */
+        /* 开灯 */
         rt_pin_write(LED_PIN, PIN_LOW);
 
         rt_snprintf(res_buf, sizeof(res_buf), "led is on");
 
-        rt_kprintf("led is on\n");
+        LOG_D("led is on\n");
     }
     else if (rt_strncmp(recv_data, "ledoff", 6) == 0)
     {
-        /* led off */
+        /* 关灯 */
         rt_pin_write(LED_PIN, PIN_HIGH);
 
         rt_snprintf(res_buf, sizeof(res_buf), "led is off");
 
-        rt_kprintf("led is off\n");
+        LOG_D("led is off\n");
     }
 
-    /* 开发者必须使用 ONENET_MALLOC 为响应数据申请内存 */
+      /* 开发者必须使用 ONENET_MALLOC 为响应数据申请内存 */
     *resp_data = (uint8_t *) ONENET_MALLOC(strlen(res_buf) + 1);
 
     strncpy(*resp_data, res_buf, strlen(res_buf));
@@ -258,18 +260,15 @@ static void onenet_cmd_rsp_cb(uint8_t *recv_data, size_t recv_size, uint8_t **re
 ```text
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.1 build Sep 13 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
 lwIP-2.0.2 initialized!
-[I/SAL_SOC] Socket Abstraction Layer initialize success.
 [SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
 msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
 [I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.
-[I/WICED] wifi initialize done!
-[I/WLAN.dev] wlan init success
-[I/WLAN.lwip] eth device init ok name:w0
+[I/WICED] wifi initialize done. wiced version 3.3.1
 [Flash] EasyFlash V3.2.1 is initialize success.
 [Flash] You can get the latest version on https://github.com/armink/EasyFlash .
 ```
@@ -303,7 +302,7 @@ msh />[D/ONENET] (response_register_handlers:266) response is {"errno":0,"data":
 [D/ONENET] (onenet_upload_entry:82) buffer : {"light":28}
 ```
 
-打开 OneNET 平台，在**设备管理**页面，选择**数据流管理**，点击展开 **light** 数据流，可以看到刚刚上传的数据信息。
+打开 OneNET 平台，在**设备列表**页面，选择**数据流展示**，点击展开 **light** 数据流，可以看到刚刚上传的数据信息。
 
  ![数据流](../../docs/figures/26_iot_cloud_onenet/data_strem.png)
 
@@ -311,7 +310,9 @@ msh />[D/ONENET] (response_register_handlers:266) response is {"errno":0,"data":
 
 ### 命令控制
 
-在**设备管理**界面，点击**发送命令**，会弹出一个命令窗口，我们可以下发命令给开发板。例程支持 ledon 和 ledoff 两个命令，板子收到这两个命令后会打开和关闭开发板上的红色 led。示例效果如下所示：
+(TODO：onenet 改版暂未确定具体使用方式)
+
+在**设备列表**界面，选择**下发命令**，点击蓝色的**下发命令**按纽，会弹出一个命令窗口，我们可以下发命令给开发板。例程支持 ledon 和 ledoff 两个命令，板子收到这两个命令后会打开和关闭开发板上的红色 led。示例效果如下所示：
 
 ![设备控制界面](../../docs/figures/26_iot_cloud_onenet/send_cmd.png)
 
@@ -323,6 +324,8 @@ msh />[D/ONENET] (response_register_handlers:266) response is {"errno":0,"data":
 [D/ONENET] (onenet_cmd_rsp_cb:212) recv data is ledon
 [D/ONENET] (onenet_cmd_rsp_cb:248) led is on
 ```
+
+- 如果退出了数据流展示，无法直接使用**下发命令**按钮，按照下面操作：设备列表 -> 操作栏下 ->更多操作 -> 拉框中使用**下发命令**。
 
 ## 注意事项
 

@@ -12,111 +12,58 @@
 #include <rtdevice.h>
 #include <board.h>
 
-void red_led(rt_uint8_t on)
-{
-    if (on)
-    {
-        rt_pin_write(PIN_LED_R, PIN_LOW);
-        rt_kprintf("red led [ON ] | ");
-    }
-    else
-    {
-        rt_pin_write(PIN_LED_R, PIN_HIGH);
-        rt_kprintf("red led [OFF] | ");
-    }
-}
-void green_led(rt_uint8_t on)
-{
-    if (on)
-    {
-        rt_pin_write(PIN_LED_G, PIN_LOW);
-        rt_kprintf("green led [ON ] | ");
-    }
-    else
-    {
-        rt_pin_write(PIN_LED_G, PIN_HIGH);
-        rt_kprintf("green led [OFF] | ");
-    }
-}
-void blue_led(rt_uint8_t on)
-{
-    if (on)
-    {
-        rt_pin_write(PIN_LED_B, PIN_LOW);
-        rt_kprintf("blue led [ON ] \n ");
-    }
-    else
-    {
-        rt_pin_write(PIN_LED_B, PIN_HIGH);
-        rt_kprintf("blue led [OFF] \n ");
-    }
-}
+#define DBG_SECTION_NAME  "main"
+#define DBG_LEVEL         DBG_LOG
+#include <rtdbg.h>
 
-void rgb_ctrl(rt_uint8_t color)
+/* 定义 LED 亮灭电平 */
+#define LED_ON  (0)
+#define LED_OFF (1)
+
+/* 定义 8 组 LED 闪灯表，其顺序为 R G B */
+static const rt_uint8_t _blink_tab[][3] =
 {
-    switch (color)
-    {
-    case 0:
-        red_led(0);
-        green_led(0);
-        blue_led(0);
-        break;
-    case 1:
-        red_led(1);
-        green_led(0);
-        blue_led(0);
-        break;
-    case 2:
-        red_led(0);
-        green_led(1);
-        blue_led(0);
-        break;
-    case 3:
-        red_led(0);
-        green_led(0);
-        blue_led(1);
-        break;
-    case 4:
-        red_led(1);
-        green_led(1);
-        blue_led(0);
-        break;
-    case 5:
-        red_led(0);
-        green_led(1);
-        blue_led(1);
-        break;
-    case 6:
-        red_led(1);
-        green_led(0);
-        blue_led(1);
-        break;
-    case 7:
-        red_led(1);
-        green_led(1);
-        blue_led(1);
-        break;
-    default:
-        rt_kprintf("err parameter ! Please enter 0-7. \n");
-        break;
-    }
-}
+    {LED_ON, LED_ON, LED_ON},
+    {LED_OFF, LED_ON, LED_ON},
+    {LED_ON, LED_OFF, LED_ON},
+    {LED_ON, LED_ON, LED_OFF},
+    {LED_OFF, LED_OFF, LED_ON},
+    {LED_ON, LED_OFF, LED_OFF},
+    {LED_OFF, LED_ON, LED_OFF},
+    {LED_OFF, LED_OFF, LED_OFF},
+};
 
 int main(void)
 {
     unsigned int count = 1;
-    /* set RGB_LED pin mode to output */
+    unsigned int group_num = sizeof(_blink_tab)/sizeof(_blink_tab[0]);
+    unsigned int group_current;
+
+    /* 设置 RGB 灯引脚为输出模式 */
     rt_pin_mode(PIN_LED_R, PIN_MODE_OUTPUT);
     rt_pin_mode(PIN_LED_G, PIN_MODE_OUTPUT);
     rt_pin_mode(PIN_LED_B, PIN_MODE_OUTPUT);
 
     while (count > 0)
     {
-        rt_kprintf("group: %d | ", (count % 8));
-        rgb_ctrl(count % 8);
+        /* 获得组编号 */
+        group_current = count % group_num;
+
+        /* 控制 RGB 灯 */
+        rt_pin_write(PIN_LED_R, _blink_tab[group_current][0]);
+        rt_pin_write(PIN_LED_G, _blink_tab[group_current][1]);
+        rt_pin_write(PIN_LED_B, _blink_tab[group_current][2]);
+
+        /* 输出 LOG 信息 */
+        LOG_D("group: %d | red led [%-3.3s] | green led [%-3.3s] | blue led [%-3.3s]",
+            group_current,
+            _blink_tab[group_current][0] == LED_ON ? "ON" : "OFF",
+            _blink_tab[group_current][1] == LED_ON ? "ON" : "OFF",
+            _blink_tab[group_current][2] == LED_ON ? "ON" : "OFF");
+
+        /* 延时一段时间 */
         rt_thread_mdelay(500);
         count++;
     }
     return 0;
 }
-

@@ -461,6 +461,7 @@ rt_int32_t rt_strcmp(const char *cs, const char *ct)
     return (*cs - *ct);
 }
 RTM_EXPORT(rt_strcmp);
+
 /**
  * The  strnlen()  function  returns the number of characters in the
  * string pointed to by s, excluding the terminating null byte ('\0'),
@@ -476,11 +477,13 @@ rt_size_t rt_strnlen(const char *s, rt_ubase_t maxlen)
 {
     const char *sc;
 
-    for (sc = s; *sc != '\0' && sc - s < maxlen; ++sc) /* nothing */
+    for (sc = s; *sc != '\0' && (rt_ubase_t)(sc - s) < maxlen; ++sc) /* nothing */
         ;
 
     return sc - s;
 }
+RTM_EXPORT(rt_strnlen);
+
 /**
  * This function will return the length of a string, which terminate will
  * null character.
@@ -535,7 +538,7 @@ void rt_show_version(void)
     rt_kprintf("- RT -     Thread Operating System\n");
     rt_kprintf(" / | \\     %d.%d.%d build %s\n",
                RT_VERSION, RT_SUBVERSION, RT_REVISION, __DATE__);
-    rt_kprintf(" 2006 - 2018 Copyright by rt-thread team\n");
+    rt_kprintf(" 2006 - 2019 Copyright by rt-thread team\n");
 }
 RTM_EXPORT(rt_show_version);
 
@@ -601,6 +604,7 @@ static char *print_number(char *buf,
 #else
     char tmp[16];
 #endif
+    int precision_bak = precision;
     const char *digits;
     static const char small_digits[] = "0123456789abcdef";
     static const char large_digits[] = "0123456789ABCDEF";
@@ -724,7 +728,7 @@ static char *print_number(char *buf,
 #endif
 
     /* put number in the temporary buffer */
-    while (i-- > 0)
+    while (i-- > 0 && (precision_bak != 0))
     {
         if (buf <= end)
             *buf = tmp[i];

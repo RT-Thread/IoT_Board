@@ -25,6 +25,10 @@
 #include <webnet.h>
 #include <wn_module.h>
 
+#define DBG_SECTION_NAME  "main"
+#define DBG_LEVEL         DBG_LOG
+#include <rtdbg.h>
+
 static struct rt_semaphore net_ready;
 
 static const char *sd_upload = "/webnet";
@@ -45,40 +49,40 @@ int main(void)
 {
     int result = RT_EOK;
 
-    /* wait 500 milliseconds for wifi low level initialize complete */
+    /* 等待 WIFI 初始化完成 */
     rt_hw_wlan_wait_init_done(500);
 
-    /* mount the file system from tf card */
+    /* 挂载文件系统 */
     if (dfs_mount("sd0", "/", "elm", 0, 0) == 0)
     {
-        rt_kprintf("Filesystem initialized!\n");
+        LOG_I("Filesystem initialized!");
     }
     else
     {
-        rt_kprintf("Failed to initialize filesystem!\n");
+        LOG_E("Failed to initialize filesystem!");
     }
 
-    /* Create 'net_ready' semaphore */
+    /* 创建信号量 */
     rt_sem_init(&net_ready, "net_ready", 0, RT_IPC_FLAG_FIFO);
 
-    /* register network ready event callback */
+    /* 注册 WIFI 连接成功回调函数 */
     rt_wlan_register_event_handler(RT_WLAN_EVT_READY, wlan_ready_handler, RT_NULL);
 
-    /* Config the dependencies of the wlan autoconnect function */
+    /* 配置 WIFI 自动连接 */
     wlan_autoconnect_init();
 
-    /* Enable wlan auto connect function */
+    /* 使能 WIFI 自动连接 */
     rt_wlan_config_autoreconnect(RT_TRUE);
 
-    /* wait ip up */
+    /* 等待连接成功 */
     result = rt_sem_take(&net_ready, RT_WAITING_FOREVER);
     if (result != RT_EOK)
     {
-        rt_kprintf("Wait net ready failed!\n");
+        LOG_E("Wait net ready failed!");
         return -RT_ERROR;
     }
 
-    /* webnet demo */
+    /* 启动 webnet demo */
     webnet_demo();
 
     return 0;
@@ -100,12 +104,12 @@ static void cgi_calc_handler(struct webnet_session *session)
     request = session->request;
     RT_ASSERT(request != RT_NULL);
 
-    /* get mimetype */
+    /* 获得资源的媒体类型 */
     mimetype = mime_get_type(".html");
 
     a = 1;
     b = 1;
-    /* set http header */
+    /* 设置 HTTP 头部 */
     session->request->result_code = 200;
     webnet_session_set_header(session, mimetype, 200, "Ok", -1);
 
@@ -131,10 +135,10 @@ static void cgi_hello_handler(struct webnet_session *session)
                                 "<a href=\"javascript:history.go(-1);\">Go back to root</a></body></html>\r\n";
     RT_ASSERT(session != RT_NULL);
 
-    /* get mimetype */
+    /* 获得资源的媒体类型 */
     mimetype = mime_get_type(".html");
 
-    /* set http header */
+    /* 设置 HTTP 头部 */
     session->request->result_code = 200;
     webnet_session_set_header(session, mimetype, 200, "Ok", strlen(status));
 
@@ -148,7 +152,7 @@ static const char *get_file_name(struct webnet_session *session)
     path_last = webnet_upload_get_filename(session);
     if (path_last == RT_NULL)
     {
-        rt_kprintf("file name err!!\n");
+        LOG_E("file name err!!");
         return RT_NULL;
     }
 
@@ -175,8 +179,8 @@ static int upload_open(struct webnet_session *session)
     const char *file_name = RT_NULL;
 
     file_name = get_file_name(session);
-    rt_kprintf("Upload FileName: %s\n", file_name);
-    rt_kprintf("Content-Type   : %s\n", webnet_upload_get_content_type(session));
+    LOG_I("Upload FileName: %s", file_name);
+    LOG_I("Content-Type   : %s", webnet_upload_get_content_type(session));
 
     if (webnet_upload_get_filename(session) != RT_NULL)
     {
@@ -197,7 +201,7 @@ static int upload_open(struct webnet_session *session)
 
         sprintf(file_path, "%s/%s/%s", sd_upload, upload_dir, file_name);
 
-        rt_kprintf("save to: %s\r\n", file_path);
+        LOG_I("save to: %s\r", file_path);
 
         fd = open(file_path, O_WRONLY | O_CREAT, 0);
         if (fd < 0)
@@ -224,7 +228,7 @@ static int upload_close(struct webnet_session *session)
     if (fd < 0) return 0;
 
     close(fd);
-    rt_kprintf("Upload FileSize: %d\n", file_size);
+    LOG_I("Upload FileSize: %d", file_size);
     return 0;
 }
 
@@ -235,7 +239,7 @@ static int upload_write(struct webnet_session *session, const void *data, rt_siz
     fd = (int)webnet_upload_get_userdata(session);
     if (fd < 0) return 0;
 
-    rt_kprintf("write: length %d\n", length);
+    LOG_D("write: length %d", length);
 
     write(fd, data, length);
     file_size += length;
@@ -251,10 +255,10 @@ static int upload_done(struct webnet_session *session)
                                 "<br/><br/><a href=\"javascript:history.go(-1);\">"
                                 "Go back to root</a></body></html>\r\n";
 
-    /* get mimetype */
+    /* 获得资源的媒体类型 */
     mimetype = mime_get_type(".html");
 
-    /* set http header */
+    /* 设置 HTTP 头部 */
     session->request->result_code = 200;
     webnet_session_set_header(session, mimetype, 200, "Ok", rt_strlen(status));
     webnet_session_printf(session, status, file_size);
@@ -273,16 +277,16 @@ static const struct webnet_module_upload_entry upload_entry_upload =
 
 void webnet_demo(void)
 {
-    /* register CGI handlers */
+    /* 注册 CGI 处理函数 */
     webnet_cgi_register("hello", cgi_hello_handler);
     webnet_cgi_register("calc", cgi_calc_handler);
 
-    /* set AUTH validation */
+    /* 设置 AUTH 验证 */
     webnet_auth_set("/admin", "admin:admin");
 
-    /* add upload entry */
+    /* 添加上传入口 */
     webnet_upload_add(&upload_entry_upload);
 
-    /* start WebNet */
+    /* 启动 WebNet */
     webnet_init();
 }

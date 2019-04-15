@@ -18,6 +18,10 @@
 #include "wifi_config.h"
 #include <wlan_mgnt.h>
 
+#define DBG_SECTION_NAME "main"
+#define DBG_LEVEL DBG_LOG
+#include <rtdbg.h>
+
 /**
  * MQTT URI farmat:
  * domain mode
@@ -31,37 +35,37 @@
  * tcp://[fe80::20c:29ff:fe9a:a07e]:1883
  * ssl://[fe80::20c:29ff:fe9a:a07e]:1884
  */
-#define MQTT_URI                "tcp://iot.eclipse.org:1883"
-#define MQTT_USERNAME           "admin"
-#define MQTT_PASSWORD           "admin"
-#define MQTT_SUBTOPIC           "/mqtt/test/"
-#define MQTT_PUBTOPIC           "/mqtt/test/"
+#define MQTT_URI "tcp://iot.eclipse.org:1883"
+#define MQTT_USERNAME "admin"
+#define MQTT_PASSWORD "admin"
+#define MQTT_SUBTOPIC "/mqtt/test/"
+#define MQTT_PUBTOPIC "/mqtt/test/"
 
 /* define MQTT client context */
 static MQTTClient client;
 static void mq_start(void);
 static void mq_publish(const char *send_str);
 
-char sup_pub_topic[48] = { 0 };
+char sup_pub_topic[48] = {0};
 
 int main(void)
 {
-    /* register the wlan ready callback function */
-    rt_wlan_register_event_handler(RT_WLAN_EVT_READY, (void ( *)(int , struct rt_wlan_buff *, void *))mq_start, RT_NULL);
-    /* initialize the autoconnect configuration */
+    /* 注册 wlan 回调函数 */
+    rt_wlan_register_event_handler(RT_WLAN_EVT_READY, (void (*)(int, struct rt_wlan_buff *, void *))mq_start, RT_NULL);
+    /* 初始化自动连接功能 */
     wlan_autoconnect_init();
-    /* enable wlan auto connect */
+    /* 使能 wlan 自动连接 */
     rt_wlan_config_autoreconnect(RT_TRUE);
 }
 
 static void mqtt_sub_callback(MQTTClient *c, MessageData *msg_data)
 {
     *((char *)msg_data->message->payload + msg_data->message->payloadlen) = '\0';
-    rt_kprintf("Topic: %.*s receive a message: %.*s\n",
-               msg_data->topicName->lenstring.len,
-               msg_data->topicName->lenstring.data,
-               msg_data->message->payloadlen,
-               (char *)msg_data->message->payload);
+    LOG_D("Topic: %.*s receive a message: %.*s",
+          msg_data->topicName->lenstring.len,
+          msg_data->topicName->lenstring.data,
+          msg_data->message->payloadlen,
+          (char *)msg_data->message->payload);
 
     return;
 }
@@ -69,58 +73,52 @@ static void mqtt_sub_callback(MQTTClient *c, MessageData *msg_data)
 static void mqtt_sub_default_callback(MQTTClient *c, MessageData *msg_data)
 {
     *((char *)msg_data->message->payload + msg_data->message->payloadlen) = '\0';
-    rt_kprintf("mqtt sub default callback: %.*s %.*s\n",
-               msg_data->topicName->lenstring.len,
-               msg_data->topicName->lenstring.data,
-               msg_data->message->payloadlen,
-               (char *)msg_data->message->payload);
+    LOG_D("mqtt sub default callback: %.*s %.*s",
+          msg_data->topicName->lenstring.len,
+          msg_data->topicName->lenstring.data,
+          msg_data->message->payloadlen,
+          (char *)msg_data->message->payload);
     return;
 }
 
 static void mqtt_connect_callback(MQTTClient *c)
 {
-    rt_kprintf("Start to connect mqtt server\n");
+    LOG_I("Start to connect mqtt server");
 }
 
 static void mqtt_online_callback(MQTTClient *c)
 {
-    rt_kprintf("Connect mqtt server success\n");
-    rt_kprintf("Publish message: Hello,RT-Thread! to topic: %s\n", sup_pub_topic);
+    LOG_D("Connect mqtt server success");
+    LOG_D("Publish message: Hello,RT-Thread! to topic: %s", sup_pub_topic);
     mq_publish("Hello,RT-Thread!");
 }
 
 static void mqtt_offline_callback(MQTTClient *c)
 {
-    rt_kprintf("Disconnect from mqtt server\n");
+    LOG_I("Disconnect from mqtt server");
 }
 
-/**
- * This function create and config a mqtt client.
- *
- * @param void
- *
- * @return none
- */
+/* 创建与配置 mqtt 客户端 */
 static void mq_start(void)
 {
-    /* init condata param by using MQTTPacket_connectData_initializer */
+    /* 初始 condata 参数 */
     MQTTPacket_connectData condata = MQTTPacket_connectData_initializer;
-    static char cid[20] = { 0 };
+    static char cid[20] = {0};
 
     static int is_started = 0;
     if (is_started)
     {
         return;
     }
-    /* config MQTT context param */
+    /* 配置 MQTT 文本参数 */
     {
         client.isconnected = 0;
         client.uri = MQTT_URI;
 
-        /* generate the random client ID */
+        /* 生成随机客户端 ID */
         rt_snprintf(cid, sizeof(cid), "rtthread%d", rt_tick_get());
         rt_snprintf(sup_pub_topic, sizeof(sup_pub_topic), "%s%s", MQTT_PUBTOPIC, cid);
-        /* config connect param */
+        /* 配置连接参数 */
         memcpy(&client.condata, &condata, sizeof(condata));
         client.condata.clientID.cstring = cid;
         client.condata.keepAliveInterval = 60;
@@ -128,38 +126,36 @@ static void mq_start(void)
         client.condata.username.cstring = MQTT_USERNAME;
         client.condata.password.cstring = MQTT_PASSWORD;
 
-        /* config MQTT will param. */
+        /* 配置 mqtt 参数 */
         client.condata.willFlag = 0;
         client.condata.will.qos = 1;
         client.condata.will.retained = 0;
         client.condata.will.topicName.cstring = sup_pub_topic;
 
-        /* malloc buffer. */
         client.buf_size = client.readbuf_size = 1024;
         client.buf = malloc(client.buf_size);
         client.readbuf = malloc(client.readbuf_size);
         if (!(client.buf && client.readbuf))
         {
-            rt_kprintf("no memory for MQTT client buffer!\n");
+            LOG_E("no memory for MQTT client buffer!");
             goto _exit;
         }
 
-        /* set event callback function */
+        /* 设置事件回调 */
         client.connect_callback = mqtt_connect_callback;
         client.online_callback = mqtt_online_callback;
         client.offline_callback = mqtt_offline_callback;
-
-        /* set subscribe table and event callback */
+        /* 设置要订阅的 topic 和 topic 对应的回调函数 */
         client.messageHandlers[0].topicFilter = sup_pub_topic;
         client.messageHandlers[0].callback = mqtt_sub_callback;
         client.messageHandlers[0].qos = QOS1;
 
-        /* set default subscribe event callback */
+        /* 设置默认订阅回调函数 */
         client.defaultMessageHandler = mqtt_sub_default_callback;
     }
 
-    /* run mqtt client */
-    rt_kprintf("Start mqtt client and subscribe topic:%s\n", sup_pub_topic);
+    /* 启动 MQTT 客户端 */
+    LOG_D("Start mqtt client and subscribe topic:%s", sup_pub_topic);
     paho_mqtt_start(&client);
     is_started = 1;
 
@@ -167,13 +163,7 @@ _exit:
     return;
 }
 
-/**
- * This function publish message to specific mqtt topic.
- *
- * @param send_str publish message
- *
- * @return none
- */
+/* MQTT 消息发布函数 */
 static void mq_publish(const char *send_str)
 {
     MQTTMessage message;

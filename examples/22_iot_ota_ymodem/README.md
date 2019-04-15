@@ -321,8 +321,9 @@ System now will restart...
     {
         #define NVIC_VTOR_MASK   0x3FFFFF80
         #define RT_APP_PART_ADDR 0x08010000
+        /* 根据应用设置向量表 */
         SCB->VTOR = RT_APP_PART_ADDR & NVIC_VTOR_MASK;
-
+    
         return 0;
     }
     INIT_BOARD_EXPORT(ota_app_vtor_reconfig); // 使用自动初始化

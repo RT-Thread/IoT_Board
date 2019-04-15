@@ -12,14 +12,8 @@
 #include <rtthread.h>
 #include <fal.h>
 
-#define DBG_ENABLE
-#define DBG_SECTION_NAME               "fal"
-#ifdef FAL_DEBUG
-#define DBG_LEVEL                      DBG_LOG
-#else
-#define DBG_LEVEL                      DBG_INFO
-#endif 
-#define DBG_COLOR
+#define DBG_SECTION_NAME "main"
+#define DBG_LEVEL DBG_LOG
 #include <rtdbg.h>
 
 #define BUF_SIZE 1024
@@ -28,7 +22,6 @@ static int fal_test(const char *partiton_name);
 
 int main(void)
 {
-    /* 1- init */
     fal_init();
 
     if (fal_test("param") == 0)
@@ -91,7 +84,7 @@ static int fal_test(const char *partiton_name)
            partition->name,
            partition->len/1024);
 
-    /* erase all partition */
+    /* 擦除 `partition` 分区上的全部数据 */
     ret = fal_partition_erase_all(partition);
     if (ret < 0)
     {
@@ -101,13 +94,13 @@ static int fal_test(const char *partiton_name)
     }
     LOG_I("Erase (%s) partition finish!", partiton_name);
 
-    /* read the specified partition and check data */
+    /* 循环读取整个分区的数据，并对内容进行检验 */
     for (i = 0; i < partition->len;)
     {
         rt_memset(buf, 0x00, BUF_SIZE);
-
         len = (partition->len - i) > BUF_SIZE ? BUF_SIZE : (partition->len - i);
 
+        /* 从 Flash 读取 len 长度的数据到 buf 缓冲区 */
         ret = fal_partition_read(partition, i, buf, len);
         if (ret < 0)
         {
@@ -115,9 +108,9 @@ static int fal_test(const char *partiton_name)
             ret = -1;
             return ret;
         }
-
         for(j = 0; j < len; j++)
         {
+            /* 校验数据内容是否为 0xFF */
             if (buf[j] != 0xFF)
             {
                 LOG_E("The erase operation did not really succeed!");
@@ -128,13 +121,14 @@ static int fal_test(const char *partiton_name)
         i += len;
     }
 
-    /* write 0x00 to the specified partition */
+    /* 把 0 写入指定分区 */
     for (i = 0; i < partition->len;)
     {
+        /* 设置写入的数据 0x00 */
         rt_memset(buf, 0x00, BUF_SIZE);
-
         len = (partition->len - i) > BUF_SIZE ? BUF_SIZE : (partition->len - i);
 
+        /* 写入数据 */
         ret = fal_partition_write(partition, i, buf, len);
         if (ret < 0)
         {
@@ -142,18 +136,18 @@ static int fal_test(const char *partiton_name)
             ret = -1;
             return ret;
         }
-
         i += len;
     }
-    LOG_I("Write (%s) partition finish! Write size %d(%dK).", partiton_name, i, i/1024);
+    LOG_I("Write (%s) partition finish! Write size %d(%dK).", partiton_name, i, i / 1024);
 
-    /* read the specified partition and check data */
+    /* 从指定的分区读取数据并校验数据 */
     for (i = 0; i < partition->len;)
     {
+        /* 清空读缓冲区，以 0xFF 填充 */
         rt_memset(buf, 0xFF, BUF_SIZE);
-
         len = (partition->len - i) > BUF_SIZE ? BUF_SIZE : (partition->len - i);
 
+        /* 读取数据到 buf 缓冲区 */
         ret = fal_partition_read(partition, i, buf, len);
         if (ret < 0)
         {
@@ -161,9 +155,9 @@ static int fal_test(const char *partiton_name)
             ret = -1;
             return ret;
         }
-
         for(j = 0; j < len; j++)
         {
+            /* 校验读取的数据是否为步骤 3 中写入的数据 0x00 */
             if (buf[j] != 0x00)
             {
                 LOG_E("The write operation did not really succeed!");
@@ -171,7 +165,6 @@ static int fal_test(const char *partiton_name)
                 return ret;
             }
         }
-
         i += len;
     }
 

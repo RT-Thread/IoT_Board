@@ -13,19 +13,21 @@
 #include <board.h>
 #include "ap3216c.h"
 
+#define DBG_SECTION_NAME "main"
+#define DBG_LEVEL DBG_LOG
+#include <rtdbg.h>
+
 int main(void)
 {
-    ap3216c_device_t dev;              /* device object */
-    const char *i2c_bus_name = "i2c1"; /* i2c bus */
+    ap3216c_device_t dev;
+    const char *i2c_bus_name = "i2c1";
     int count = 0;
 
-    rt_thread_mdelay(2000);/* waiting for sensor work */
-        
-    /* initializes ap3216c, registered device driver */
+    /* 初始化 ap3216c */
     dev = ap3216c_init(i2c_bus_name);
-    if(dev == RT_NULL)
+    if (dev == RT_NULL)
     {
-        rt_kprintf(" The sensor initializes failure");
+        LOG_E("The sensor initializes failure.");
         return 0;
     }
 
@@ -34,20 +36,20 @@ int main(void)
         rt_uint16_t ps_data;
         float brightness;
 
-        /* read ps data */
+        /* 读接近感应值 */
         ps_data = ap3216c_read_ps_data(dev);
         if (ps_data == 0)
         {
-            rt_kprintf("object is not proximity of sensor \n");
+            LOG_D("object is not proximity of sensor.");
         }
         else
         {
-            rt_kprintf("current ps data   : %d\n", ps_data);
+            LOG_D("current ps data   : %d.", ps_data);
         }
 
-        /* read als data */
+        /* 读光照强度值 */
         brightness = ap3216c_read_ambient_light(dev);
-        rt_kprintf("current brightness: %d.%d(lux) \n", (int)brightness, ((int)(10 * brightness) % 10));
+        LOG_D("current brightness: %d.%d(lux).", (int)brightness, ((int)(10 * brightness) % 10));
 
         rt_thread_mdelay(1000);
     }

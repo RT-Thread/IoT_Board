@@ -342,7 +342,7 @@
           <name>CCIncludePath2</name>
           <state />
           <state>$PROJ_DIR$\..\..\drivers</state>
-          <state>$PROJ_DIR$\..\..\rt-thread\include</state>
+          <state>$PROJ_DIR$\packages\infrared-v0.1.0\inc</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\.</state>
@@ -350,6 +350,7 @@
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\include</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Include</state>
         </option>
@@ -1368,7 +1369,7 @@
           <name>CCIncludePath2</name>
           <state />
           <state>$PROJ_DIR$\..\..\drivers</state>
-          <state>$PROJ_DIR$\..\..\rt-thread\include</state>
+          <state>$PROJ_DIR$\packages\infrared-v0.1.0\inc</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\.</state>
@@ -1376,6 +1377,7 @@
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\include</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Include</state>
         </option>
@@ -2053,15 +2055,6 @@
     </settings>
   </configuration>
   <group>
-    <name>Applications</name>
-    <file>
-      <name>$PROJ_DIR$\applications\app_infrared.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\applications\main.c</name>
-    </file>
-  </group>
-  <group>
     <name>Kernel</name>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\src\clock.c</name>
@@ -2091,6 +2084,9 @@
       <name>$PROJ_DIR$\..\..\rt-thread\src\mem.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\memheap.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\rt-thread\src\mempool.c</name>
     </file>
     <file>
@@ -2110,13 +2106,25 @@
     </file>
   </group>
   <group>
-    <name>CORTEX-M4</name>
+    <name>Applications</name>
     <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\cpuport.c</name>
+      <name>$PROJ_DIR$\applications\main.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Infrared_frame</name>
+    <file>
+      <name>$PROJ_DIR$\packages\infrared-v0.1.0\src\infrared.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\context_iar.S</name>
+      <name>$PROJ_DIR$\packages\infrared-v0.1.0\src\drv_infrared.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\packages\infrared-v0.1.0\src\nec_decoder.c</name>
+    </file>
+  </group>
+  <group>
+    <name>cpu</name>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common\backtrace.c</name>
     </file>
@@ -2126,11 +2134,23 @@
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common\showmem.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\cpuport.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\context_iar.S</name>
+    </file>
   </group>
   <group>
     <name>DeviceDrivers</name>
     <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\drivers\hwtimer\hwtimer.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\drivers\misc\pin.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\drivers\misc\rt_drv_pwm.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\drivers\serial\serial.c</name>
@@ -2176,24 +2196,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\finsh\msh_file.c</name>
-    </file>
-  </group>
-  <group>
-    <name>Drivers</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\board.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_clock.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_gpio.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_usart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_infrared.c</name>
     </file>
   </group>
   <group>
@@ -2245,6 +2247,27 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_uart_ex.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Drivers</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\board.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_clock.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_gpio.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_usart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_pwm.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_hwtimer.c</name>
     </file>
   </group>
 </project>

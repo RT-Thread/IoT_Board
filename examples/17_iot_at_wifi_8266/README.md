@@ -101,16 +101,16 @@ int main(void)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.0 build Sep  5 2018
- 2006 - 2018 Copyright by rt-thread team
-[I/SAL_SOC] Socket Abstraction Layer initialize success.
-[I/AT] AT client(V1.0.1) on device uart2 initialize success.
-[I/AT] ESP8266 WIFI is connected.
-[I/AT] AT network initialize success!
-msh >32 bytes from www.rt-thread.org icmp_seq=1 time=9 ms
-32 bytes from www.rt-thread.org icmp_seq=2 time=9 ms
-32 bytes from www.rt-thread.org icmp_seq=3 time=13 ms
-32 bytes from www.rt-thread.org icmp_seq=4 time=11 ms
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
+[I/SAL_SKT] Socket Abstraction Layer initialize success.
+[I/at.clnt] AT client(V1.2.0) on device uart2 initialize success.
+[I/at.esp8266] ESP8266 WIFI is connected.
+[I/at.esp8266] AT network initialize success!
+msh >32 bytes from www.rt-thread.org icmp_seq=1 time=10 ms
+32 bytes from www.rt-thread.org icmp_seq=2 time=10 ms
+32 bytes from www.rt-thread.org icmp_seq=3 time=9 ms
+32 bytes from www.rt-thread.org icmp_seq=4 time=10 ms
 ```
 
 能显示响应时间（time=xx ms）的就表示网络已经准备初始化成功，可以和外网进行通讯了。

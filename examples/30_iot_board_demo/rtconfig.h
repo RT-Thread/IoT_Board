@@ -41,6 +41,7 @@
 #define RT_USING_CONSOLE
 #define RT_CONSOLEBUF_SIZE 256
 #define RT_CONSOLE_DEVICE_NAME "uart1"
+#define RT_VER_NUM 0x40001
 
 /* RT-Thread Components */
 
@@ -94,9 +95,13 @@
 #define RT_USING_DEVICE_IPC
 #define RT_PIPE_BUFSZ 512
 #define RT_USING_SERIAL
+#define RT_SERIAL_USING_DMA
+#define RT_SERIAL_RB_BUFSZ 64
+#define RT_USING_HWTIMER
 #define RT_USING_I2C
 #define RT_USING_I2C_BITOPS
 #define RT_USING_PIN
+#define RT_USING_PWM
 #define RT_USING_PM
 #define RT_USING_RTC
 #define RT_USING_SOFT_RTC
@@ -221,7 +226,6 @@
 #define ULOG_OUTPUT_LEVEL
 #define ULOG_OUTPUT_TAG
 #define ULOG_BACKEND_USING_CONSOLE
-#define ULOG_SW_VERSION_NUM 0x00101
 
 /* RT-Thread online packages */
 
@@ -248,6 +252,8 @@
 #define PKG_NETUTILS_NTP
 #define NETUTILS_NTP_TIMEZONE 8
 #define NETUTILS_NTP_HOSTNAME "cn.ntp.org.cn"
+#define NETUTILS_NTP_HOSTNAME2 "edu.ntp.org.cn"
+#define NETUTILS_NTP_HOSTNAME3 "hk.ntp.org.cn"
 #define PKG_USING_NETUTILS_V100
 
 /* IoT Cloud */
@@ -278,6 +284,7 @@
 #define PKG_EASYFLASH_ERASE_GRAN 4096
 #define PKG_EASYFLASH_START_ADDR 0
 #define PKG_USING_EASYFLASH_V321
+#define PKG_EASYFLASH_VER_NUM 0x30201
 #define PKG_USING_QRCODE
 #define PKG_USING_QRCODE_V010
 
@@ -302,16 +309,25 @@
 #define PKG_USING_STM32_SDIO_V100
 #define PKG_USING_ICM20608
 #define PKG_USING_ICM20608_V100
+#define PKG_USING_INFRARED
+
+/* Select infrared decoder */
+
+#define INFRARED_NEC_DECODER
+#define INFRARED_SEND
+#define INFRARED_SEND_PWM "pwm3"
+#define INFRARED_PWM_DEV_CHANNEL 3
+#define INFRARED_SEND_HWTIMER "timer15"
+#define INFRARED_MAX_SEND_SIZE 1000
+#define INFRARED_RECEIVE
+#define INFRARED_RECEIVE_PIN 36
+#define INFRARED_RECEIVE_HWTIMER "timer16"
+#define PKG_USING_INFRARED_V010
 
 /* miscellaneous packages */
 
 
-/* sample package */
-
 /* samples: kernel and components samples */
-
-
-/* example package: hello */
 
 
 /* Privated Packages of RealThread */
@@ -344,7 +360,9 @@
 #define BSP_USING_SDIO
 #define BSP_USING_GPIO
 #define BSP_USING_PM
-#define BSP_USING_INFRARED
+#define BSP_USING_PWM3_CH3
+#define BSP_USING_TIM15
+#define BSP_USING_TIM16
 
 /* External Libraries */
 

@@ -32,13 +32,13 @@ STM32_TYPE = 'STM32L475xx'
 SDK_ROOT = os.path.abspath('./')
 
 if os.path.exists(SDK_ROOT + '/drivers'):
-    gcc_linkscripts_path   = 'drivers/linker_scripts/stm32l475ve.ld'
-    armcc_linkscripts_path = 'drivers/linker_scripts/stm32l475ve.sct'
-    iar_linkscripts_path   = 'drivers/linker_scripts/stm32l475ve.icf'
+    gcc_linkscripts_path   = 'drivers/linker_scripts/stm32l475ve_app.ld'
+    armcc_linkscripts_path = 'drivers/linker_scripts/stm32l475ve_app.sct'
+    iar_linkscripts_path   = 'drivers/linker_scripts/stm32l475ve_app.icf'
 else:
-    gcc_linkscripts_path   = '../../drivers/linker_scripts/stm32l475ve.ld'
-    armcc_linkscripts_path = '../../drivers/linker_scripts/stm32l475ve.sct'
-    iar_linkscripts_path   = '../../drivers/linker_scripts/stm32l475ve.icf'
+    gcc_linkscripts_path   = '../../drivers/linker_scripts/stm32l475ve_app.ld'
+    armcc_linkscripts_path = '../../drivers/linker_scripts/stm32l475ve_app.sct'
+    iar_linkscripts_path   = '../../drivers/linker_scripts/stm32l475ve_app.icf'
 
 if PLATFORM == 'gcc':
     # toolchains

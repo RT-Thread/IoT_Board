@@ -774,7 +774,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\..\..\drivers\linker_scripts\stm32l475ve.icf</state>
+          <state>$PROJ_DIR$\..\..\drivers\linker_scripts\stm32l475ve_app.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -2069,6 +2069,57 @@
     </settings>
   </configuration>
   <group>
+    <name>Kernel</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\clock.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\components.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\cpu.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\device.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\idle.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\ipc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\irq.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\kservice.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\mem.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\memheap.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\mempool.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\object.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\scheduler.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\signal.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\thread.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\timer.c</name>
+    </file>
+  </group>
+  <group>
     <name>Applications</name>
     <file>
       <name>$PROJ_DIR$\applications\main.c</name>
@@ -2099,61 +2150,7 @@
     </file>
   </group>
   <group>
-    <name>Kernel</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\clock.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\components.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\cpu.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\device.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\idle.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\ipc.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\irq.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\kservice.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\mem.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\mempool.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\object.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\scheduler.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\signal.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\thread.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\timer.c</name>
-    </file>
-  </group>
-  <group>
-    <name>CORTEX-M4</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\cpuport.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\context_iar.S</name>
-    </file>
+    <name>cpu</name>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common\backtrace.c</name>
     </file>
@@ -2162,6 +2159,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common\showmem.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\cpuport.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\context_iar.S</name>
     </file>
   </group>
   <group>
@@ -2282,27 +2285,6 @@
     </file>
   </group>
   <group>
-    <name>Drivers</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\board.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_clock.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_gpio.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_qspi_flash.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_usart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_qspi.c</name>
-    </file>
-  </group>
-  <group>
     <name>STM32L4xx_HAL_Driver</name>
     <file>
       <name>$PROJ_DIR$\..\..\libraries\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c</name>
@@ -2357,6 +2339,27 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_uart_ex.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Drivers</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\board.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_clock.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_gpio.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_qspi_flash.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_usart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_qspi.c</name>
     </file>
   </group>
 </project>

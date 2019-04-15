@@ -1,0 +1,12 @@
+{
+    "bootloader": {
+        "file": "bootloader.bin",
+        "partition_offset_addr": "0x00",
+        "partition_size": "0x10000"
+    },
+    "app": {
+        "file": "rt-thread.rbl",
+        "partition_offset_addr": "0x10000",
+        "partition_size": "0x70000"
+    }
+}

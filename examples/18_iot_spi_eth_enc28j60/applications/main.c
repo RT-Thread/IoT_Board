@@ -14,7 +14,7 @@ int main(void)
 {
     extern rt_err_t ping(char* target_name, rt_uint32_t times, rt_size_t size);
     
-    /* Wait for network connect success */
+    /* 等待网络连接成功 */
     rt_thread_mdelay(500);
     
     while(1)

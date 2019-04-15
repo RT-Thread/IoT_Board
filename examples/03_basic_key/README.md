@@ -31,6 +31,7 @@ KEY0 对应的单片机引脚定义可以通过查阅头文件 `/drivers/drv_gpi
 int main(void)
 {
     unsigned int count = 1;
+
     /* 设置 RGB 红灯引脚的模式为输出模式 */
     rt_pin_mode(PIN_LED_R, PIN_MODE_OUTPUT);
     /* 设置 KEY0 引脚的模式为输入模式 */
@@ -38,18 +39,20 @@ int main(void)
 
     while (count > 0)
     {
-        /* 读取 PIN_KEY0 引脚状态 */
+        /* 读取按键 KEY0 的引脚状态 */
         if (rt_pin_read(PIN_KEY0) == PIN_LOW)
         {
             rt_thread_mdelay(50);
             if (rt_pin_read(PIN_KEY0) == PIN_LOW)
             {
-                rt_kprintf("KEY0 pressed!\n");
+                /* 按键已被按下，输出 log，点亮 LED 灯 */
+                LOG_D("KEY0 pressed!");
                 rt_pin_write(PIN_LED_R, PIN_LOW);
             }
         }
         else
         {
+            /* 按键没被按下，熄灭 LED 灯 */
             rt_pin_write(PIN_LED_R, PIN_HIGH);
         }
         rt_thread_mdelay(10);
@@ -77,9 +80,9 @@ int main(void)
 此时也可以在 PC 端使用终端工具打开开发板的 ST-Link 提供的虚拟串口，设置 115200 8 1 N 。开发板的运行日志信息即可实时输出出来。
 
 ```shell
-KEY0 pressed!
-KEY0 pressed!
-KEY0 pressed!
+[D/main] KEY0 pressed!
+[D/main] KEY0 pressed!
+[D/main] KEY0 pressed!
 ```
 
 ## 注意事项

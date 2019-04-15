@@ -850,6 +850,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     {
         rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
     }
+
 }
 #endif
 

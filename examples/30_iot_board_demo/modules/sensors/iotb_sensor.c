@@ -2019,7 +2019,6 @@ void iotb_init(void *arg)
 {
     /* Sensor data can be read after one second of power-on */
     app_infrared_init();
-    app_infrared_start();
     rt_thread_mdelay(100);
     iotb_sensor_aht10_init();
     rt_thread_mdelay(100);

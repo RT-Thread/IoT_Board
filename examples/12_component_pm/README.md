@@ -35,15 +35,15 @@ PM 例程的源代码位于 `/examples/12_component_pm/applications/main.c`中�
 ```C
 int main(void)
 {
-    /* wakup event and callback init */
+ /* 唤醒回调函数初始化 */
     wakeup_init();
 
-    /* pm mode init */
+    /* 电源管理初始化 */
     pm_mode_init();
 
     while (1)
     {
-        /* wait for wakeup event */
+        /* 等待唤醒事件 */
         if (rt_event_recv(wakeup_event,
                           WAKEUP_EVENT_BUTTON,
                           RT_EVENT_FLAG_AND | RT_EVENT_FLAG_CLEAR,
@@ -98,8 +98,6 @@ static void led_app(void)
     rt_pm_release(PM_RUN_MODE_NORMAL);
 }
 ```
-
-
 
 ## 运行
 

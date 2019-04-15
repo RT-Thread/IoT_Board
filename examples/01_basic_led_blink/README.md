@@ -23,7 +23,7 @@ LED 在开发板中的位置如下图所示：
 闪灯的源代码位于 `/examples/01_basic_led_blink/applications/main.c` 中。首先定义了一个宏 `LED_PIN` ，代表闪灯的 LED 引脚编号，然后与 `PIN_LED_R`（38）对应
 
 ```c
-/* using RED LED in RGB */
+/* 配置 LED 灯引脚 */
 #define LED_PIN              PIN_LED_R
 ```
 
@@ -33,19 +33,20 @@ LED 在开发板中的位置如下图所示：
 int main(void)
 {
     unsigned int count = 1;
-    /* set LED pin mode to output */
+
+    /* 设置 LED 引脚为输出模式 */
     rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
 
     while (count > 0)
     {
-        /* led on */
+        /* LED 灯亮 */
         rt_pin_write(LED_PIN, PIN_LOW);
-        rt_kprintf("led on, count: %d\n", count);
+        LOG_D("led on, count: %d", count);
         rt_thread_mdelay(500);
 
-        /* led off */
+        /* LED 灯灭 */
         rt_pin_write(LED_PIN, PIN_HIGH);
-        rt_kprintf("led off\n");
+        LOG_D("led off");
         rt_thread_mdelay(500);
 
         count++;
@@ -73,16 +74,21 @@ int main(void)
 此时也可以在 PC 端使用终端工具打开开发板的 ST-Link 提供的虚拟串口，设置 115200 8 1 N 。开发板的运行日志信息即可实时输出出来。
 
 ```shell
-led on, count: 1
-led off
-led on, count: 2
-led off
-led on, count: 3
-led off
-led on, count: 4
-led off
-led on, count: 5
-led off
+[D/main] led on, count: 1
+[D/main] led off
+[D/main] led on, count: 2
+[D/main] led off
+[D/main] led on, count: 3
+[D/main] led off
+[D/main] led on, count: 4
+[D/main] led off
+[D/main] led on, count: 5
+[D/main] led off
+[D/main] led on, count: 6
+[D/main] led off
+[D/main] led on, count: 7
+[D/main] led off
+[D/main] led on, count: 8
 ```
 
 ## 注意事项

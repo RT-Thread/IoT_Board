@@ -89,18 +89,18 @@ static void test_env(void)
 
     /* 获得启动次数的值 */
     c_old_boot_times = ef_get_env("boot_times");
-    /* 如果获取失败 */
+    /* 获取启动次数是否失败 */
     if (c_old_boot_times == RT_NULL)
         c_old_boot_times[0] = '0';
 
     i_boot_times = atol(c_old_boot_times);
-    /* 启动次数+1 */
-    i_boot_times ++;
-    rt_kprintf("===============================================\n");
-    rt_kprintf("The system now boot %d times\n", i_boot_times);
-    rt_kprintf("===============================================\n");
+    /* 启动次数加 1 */
+    i_boot_times++;
+    LOG_D("===============================================");
+    LOG_D("The system now boot %d times", i_boot_times);
+    LOG_D("===============================================");
     /* 数字转字符串 */
-    sprintf(c_new_boot_times, "%d", i_boot_times);
+    LOG_D(c_new_boot_times, "%d", i_boot_times);
     /* 保存开机次数的值 */
     ef_set_env("boot_times", c_new_boot_times);
     ef_save_env();
@@ -123,18 +123,17 @@ static void test_env(void)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.0 build Aug 29 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 26 2019
+ 2006 - 2019 Copyright by rt-thread team
 [SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
-[I/FAL] RT-Thread Flash Abstraction Layer (V0.1.0) initialize success.
-[Flash] EasyFlash V3.1.0 is initialize success.
+[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
+[Flash] EasyFlash V3.2.1 is initialize success.
 [Flash] You can get the latest version on https://github.com/armink/EasyFlash .
-===============================================
-The system now boot 17 times
-===============================================
-msh >[Flash] Erased ENV OK.
-[Flash] Saved ENV OK.
+[D/main] ===============================================
+[D/main] The system now boot 5 times
+[D/main] ===============================================
+msh >
 ```
 
 按下复位按键，可以看到开机次数加一。

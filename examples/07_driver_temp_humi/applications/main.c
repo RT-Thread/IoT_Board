@@ -13,32 +13,39 @@
 #include <board.h>
 #include "aht10.h"
 
+#define DBG_SECTION_NAME "main"
+#define DBG_LEVEL DBG_LOG
+#include <rtdbg.h>
+
 int main(void)
 {
     float humidity, temperature;
-    aht10_device_t dev;                /* device object */
-    const char *i2c_bus_name = "i2c2"; /* i2c bus station */
+    aht10_device_t dev;
+
+    /* 总线名称 */
+    const char *i2c_bus_name = "i2c2";
     int count = 0;
 
-    rt_thread_mdelay(2000);/* waiting for sensor work */
-	
-    /* initializes aht10, registered device driver */
+    /* 等待传感器正常工作 */
+    rt_thread_mdelay(2000);
+
+    /* 初始化 aht10 */
     dev = aht10_init(i2c_bus_name);
-    if(dev == RT_NULL)
+    if (dev == RT_NULL)
     {
-        rt_kprintf(" The sensor initializes failure");
+        LOG_E(" The sensor initializes failure");
         return 0;
     }
 
     while (count++ < 100)
     {
-        /* read humidity */
+        /* 读取湿度 */
         humidity = aht10_read_humidity(dev);
-        rt_kprintf("humidity   : %d.%d %%\n", (int)humidity, (int)(humidity * 10) % 10); /* former is integer and behind is decimal */
+        LOG_D("humidity   : %d.%d %%", (int)humidity, (int)(humidity * 10) % 10);
 
-        /* read temperature */
+        /* 读取温度 */
         temperature = aht10_read_temperature(dev);
-        rt_kprintf("temperature: %d.%d \n", (int)temperature, (int)(temperature * 10) % 10); /* former is integer and behind is decimal */
+        LOG_D("temperature: %d.%d", (int)temperature, (int)(temperature * 10) % 10);
 
         rt_thread_mdelay(1000);
     }

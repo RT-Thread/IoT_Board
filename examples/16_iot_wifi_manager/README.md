@@ -14,14 +14,14 @@
 
 **Wlan Manager** 位于 `/examples/16_iot_wifi_manager` 目录下，WiFi 模组的部分代码以库文件的形式提供， 重要文件摘要说明如下表所示：
 
-| 文件                         | 说明   |
-| :-----                       | :-----    |
-| applications/main.c     | app 入口（wifi manager 例程程序） |
-| ports/wifi              | Wlan 配置信息储存的移植文件(将已连接AP 信息存储至 Flash) |
-| ../../drivers/drv_wlan.c      | 初始化 Wlan 驱动，提供读写 WiFi 模组固件的接口|
-| ../../libraries/wifi | WiFi 模组库文件 |
+| 文件                          | 说明                                                      |
+| :---------------------------  | :-------------------------------------------------------- |
+| applications/main.c           | app 入口（wifi manager 例程程序）                         |
+| ports/wifi                    | Wlan 配置信息储存的移植文件(将已连接AP 信息存储至 Flash)  |
+| ../../drivers/drv_wlan.c      | 初始化 Wlan 驱动，提供读写 WiFi 模组固件的接口            |
+| ../../libraries/wifi          | WiFi 模组库文件                                           |
 
-该用例的主要流程如下图所示，首先调用Scan 接口扫描周围环境中的 AP(Access Point ，即无线访问热点) ，并打印扫描结果；然后连接一个测试用的 AP (名字: test_ssid ,密码: 12345678 )，并等待联网成功，打印网络信息；接着在等待 5 秒之后，断开和AP的连接；最后，调用接口初始化自动连接的相关配置，开启自动连接功能。在开启自动连接之后，Wlan Manager 会根据存储介质中的历史记录进行AP连接。
+该用例的主要流程如下图所示，首先调用 Scan 接口扫描周围环境中的 AP(Access Point ，即无线访问热点) ，并打印扫描结果；然后连接一个测试用的 AP (名字: test_ssid ,密码: 12345678 )，并等待联网成功，打印网络信息；接着在等待 5 秒之后，断开和AP的连接；最后，调用接口初始化自动连接的相关配置，开启自动连接功能。在开启自动连接之后，Wlan Manager 会根据存储介质中的历史记录进行AP连接。
 
 **注意**：请在 main.c 根据实际情况修改 `WLAN_SSID` 和 `WLAN_PASSWORD` 两个宏（分别定义了 AP 的名字和密码），否则将无法联网成功。  
 
@@ -32,22 +32,23 @@
 下面代码段展示热点扫描功能，为同步式扫描，扫描的结果会通过接口直接返回。  
 
 ```c
-struct rt_wlan_scan_result *scan_result = RT_NULL;
-rt_kprintf("\nstart to scan ap ...\n");
-/* execute synchronous scan function */
-scan_result = rt_wlan_scan_sync();
-if (scan_result)
-{
-    rt_kprintf("the scan is complete, results is as follows: \n");
-    /* print scan results */
-    print_scan_result(scan_result);
-    /* clean scan results */
-    rt_wlan_scan_result_clean();
-}
-else
-{
-    rt_kprintf("not found ap information \n");
-}
+    /* 扫描热点 */
+    LOG_D("start to scan ap ...");
+    /* 执行同步扫描 */
+    scan_result = rt_wlan_scan_sync();
+    if (scan_result)
+    {
+        LOG_D("the scan is complete, results is as follows: ");
+        /* 打印扫描结果 */
+        print_scan_result(scan_result);
+        /* 清除扫描结果 */
+        rt_wlan_scan_result_clean();
+    }
+    else
+    {
+        LOG_E("not found ap information ");
+        return -1;
+    }
 ```
 
 ### Join 网络
@@ -56,44 +57,41 @@ RT-Thread Wlan Manager 提供极简的接口进行 WiFi 联网操作，仅需要
 下面代码片段展示了 WiFi 联网的操作。  
 
 ```c
-rt_kprintf("start to connect ap ...\n");
-result = rt_sem_init(&net_ready, "net_ready", 0, RT_IPC_FLAG_FIFO);
-if (result != RT_EOK)
-{
-    rt_kprintf("start to connect ap ...\n");
-    return -RT_ERROR;
-}
-/* register network ready event callback */
-rt_wlan_register_event_handler(RT_WLAN_EVT_READY, wlan_ready_handler, RT_NULL);
-/* register wlan disconnect event callback */
-rt_wlan_register_event_handler(RT_WLAN_EVT_STA_DISCONNECTED, wlan_station_disconnect_handler, RT_NULL);
-result = rt_wlan_connect(WLAN_SSID, WLAN_PASSWORD);
-if (result == RT_EOK)
-{
-    rt_memset(&info, 0, sizeof(struct rt_wlan_info));
-    /* Get the information of the current connection AP */
-    rt_wlan_get_info(&info);
-    rt_kprintf("station information:\n");
-    print_wlan_information(&info);
-    /* waiting for IP to be got successfully  */
-    result = rt_sem_take(&net_ready, NET_READY_TIME_OUT);
+    /* 热点连接 */
+    LOG_D("start to connect ap ...");
+    rt_sem_init(&net_ready, "net_ready", 0, RT_IPC_FLAG_FIFO);
+
+    /* 注册 wlan ready 回调函数 */
+    rt_wlan_register_event_handler(RT_WLAN_EVT_READY, wlan_ready_handler, RT_NULL);
+    /* 注册 wlan 断开回调函数 */
+    rt_wlan_register_event_handler(RT_WLAN_EVT_STA_DISCONNECTED, wlan_station_disconnect_handler, RT_NULL);
+    result = rt_wlan_connect(WLAN_SSID, WLAN_PASSWORD);
     if (result == RT_EOK)
     {
-        rt_kprintf("networking ready!\n");
-        msh_exec("ifconfig", rt_strlen("ifconfig"));
+        rt_memset(&info, 0, sizeof(struct rt_wlan_info));
+        /* 获取当前连接热点信息 */
+        rt_wlan_get_info(&info);
+        LOG_D("station information:");
+        print_wlan_information(&info);
+        /* 等待成功获取 IP */
+        result = rt_sem_take(&net_ready, NET_READY_TIME_OUT);
+        if (result == RT_EOK)
+        {
+            LOG_D("networking ready!");
+            msh_exec("ifconfig", rt_strlen("ifconfig"));
+        }
+        else
+        {
+            LOG_D("wait ip got timeout!");
+        }
+        /* 回收资源 */
+        rt_wlan_unregister_event_handler(RT_WLAN_EVT_READY);
+        rt_sem_detach(&net_ready);
     }
     else
     {
-        rt_kprintf("wait ip got timeout!\n");
+        LOG_E("The AP(%s) is connect failed!", WLAN_SSID);
     }
-    /* unregister network ready event */
-    rt_wlan_unregister_event_handler(RT_WLAN_EVT_READY);
-    rt_sem_detach(&net_ready);
-}
-else
-{
-    rt_kprintf("The AP(%s) is connect failed!\n", WLAN_SSID);
-}
 ```
 
 此处通过 `rt_wlan_register_event_handler` 接口注册 `RT_WLAN_EVT_READY` （网络准备就绪）事件，当 WiFi Join AP 成功，且 IP 分配成功，会触发该事件的回调，标志着可以正常使用网络接口进行通信。
@@ -104,12 +102,12 @@ else
 下面代码片段展示 自动连接功能的使用。
 
 ```c
-rt_kprintf("\n");
-rt_kprintf("start to autoconnect ...\n");
-/* initialize the autoconnect configuration */
-wlan_autoconnect_init();
-/* enable wlan auto connect */
-rt_wlan_config_autoreconnect(RT_TRUE);
+    /* 自动连接 */
+    LOG_D("start to autoconnect ...");
+    /* 初始化自动连接配置 */
+    wlan_autoconnect_init();
+    /* 使能 wlan 自动连接 */
+    rt_wlan_config_autoreconnect(RT_TRUE);
 ```
 
 自动连接功能需要用户实现参数信息存取的接口，本例中采用KV的方式进行存储，实现代码位于``/examples/16_iot_wifi_manager/ports/wifi/wifi_config.c``。  
@@ -131,15 +129,15 @@ static const struct rt_wlan_cfg_ops ops =
 
 | 接口      | 描述                               |
 | --------- | ---------------------------------- |
-| read_cfg      | 从存储介质中读取配置信息          |
-| get_len      | 从存储介质中读取配置信息长度       |
-| write_cfg   | 写入wlan配置信息至存储介质         |
+| read_cfg  | 从存储介质中读取配置信息           |
+| get_len   | 从存储介质中读取配置信息长度       |
+| write_cfg | 写入wlan配置信息至存储介质         |
 
 ##  Shell操作WiFi
 
 wifi相关的shell命令如下：
 
-```unknown
+```shell
 wifi                                       ：打印帮助
 wifi help                                  ：查看帮助
 wifi join SSID [PASSWORD]                  ：连接wifi，SSDI为空，使用配置自动连接
@@ -229,8 +227,9 @@ wifi disc
 
 ```
 msh />wifi disc
-disconnect from the network!
-msh /
+wifi link down
+[I/main] disconnect from the network!
+[I/WLAN.mgnt] disconnect success!
 ```
 
 ## 运行
@@ -247,42 +246,45 @@ msh /
 按下复位按键重启开发板，正常运行后，会依次执行扫描、联网、开启自动连接等功能，终端输出信息如下：
 
 ```shell
-\ | /
+ \ | /
 - RT -     Thread Operating System
-/ | \     3.1.0 build Sep  6 2018
-2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
 lwIP-2.0.2 initialized!
-[SFUD] Find a Winbond flash chip. Size is 8388608 bytes.
+[SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
 msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
 [I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.
-[I/WICED] wifi initialize done!
+[I/WICED] wifi initialize done. wiced version 3.3.1
 [I/WLAN.dev] wlan init success
 [I/WLAN.lwip] eth device init ok name:w0
-
-start to scan ap ...
-the scan is complete, results is as follows:
-SSID                      MAC            security    rssi chn Mbps
+[D/main] start to scan ap ...
+[D/main] the scan is complete, results is as follows:
+             SSID                      MAC            security    rssi chn Mbps
 ------------------------------- -----------------  -------------- ---- --- ----
-rtt_test_ssid_1                 c0:3d:46:00:3e:aa  OPEN           -14    8  300
-test_ssid                       3c:f5:91:8e:4c:79  WPA2_AES_PSK   -18    6   72
-rtt_test_ssid_2                 ec:88:8f:88:aa:9a  WPA2_MIXED_PSK -47    6  144
-rtt_test_ssid_3                 c0:3d:46:00:41:ca  WPA2_MIXED_PSK -48    3  300
+test_ssid                       ec:88:8f:88:aa:9a  WPA2_MIXED_PSK -41   13  300
+phicomm                         8c:ab:8e:73:1c:50  WPA2_AES_PSK   -45    1  300
+modou-430A                      c0:3d:46:00:43:0a  WPA2_MIXED_PSK -61    9  300
+cisco1                          10:bd:18:08:8e:19  WPA2_AES_PSK   -72    6  144
+SSID-A                          02:bd:18:08:8e:1b  WPA2_AES_PSK   -72    6  144
+kongzhong_guest                 34:96:72:b6:8d:51  WPA2_AES_PSK   -74    1  450
+SSID-B                          02:bd:18:08:8e:1a  WPA2_AES_PSK   -77    6  144
+YST2016                         88:25:93:c6:67:d1  WPA2_TKIP_PSK  -79    4   54
 
-start to connect ap ...
+[D/main] start to connect ap ...
 join ssid:test_ssid
 [I/WLAN.mgnt] wifi connect success ssid:test_ssid
-station information:
-SSID : test_ssid
-MAC Addr: 3c:f5:91:8e:4c:79
-Channel: 6
-DataRate: 72Mbps
-RSSI: -23
-networking ready!
+[D/main] station information:
+[D/main] SSID : test_ssid
+[D/main] MAC Addr: ec:88:8f:88:aa:9a
+[D/main] Channel: 13
+[D/main] DataRate: 300Mbps
+[D/main] RSSI: -25
+[D/main] networking ready!
 network interface: w0 (Default)
 MTU: 1500
-MAC: 98 3b 16 55 9a be
+MAC: 98 3b 16 53 12 d6
 FLAGS: UP LINK_UP ETHARP BROADCAST IGMP
 ip address: 192.168.43.6
 gw address: 192.168.43.1
@@ -290,17 +292,16 @@ net mask  : 255.255.255.0
 dns server #0: 192.168.43.1
 dns server #1: 0.0.0.0
 [I/WLAN.lwip] Got IP address : 192.168.43.6
-
-ready to disconect from ap ...
-disconnect from the network!
-
-start to autoconnect ...
+[D/main] ready to disconect from ap ...
+wifi link down
+[I/main] disconnect from the network!
+[I/WLAN.mgnt] disconnect success!
+[D/main] start to autoconnect ...
 [Flash] EasyFlash V3.2.1 is initialize success.
 [Flash] You can get the latest version on https://github.com/armink/EasyFlash .
 join ssid:test_ssid
 [I/WLAN.mgnt] wifi connect success ssid:test_ssid
-[I/WLAN.lwip] Got IP address : 192.168.43.6
-
+[I/WLAN.lwip] Got IP address : 192.168.43.6 
 ```
 
 ## 其他

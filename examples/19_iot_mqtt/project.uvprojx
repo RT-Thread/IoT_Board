@@ -333,7 +333,7 @@
               <MiscControls />
               <Define>USE_HAL_DRIVER, STM32L475xx, RT_USING_ARM_LIBC</Define>
               <Undefine />
-              <IncludePath>.;applications;packages\EasyFlash-v3.2.1\inc;ports\easyflash;packages\fal-v0.2.0\inc;ports\fal;packages\pahomqtt-v1.0.0\MQTTPacket\src;packages\pahomqtt-v1.0.0\MQTTClient-RT;packages\stm32_sdio-v1.0.0;ports\wifi;..\..\libraries\wifi;..\..\rt-thread\include;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\components\dfs\include;..\..\rt-thread\components\dfs\filesystems\devfs;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi\sfud\inc;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\wlan;..\..\rt-thread\components\finsh;..\..\rt-thread\components\libc\compilers\armlibc;..\..\rt-thread\components\libc\compilers\common;..\..\rt-thread\components\net\lwip-2.0.2\src;..\..\rt-thread\components\net\lwip-2.0.2\src\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\ipv4;..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif;..\..\rt-thread\components\net\sal_socket\include;..\..\rt-thread\components\net\sal_socket\include\socket;..\..\rt-thread\components\net\sal_socket\impl;..\..\rt-thread\components\net\sal_socket\include\dfs_net;..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select;..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket;..\..\drivers;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\libraries\rt_ota\inc</IncludePath>
+              <IncludePath>.;..\..\rt-thread\include;.;applications;packages\EasyFlash-v3.2.1\inc;ports\easyflash;packages\fal-v0.2.0\inc;ports\fal;packages\pahomqtt-v1.0.0\MQTTPacket\src;packages\pahomqtt-v1.0.0\MQTTClient-RT;packages\stm32_sdio-v1.0.1;ports\wifi;..\..\libraries\wifi;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\components\dfs\include;..\..\rt-thread\components\dfs\filesystems\devfs;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi\sfud\inc;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\wlan;..\..\rt-thread\components\finsh;..\..\rt-thread\components\libc\compilers\armlibc;..\..\rt-thread\components\libc\compilers\common;..\..\rt-thread\components\net\lwip-2.0.2\src;..\..\rt-thread\components\net\lwip-2.0.2\src\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\ipv4;..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif;..\..\rt-thread\components\net\sal_socket\include;..\..\rt-thread\components\net\sal_socket\include\socket;..\..\rt-thread\components\net\sal_socket\impl;..\..\rt-thread\components\net\sal_socket\include\dfs_net;..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select;..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\libraries\rt_ota\inc;..\..\drivers</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -367,13 +367,128 @@
             <ScatterFile>..\..\drivers\linker_scripts\stm32l475ve.sct</ScatterFile>
             <IncludeLibs />
             <IncludeLibsPath />
-            <Misc> --keep *.o(.rti_fn.*)   --keep *.o(FSymTab)</Misc>
+            <Misc />
             <LinkerInputFile />
             <DisabledWarnings />
           </LDads>
         </TargetArmAds>
       </TargetOption>
       <Groups>
+        <Group>
+          <GroupName>Kernel</GroupName>
+          <Files>
+            <File>
+              <FileName>clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\clock.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>components.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\components.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>cpu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\cpu.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\device.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>idle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\idle.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>ipc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\ipc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>irq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\irq.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>kservice.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\kservice.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>mem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\mem.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>memheap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\memheap.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>mempool.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\mempool.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>object.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\object.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\scheduler.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>signal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\signal.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>thread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\thread.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\src\timer.c</FilePath>
+            </File>
+          </Files>
+        </Group>
         <Group>
           <GroupName>Applications</GroupName>
           <Files>
@@ -586,7 +701,7 @@
             <File>
               <FileName>stm32_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\stm32_sdio-v1.0.0\stm32_sdio.c</FilePath>
+              <FilePath>packages\stm32_sdio-v1.0.1\stm32_sdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -608,129 +723,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Kernel</GroupName>
-          <Files>
-            <File>
-              <FileName>clock.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\clock.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>components.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\components.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>cpu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\cpu.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\device.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>idle.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\idle.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>ipc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\ipc.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>irq.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\irq.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>kservice.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\kservice.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>mem.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\mem.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>mempool.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\mempool.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>object.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\object.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>scheduler.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\scheduler.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>signal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\signal.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>thread.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\thread.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\src\timer.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>CORTEX-M4</GroupName>
-          <Files>
-            <File>
-              <FileName>cpuport.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\libcpu\arm\cortex-m4\cpuport.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>context_rvds.S</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\rt-thread\libcpu\arm\cortex-m4\context_rvds.S</FilePath>
-            </File>
-          </Files>
+          <GroupName>cpu</GroupName>
           <Files>
             <File>
               <FileName>backtrace.c</FileName>
@@ -750,6 +743,20 @@
               <FileName>showmem.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\rt-thread\libcpu\arm\common\showmem.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>cpuport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\libcpu\arm\cortex-m4\cpuport.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>context_rvds.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\rt-thread\libcpu\arm\cortex-m4\context_rvds.S</FilePath>
             </File>
           </Files>
         </Group>
@@ -1393,65 +1400,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Drivers</GroupName>
-          <Files>
-            <File>
-              <FileName>board.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\board.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_clock.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_clock.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_gpio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_qspi_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_qspi_flash.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_usart.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_sdio_adapter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_sdio_adapter.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_qspi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_qspi.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_wlan.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_wlan.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>STM32L4xx_HAL_Driver</GroupName>
           <Files>
             <File>
@@ -1587,6 +1535,65 @@
               <FileName>librt_ota_noalgo_0.1.2_stm32l4_keil.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\libraries\rt_ota\libs\librt_ota_noalgo_0.1.2_stm32l4_keil.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\board.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_clock.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_gpio.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_qspi_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_qspi_flash.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_usart.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_sdio_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_sdio_adapter.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_qspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_qspi.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_wlan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_wlan.c</FilePath>
             </File>
           </Files>
         </Group>

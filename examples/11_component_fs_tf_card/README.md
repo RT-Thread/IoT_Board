@@ -24,16 +24,17 @@ TF 卡的卡槽在开发板中的位置如下图所示：
 ```c
 int main(void)
 {
+#ifdef BSP_USING_TF_CARD
     /* 挂载 TF 卡中的文件系统，参数 elm 表示挂载的文件系统类型为 elm-fat 文件系统*/
     if (dfs_mount("sd0", "/", "elm", 0, 0) == 0)
     {
-        rt_kprintf("Filesystem initialized!\n");
+        LOG_I("Filesystem initialized!");
     }
     else
     {
-        rt_kprintf("Failed to initialize filesystem!\n");
+        LOG_E("Failed to initialize filesystem!");
     }
-    
+#endif /*BSP_USING_TF_CARD*/
     return 0;
 }
 ```
@@ -72,11 +73,12 @@ static int rt_hw_spi1_tfcard(void)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.0 build Aug 22 2018
- 2006 - 2018 Copyright by rt-thread team
-Filesystem initialized!
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
+[I/main] Filesystem initialized!
 msh />
 ```
+
 ### 常用功能展示
 ### ls: 查看当前目录信息
 ```shell

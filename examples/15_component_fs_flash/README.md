@@ -4,6 +4,8 @@
 
 本例程使用板载的 SPI Flash 作为文件系统的存储设备，展示如何在 Flash 的指定分区上创建文件系统，并挂载文件系统到 rt-thread 操作系统中。文件系统挂载成功后，展示如何使用文件系统提供的功能对目录和文件进行操作。
 
+本例程中使用的是 FAT 文件系统，也支持 Littlefs 文件系统。Littlefs 文件系统的使用可以参考[《在 STM32L4 上应用 littlefs 文件系统》](https://www.rt-thread.org/document/site/application-note/components/dfs/an0027-littlefs/)。
+
 由于本例程需要使用 fal 组件对存储设备进行分区等操作，所以在进行本例程的实验前，需要先进行 fal 例程的实验，对 fal 组件的使用有一定的了解。
 
 ## 硬件说明
@@ -38,22 +40,22 @@ int main(void)
     struct rt_device *flash_dev = fal_blk_device_create(FS_PARTITION_NAME);
     if (flash_dev == NULL)
     {
-        rt_kprintf("Can't create a block device on '%s' partition.\n", FS_PARTITION_NAME);
+        LOG_E("Can't create a block device on '%s' partition.", FS_PARTITION_NAME);
     }
     else
     {
-        rt_kprintf("Create a block device on the %s partition of flash successful.\n", FS_PARTITION_NAME);
+        LOG_D("Create a block device on the %s partition of flash successful.", FS_PARTITION_NAME);
     }
 
     /* 挂载 spi flash 中名为 "filesystem" 的分区上的文件系统 */
     if (dfs_mount(flash_dev->parent.name, "/", "elm", 0, 0) == 0)
     {
-        rt_kprintf("Filesystem initialized!\n");
+        LOG_I("Filesystem initialized!");
     }
     else
     {
-        rt_kprintf("Failed to initialize filesystem!\n");
-        rt_kprintf("You should create a filesystem on the block device first!\n");
+        LOG_E("Failed to initialize filesystem!");
+        LOG_D("You should create a filesystem on the block device first!");
     }
 
     return 0;
@@ -82,12 +84,14 @@ int main(void)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.1 build Sep 14 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
 [SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
-[D/FAL] (fal_flash_init:61) Flash device |             onchip_flash | addr: 0x08000000 | len: 0x00080000 | blk_size: 0x0
-[D/FAL] (fal_flash_init:61) Flash device |                nor_flash | addr: 0x00000000 | len: 0x01000000 | blk_size: 0x0
+[D/FAL] (fal_flash_init:61) Flash device |             onchip_flash | addr: 0x08000000 | len: 0x00080000 | blk_size: 0x00000800 |ini
+tialized finish.
+[D/FAL] (fal_flash_init:61) Flash device |                nor_flash | addr: 0x00000000 | len: 0x01000000 | blk_size: 0x00001000 |ini
+tialized finish.
 [I/FAL] ==================== FAL partition table ====================
 [I/FAL] | name       | flash_dev    |   offset   |    length  |
 [I/FAL] -------------------------------------------------------------
@@ -101,11 +105,11 @@ int main(void)
 [I/FAL] =============================================================
 [I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/FAL] The FAL block device (filesystem) created successfully
-# 在 flash 的文件系统分区上创建块设备成功
-Create a block device on the filesystem partition of flash successful. 
-# 文件系统初始化成功
-Filesystem initialized!
+[D/main] Create a block device on the filesystem partition of flash successful.     # 在 flash 的文件系统分区上创建块设备成功
+[I/main] Filesystem initialized!                                                    # 文件系统初始化成功
+msh />
 ```
+
 ### 常用功能展示
 ### ls: 查看当前目录信息
 ```shell

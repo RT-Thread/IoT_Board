@@ -138,8 +138,6 @@ static int str_base64_decode(const char *data, int input_length, char *decoded_d
         if (j < out_len) decoded_data[j++] = (triple >> 0 * 8) & 0xFF;
     }
 
-    decoded_data[out_len] = '\0';
-
     return out_len;
 }
 

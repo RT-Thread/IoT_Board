@@ -36,39 +36,37 @@ AP3216C 软件包提供了使用接近感应（ps）与光照强度（als）传�
 ```c
 int main(void)
 {
-    ap3216c_device_t dev;              /* device object */
-    const char *i2c_bus_name = "i2c1"; /* i2c bus */
-    int count = 0;                     /* read count */
+    ap3216c_device_t dev;
+    const char *i2c_bus_name = "i2c1";
+    int count = 0;
 
-    rt_thread_mdelay(2000);/* waiting for sensor work */
-        
-    /* initializes ap3216c, registered device driver */
+    /* 初始化 ap3216c */
     dev = ap3216c_init(i2c_bus_name);
-    if(dev == RT_NULL)
+    if (dev == RT_NULL)
     {
-        rt_kprintf(" The sensor initializes failure");
+        LOG_E("The sensor initializes failure.");
         return 0;
     }
-    /* continous reading 100 times */
+
     while (count++ < 100)
     {
         rt_uint16_t ps_data;
         float brightness;
 
-        /* read ps data */
+        /* 读接近感应值 */
         ps_data = ap3216c_read_ps_data(dev);
         if (ps_data == 0)
         {
-            rt_kprintf("object is not proximity of sensor \n");
+            LOG_D("object is not proximity of sensor.");
         }
         else
         {
-            rt_kprintf("current ps data   : %d\n", ps_data);
+            LOG_D("current ps data   : %d.", ps_data);
         }
 
-        /* read als data */
+        /* 读光照强度值 */
         brightness = ap3216c_read_ambient_light(dev);
-        rt_kprintf("current brightness: %d.%d(lux) \n", (int)brightness, ((int)(10 * brightness) % 10));
+        LOG_D("current brightness: %d.%d(lux).", (int)brightness, ((int)(10 * brightness) % 10));
 
         rt_thread_mdelay(1000);
     }
@@ -90,22 +88,24 @@ int main(void)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.0 build Aug 27 2018
- 2006 - 2018 Copyright by rt-thread team
-msh >current ps data      : 69
-current brightness: 25.5(lux) 
-current ps data   : 69
-current brightness: 25.5(lux) 
-current ps data   : 69
-current brightness: 25.5(lux) 
-current ps data   : 69
-current brightness: 25.5(lux) 
-current ps data   : 61
-current brightness: 25.5(lux) 
-current ps data   : 61
-current brightness: 25.5(lux) 
-current ps data   : 61
-current brightness: 25.5(lux) 
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
+msh >[D/main] current ps data   : 38.
+[D/main] current brightness: 23.4(lux).
+[D/main] current ps data   : 10.
+[D/main] current brightness: 16.1(lux).
+[D/main] current ps data   : 1.
+[D/main] current brightness: 14.3(lux).
+[D/main] object is not proximity of sensor.
+[D/main] current brightness: 13.3(lux).
+[D/main] current ps data   : 5.
+[D/main] current brightness: 25.9(lux).
+[D/main] object is not proximity of sensor.
+[D/main] current brightness: 25.5(lux).
+[D/main] object is not proximity of sensor.
+[D/main] current brightness: 25.2(lux).
+[D/main] object is not proximity of sensor.
+[D/main] current brightness: 26.2(lux). 
 ```
 
 ## 注意事项

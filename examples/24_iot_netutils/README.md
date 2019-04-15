@@ -82,25 +82,25 @@ netutils               // netutils 文件夹
 ```c
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.1 build Sep 14 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 27 2019
+ 2006 - 2019 Copyright by rt-thread team
 lwIP-2.0.2 initialized!
-[I/SAL_SOC] Socket Abstraction Layer initialize success.
+[I/SAL_SKT] Socket Abstraction Layer initialize success.
 [SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
 msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
 [I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.
-[I/WICED] wifi initialize done!
+[I/WICED] wifi initialize done. wiced version 3.3.1
 [I/WLAN.dev] wlan init success
 [I/WLAN.lwip] eth device init ok name:w0
 [Flash] EasyFlash V3.2.1 is initialize success.
 [Flash] You can get the latest version on https://github.com/armink/EasyFlash .
 [I/FAL] The FAL block device (filesystem) created successfully
 # 在 flash 的文件系统分区上创建块设备成功
-Create a block device on the filesystem partition of flash successful.
+[D/main] Create a block device on the filesystem partition of flash successful.
 # 文件系统初始化成功
-Filesystem initialized!
+[D/main] Filesystem initialized!
 ```
 
 #### 连接无线网络

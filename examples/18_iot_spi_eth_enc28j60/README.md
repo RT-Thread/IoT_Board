@@ -91,13 +91,13 @@ int main(void)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.0 build Aug 28 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 29 2019
+ 2006 - 2019 Copyright by rt-thread team
 lwIP-2.0.2 initialized!
-msh />60 bytes from 118.31.15.152 icmp_seq=0 ttl=52 time=8 ticks
-60 bytes from 118.31.15.152 icmp_seq=1 ttl=52 time=9 ticks
-60 bytes from 118.31.15.152 icmp_seq=2 ttl=52 time=9 ticks
-60 bytes from 118.31.15.152 icmp_seq=3 ttl=52 time=9 ticks
+msh />60 bytes from 118.31.15.152 icmp_seq=0 ttl=52 time=12 ticks
+60 bytes from 118.31.15.152 icmp_seq=1 ttl=52 time=16 ticks
+60 bytes from 118.31.15.152 icmp_seq=2 ttl=52 time=12 ticks
+60 bytes from 118.31.15.152 icmp_seq=3 ttl=52 time=12 ticks
 ```
 
 能显示响应时间（time=xx ticks）的就表示网络已经准备初始化成功，可以和外网进行通讯了。

@@ -32,15 +32,15 @@ FAL (Flash Abstraction Layer) Flash 抽象层，是 RT-Thread 的一个软件包
 
 **fal 例程**位于 `/examples/13_component_fal` 目录下，重要文件摘要说明如下所示：
 
-| 文件                         | 说明   |
-| :-----                       | :-----    |
-| applications/main.c     | app 入口（fal 例程程序） |
-| ports                        | fal 移植文件 |
-| ports/fal/fal_cfg.h     | fal 配置文件（Flash 设备配置 和 分区表配置）|
-| ports/fal/fal_flash_sfud_port.c | fal 操作片外 Nor Flash 的移植文件（将 Flash 读写擦接口注册到 fal） |
-| ports/fal/fal_flash_stm32l4_port.c | fal 操作片内 Flash 的移植文件（将 Flash 读写擦接口注册到 fal） |
-| packages/fal                 | fal 软件包（fal 源码实现）|
-| packages/fal/inc/fal.h   | fal 软件包对外提供的操作接口 |
+| 文件                               | 说明                                                               |
+| :--------------------------------- | :----------------------------------------------------------------- |
+| applications/main.c                | app 入口（fal 例程程序）                                           |
+| ports                              | fal 移植文件                                                       |
+| ports/fal/fal_cfg.h                | fal 配置文件（Flash 设备配置 和 分区表配置）                       |
+| ports/fal/fal_flash_sfud_port.c    | fal 操作片外 Nor Flash 的移植文件（将 Flash 读写擦接口注册到 fal） |
+| ports/fal/fal_flash_stm32l4_port.c | fal 操作片内 Flash 的移植文件（将 Flash 读写擦接口注册到 fal）     |
+| packages/fal                       | fal 软件包（fal 源码实现）                                         |
+| packages/fal/inc/fal.h             | fal 软件包对外提供的操作接口                                       |
 
 从上表中可以看到，如果要使用 fal 软件包需要进行必要的移植工作，移植文件存放在 **ports** 目录下。本 stm32l4 平台已经完成相关的移植工作。
 
@@ -208,7 +208,8 @@ static int fal_test(const char *partiton_name);
 **1. 擦除整个分区**
 
 ```c
-ret = fal_partition_erase_all("download");
+/* 擦除 `partition` 分区上的全部数据 */
+ret = fal_partition_erase_all(partition);
 ```
 
 使用 `fal_partition_erase_all` API 接口将 `download` 分区完整擦除，擦除后 `download` 分区内的数据全为 **0xFF**。
@@ -232,7 +233,8 @@ for (i = 0; i < partition->len;)
     }
     for(j = 0; j < len; j++)
     {
-        if (buf[j] != 0xFF)  /* 校验数据内容是否为 0xFF */
+        /* 校验数据内容是否为 0xFF */
+        if (buf[j] != 0xFF)
         {
             LOG_E("The erase operation did not really succeed!");
             ret = -1;
@@ -248,12 +250,15 @@ for (i = 0; i < partition->len;)
 **3. 写整个分区**
 
 ```c
-/* 向指定的分区写入 0x00 数据 */
+/* 把 0 写入指定分区 */
 for (i = 0; i < partition->len;)
 {
-    rt_memset(buf, 0x00, BUF_SIZE); /* 设置写入的数据 0x00 */
+    /* 设置写入的数据 0x00 */
+    rt_memset(buf, 0x00, BUF_SIZE);
     len = (partition->len - i) > BUF_SIZE ? BUF_SIZE : (partition->len - i);
-    ret = fal_partition_write(partition, i, buf, len);  /* 写入数据 */
+
+    /* 写入数据 */
+    ret = fal_partition_write(partition, i, buf, len);
     if (ret < 0)
     {
         LOG_E("Partition (%s) write failed!", partition->name);
@@ -262,7 +267,7 @@ for (i = 0; i < partition->len;)
     }
     i += len;
 }
-LOG_I("Write (%s) partition finish! Write size %d(%dK).", partiton_name, i, i/1024);
+LOG_I("Write (%s) partition finish! Write size %d(%dK).", partiton_name, i, i / 1024);
 ```
 
 通过上面的代码，循环写入数据 `0x00` 到整个分区。
@@ -273,9 +278,12 @@ LOG_I("Write (%s) partition finish! Write size %d(%dK).", partiton_name, i, i/10
 /* 从指定的分区读取数据并校验数据 */
 for (i = 0; i < partition->len;)
 {
-    rt_memset(buf, 0xFF, BUF_SIZE); /* 清空读缓冲区，以 0xFF 填充 */
+    /* 清空读缓冲区，以 0xFF 填充 */
+    rt_memset(buf, 0xFF, BUF_SIZE);
     len = (partition->len - i) > BUF_SIZE ? BUF_SIZE : (partition->len - i);
-    ret = fal_partition_read(partition, i, buf, len);  /* 读取数据到 buf 缓冲区 */
+
+    /* 读取数据到 buf 缓冲区 */
+    ret = fal_partition_read(partition, i, buf, len);
     if (ret < 0)
     {
         LOG_E("Partition (%s) read failed!", partition->name);
@@ -284,7 +292,8 @@ for (i = 0; i < partition->len;)
     }
     for(j = 0; j < len; j++)
     {
-        if (buf[j] != 0x00) /* 校验读取的数据是否为步骤 3 中写入的数据 0x00 */
+        /* 校验读取的数据是否为步骤 3 中写入的数据 0x00 */
+        if (buf[j] != 0x00)
         {
             LOG_E("The write operation did not really succeed!");
             ret = -1;
@@ -311,12 +320,14 @@ for (i = 0; i < partition->len;)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.0 build Aug 29 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
 [SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
-[D/FAL] (fal_flash_init:61) Flash device | onchip_flash | addr: 0x08000000 | len: 0x00080000 | blk_size: 0x00000800 |initialized finish.
-[D/FAL] (fal_flash_init:61) Flash device |    nor_flash | addr: 0x00000000 | len: 0x01000000 | blk_size: 0x00001000 |initialized finish.
+[D/FAL] (fal_flash_init:61) Flash device |             onchip_flash | addr: 0x08000000 | len: 0x00080000 | blk_size: 0x00000800 |ini
+tialized finish.
+[D/FAL] (fal_flash_init:61) Flash device |                nor_flash | addr: 0x00000000 | len: 0x01000000 | blk_size: 0x00001000 |ini
+tialized finish.
 [I/FAL] ==================== FAL partition table ====================
 [I/FAL] | name       | flash_dev    |   offset   |    length  |
 [I/FAL] -------------------------------------------------------------
@@ -329,14 +340,14 @@ for (i = 0; i < partition->len;)
 [I/FAL] | filesystem | nor_flash    | 0x00900000 | 0x00700000 |
 [I/FAL] =============================================================
 [I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
-[I/fal] Flash device : onchip_flash   Flash size : 512K   Partition : param   Partition size: 128K
-[I/fal] Erase (param) partition finish!
-[I/fal] Write (param) partition finish! Write size 131072(128K).
-[I/fal] Fal partition (param) test success!
-[I/fal] Flash device : nor_flash   Flash size : 16384K   Partition : download   Partition size: 1024K
-msh >[I/fal] Erase (download) partition finish!
-[I/fal] Write (download) partition finish! Write size 1048576(1024K).
-[I/fal] Fal partition (download) test success!
+[I/main] Flash device : onchip_flash   Flash size : 512K   Partition : param   Partition size: 128K
+[I/main] Erase (param) partition finish!
+[I/main] Write (param) partition finish! Write size 131072(128K).
+[I/main] Fal partition (param) test success!
+[I/main] Flash device : nor_flash   Flash size : 16384K   Partition : download   Partition size: 1024K
+msh >[I/main] Erase (download) partition finish!
+[I/main] Write (download) partition finish! Write size 1048576(1024K).
+[I/main] Fal partition (download) test success!
 ```
 
 ## SHELL 命令

@@ -123,9 +123,60 @@ HTTP OTA 入口函数，使用 `MSH_CMD_EXPORT` 函数将其导出为 `http_ota`
 
 烧录完成后，此时可以在 PC 端使用终端工具打开开发板的 ST-Link 提供的虚拟串口，设置 115200 8 1 N 。开发板的运行日志信息即可实时输出出来。
 
-烧录后程序会自动运行（或按下复位按键重启开发板查看日志），设备打印日志如下图所示：
+烧录后程序会自动运行（或按下复位按键重启开发板查看日志），设备打印日志如下所示：
 
-![all bin 程序运行效果](../../docs/figures/23_iot_ota_http/download_allbin-http.png)
+```shell
+[SFUD]Find a Winbond W25Q128 flash chip. Size is 16777216 bytes.
+[SFUD]norflash0 flash device is initialize success.
+
+RT-Thread Bootloader Starting...
+[D/FAL] (fal_flash_init:61) Flash device |             onchip_flash | addr: 0x08000000 | len: 0x00080000 | blk_size: 0x00000800 |ini
+tialized finish.
+[D/FAL] (fal_flash_init:61) Flash device |                nor_flash | addr: 0x00000000 | len: 0x01000000 | blk_size: 0x00001000 |ini
+tialized finish.
+[I/FAL] ==================== FAL partition table ====================
+[I/FAL] | name         | flash_dev    |   offset   |    length  |
+[I/FAL] -------------------------------------------------------------
+[I/FAL] | bootloader   | onchip_flash | 0x00000000 | 0x00010000 |                                  # 用户分区表
+[I/FAL] | app          | onchip_flash | 0x00010000 | 0x00070000 |
+[I/FAL] | easyflash    | nor_flash    | 0x00000000 | 0x00080000 |
+[I/FAL] | download     | nor_flash    | 0x00080000 | 0x00100000 |
+[I/FAL] | wifi_image   | nor_flash    | 0x00180000 | 0x00080000 |
+[I/FAL] | font         | nor_flash    | 0x00200000 | 0x00700000 |
+[I/FAL] | filesystem   | nor_flash    | 0x00900000 | 0x00700000 |
+[I/FAL] =============================================================
+[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
+[I/OTA] RT-Thread OTA package(V0.2.1) initialize success.
+[I/OTA] Verify 'bootloader' partition(fw ver: 1.3, timestamp: 1545134551) success.
+[E/OTA] (get_fw_hdr:149) Get firmware header occur CRC32(calc.crc: c2b526e7 != hdr.info_crc32: 00000000) error on 'download' partiti
+on!
+[E/OTA] (get_fw_hdr:149) Get firmware header occur CRC32(calc.crc: c2b526e7 != hdr.info_crc32: 00000000) error on 'download' partiti
+on!
+[E/OTA] (rt_ota_check_upgrade:464) Get OTA download partition firmware header failed!
+[I/OTA] Verify 'app' partition(fw ver: 1.0, timestamp: 1544495892) success.
+Find user application success.
+The Bootloader will go to user application now.
+
+ \ | /
+- RT -     Thread Operating System
+ / | \     4.0.0 build Dec 11 2018
+ 2006 - 2018 Copyright by rt-thread team
+lwIP-2.0.2 initialized!
+[SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
+[SFUD] w25q128 flash device is initialize success.
+msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
+[I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
+[I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.
+[I/WICED] wifi initialize done. wiced version 3.3.1
+[I/WLAN.dev] wlan init success                                                                     # WIFI 初始化成功    
+[I/WLAN.lwip] eth device init ok name:w0
+[Flash] EasyFlash V3.2.1 is initialize success.
+[Flash] You can get the latest version on https://github.com/armink/EasyFlash .
+The current version of APP firmware is 1.0.0                                                       # 升级前版本号
+join ssid:aptest
+[I/WLAN.mgnt] wifi connect success ssid:aptest
+[I/WLAN.lwip] Got IP address : 192.168.12.71                                                       # 获取到 IP 地址
+```
 
 从以上日志里可以看到前半部分是 **bootloader 固件**打印的日志，后半部分是 **app 固件**打印的日志，输出了 app 固件的版本号，并成功进入了 RT-Thread MSH 命令行。
 
@@ -194,20 +245,78 @@ HTTP OTA 入口函数，使用 `MSH_CMD_EXPORT` 函数将其导出为 `http_ota`
 
 5. 设备升级过程
 
-    ![HTTP OTA 升级演示](../../docs/figures/23_iot_ota_http/http_ota.png)
+    输入命令后，会擦除 download 分区，下载升级固件。下载过程中会打印下载进度条。
+
+```
+msh />http_ota http://192.168.1.10:80/rt-thread.rbl
+[I/http_ota] Start erase flash (download) partition!
+[I/http_ota] Erase flash (download) partition success!
+[I/http_ota] Download: [============================================================] 100%
+```
 
 **HTTP OTA** 下载固件完成后，会自动重启，并在串口终端打印如下log：
 
 ```shell
-Download firmware to flash success.
-System now will restart...
+[I/http_ota] Download firmware to flash success.
+[I/http_ota] System now will restart...
 ```
 
 设备重启后，**bootloader** 会对升级固件进行合法性和完整性校验，验证成功后将升级固件从**download** 分区搬运到目标分区（这里是 **app** 分区）。
 
-升级成功后设备状态如下图所示：
+升级成功后设备状态如下所示：
 
-![OTA 升级成功](../../docs/figures/23_iot_ota_http/http_ota_success.png)
+```
+[SFUD]Find a Winbond W25Q128 flash chip. Size is 16777216 bytes.
+[SFUD]norflash0 flash device is initialize success.
+
+RT-Thread Bootloader Starting...
+[D/FAL] (fal_flash_init:61) Flash device |             onchip_flash | addr: 0x08000000 | len: 0x00080000 | blk_size: 0x00000800 |ini
+tialized finish.
+[D/FAL] (fal_flash_init:61) Flash device |                nor_flash | addr: 0x00000000 | len: 0x01000000 | blk_size: 0x00001000 |ini
+tialized finish.
+[I/FAL] ==================== FAL partition table ====================
+[I/FAL] | name         | flash_dev    |   offset   |    length  |
+[I/FAL] -------------------------------------------------------------
+[I/FAL] | bootloader   | onchip_flash | 0x00000000 | 0x00010000 |
+[I/FAL] | app          | onchip_flash | 0x00010000 | 0x00070000 |
+[I/FAL] | easyflash    | nor_flash    | 0x00000000 | 0x00080000 |
+[I/FAL] | download     | nor_flash    | 0x00080000 | 0x00100000 |
+[I/FAL] | wifi_image   | nor_flash    | 0x00180000 | 0x00080000 |
+[I/FAL] | font         | nor_flash    | 0x00200000 | 0x00700000 |
+[I/FAL] | filesystem   | nor_flash    | 0x00900000 | 0x00700000 |
+[I/FAL] =============================================================
+[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
+[I/OTA] RT-Thread OTA package(V0.2.1) initialize success.
+[I/OTA] Verify 'bootloader' partition(fw ver: 1.3, timestamp: 1545134551) success.
+[I/OTA] Verify 'download' partition(fw ver: 2.0.0, timestamp: 1553831056) success.
+[I/OTA] OTA firmware(app) upgrade(1.0->2.0.0) startup.
+[I/OTA] The partition 'app' is erasing.
+[I/OTA] The partition 'app' erase success.
+[I/OTA] OTA Write: [============================================================] 100%
+[I/OTA] Verify 'app' partition(fw ver: 2.0.0, timestamp: 1553831056) success.
+Find user application success.
+The Bootloader will go to user application now.
+
+ \ | /                                                                                                                              
+- RT -     Thread Operating System
+ / | \     4.0.1 build Mar 29 2019
+ 2006 - 2019 Copyright by rt-thread team
+lwIP-2.0.2 initialized!
+[SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
+[SFUD] w25q128 flash device is initialize success.
+msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
+[I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
+[I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.
+[I/WICED] wifi initialize done. wiced version 3.3.1
+[I/WLAN.dev] wlan init success
+[I/WLAN.lwip] eth device init ok name:w0
+[Flash] EasyFlash V3.2.1 is initialize success.
+[Flash] You can get the latest version on https://github.com/armink/EasyFlash .
+[D/main] The current version of APP firmware is 2.0.0
+join ssid:aptest
+[I/WLAN.mgnt] wifi connect success ssid:aptest
+[I/WLAN.lwip] Got IP address : 192.168.12.71
+```
 
 设备升级完成后会自动运行新的固件，从上图中的日志上可以看到，app 固件已经从 **1.0.0 版本**升级到了 **2.0.0 版本**。
 

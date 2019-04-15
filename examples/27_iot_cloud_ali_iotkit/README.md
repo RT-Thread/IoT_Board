@@ -272,11 +272,11 @@ if (rc < 0) {
 ```text
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.0 build Sep 12 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
 lwIP-2.0.2 initialized!
 [I/SAL_SOC] Socket Abstraction Layer initialize success.
-[SFUD] Find a Winbond flash chip. Size is 8388608 bytes.
+[SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
 msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
@@ -286,7 +286,6 @@ msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/WLAN.lwip] eth device init ok name:w0
 [Flash] EasyFlash V3.2.1 is initialize success.
 [Flash] You can get the latest version on https://github.com/armink/EasyFlash .
-
 msh />
 ```
 
@@ -337,9 +336,9 @@ ali_mqtt_main|645 :: iotkit-embedded sdk version: V2.10
 [inf] iotx_mc_subscribe(1388): mqtt subscribe success,topic = /sys/a1HETlEuvri/RGB-LED-DEV-1/thing/service/property/set!
 [inf] iotx_mc_subscribe(1388): mqtt subscribe success,topic = /sys/a1HETlEuvri/RGB-LED-DEV-1/thing/event/property/post_reply!
 [dbg] iotx_mc_cycle(1269): SUBACK
-event_handle|124 :: subscribe success, packet-id=0
+event_handle|139 :: subscribe success, packet-id=191
 [dbg] iotx_mc_cycle(1269): SUBACK
-event_handle|124 :: subscribe success, packet-id=0
+event_handle|139 :: subscribe success, packet-id=8192
 [inf] iotx_mc_keepalive_sub(2226): send MQTT ping...
 [inf] iotx_mc_cycle(1295): receive ping response!
 ```
@@ -355,39 +354,34 @@ msh />ali_mqtt_test pub open
 ···
 [dbg] iotx_mc_cycle(1277): PUBLISH
 [dbg] iotx_mc_handle_recv_PUBLISH(1091):         Packet Ident : 00000000
-[dbg] iotx_mc_handle_recv_PUBLISH(1092):         Topic Length : 57
-[dbg] iotx_mc_handle_recv_PUBLISH(1096):           Topic Name : /sys/a1HETlEuvri/RGB-LED-DEV-1/thing/service/property/set
-[dbg] iotx_mc_handle_recv_PUBLISH(1099):     Payload Len/Room : 100 / 962
+[dbg] iotx_mc_handle_recv_PUBLISH(1092):         Topic Length : 59
+[dbg] iotx_mc_handle_recv_PUBLISH(1093):           Topic Name : /sys/a1ItC9HaCH6/l475Device/thing/event/property/post_reply
+[dbg] iotx_mc_handle_recv_PUBLISH(1097):     Payload Len/Room : 188 / 960
 [dbg] iotx_mc_handle_recv_PUBLISH(1100):       Receive Buflen : 1024
 [dbg] iotx_mc_handle_recv_PUBLISH(1111): delivering msg ...
 [dbg] iotx_mc_deliver_message(866): topic be matched
-_demo_message_arrive|182 :: ----
-_demo_message_arrive|183 :: packetId: 0
-_demo_message_arrive|187 :: Topic: '/sys/a1HETlEuvri/RGB-LED-DEV-1/thing/service/property/set' (Length: 57)
-_demo_message_arrive|191 :: Payload: 
-'{"method": "thing.service.property.set","id": "36195462","params":{"LightSwitch":1},"version":"1.0.0"}' (Length: 100)
-_demo_message_arrive|192 :: ----
+_demo_message_arrive|197 :: ----
+_demo_message_arrive|198 :: packetId: 0
+_demo_message_arrive|199 :: Topic: '/sys/a1ItC9HaCH6/l475Device/thing/event/property/post_reply' (Length: 59)
+_demo_message_arrive|203 :: Payload: '{"code":200,"data":{"LightSwitch":"tsl parse: params not exist","RGBColor":"tsl parse: params not exist"},"id":"1","message":"success","method":"thing.event.property.post","version":"1.0"}' (Length: 188)
+_demo_message_arrive|207 :: ----
 ```
 
 **3. 云端查看发布的消息**
 
-在设备详情里的**运行状态**里可以查看设备的上报到云端的消息内容。
+在设备详情里的**运行状态**里可以查看设备的上报到云端的消息内容，一次有设备激活、设备上线与设备数据上报。
 
-![查看设备详情](../../docs/figures/27_iot_cloud_ali_iotkit/AliLinkDevelopViewDev1.png)
+![日志服务](../../docs/figures/27_iot_cloud_ali_iotkit/AliLinkDevelopOpen_log.png)
 
-![查看设备运行状态](../../docs/figures/27_iot_cloud_ali_iotkit/AliLinkDevelopViewMQTTMsg.png)
+鼠标移动至数据内容中，在数据上报中自动显示上报的数据内容。
+
+![查看设备接收数据](../../docs/figures/27_iot_cloud_ali_iotkit/AliLinkDevelopOpen_receiver.png)
 
 **4. 云端推送消息到设备**
 
-使用云端的调试控制台给设备推送消息。
+使用云端的在线调试给设备推送消息，如下图所示
 
-- 打开调试控制台
-
-![打开调试控制台](../../docs/figures/27_iot_cloud_ali_iotkit/AliLinkDevelopOpenDbgConsole.png)
-
-- 发送调试命令
-
-![在线调试页面](../../docs/figures/27_iot_cloud_ali_iotkit/AliLinkDevelopDbgConsole.png)
+![查看设备接收数据](../../docs/figures/27_iot_cloud_ali_iotkit/AliLinkDevelopOpen_send.png)
 
 **5. 查看设备订阅日志**
 

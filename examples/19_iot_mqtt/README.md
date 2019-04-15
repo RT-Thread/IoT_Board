@@ -134,9 +134,8 @@ static void mq_publish(const char *send_str)
 /* MQTT 在线回调函数 */    
 static void mqtt_online_callback(MQTTClient *c)
 {
-    rt_kprintf("Connect mqtt server success\n");
-    rt_kprintf("Publish message: Hello,RT-Thread! to topic: %s\n", sup_pub_topic);
-    /* 发布消息：Hello,RT-Thread! */
+    LOG_D("Connect mqtt server success");
+    LOG_D("Publish message: Hello,RT-Thread! to topic: %s", sup_pub_topic);
     mq_publish("Hello,RT-Thread!");
 }
 ```

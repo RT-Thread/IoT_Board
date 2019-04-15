@@ -12,33 +12,37 @@
 #include <fal.h>
 #include <dfs_fs.h>
 
-#define FS_PARTITION_NAME  "filesystem"
+#define DBG_SECTION_NAME "main"
+#define DBG_LEVEL DBG_LOG
+#include <rtdbg.h>
+
+#define FS_PARTITION_NAME "filesystem"
 
 int main(void)
 {
-    /* fal init */
+    /* 初始化 fal 功能 */
     fal_init();
 
-    /* Create a block device on the file system partition of spi flash */
+    /* 在 spi flash 中名为 "filesystem" 的分区上创建一个块设备 */
     struct rt_device *flash_dev = fal_blk_device_create(FS_PARTITION_NAME);
     if (flash_dev == NULL)
     {
-        rt_kprintf("Can't create a block device on '%s' partition.\n", FS_PARTITION_NAME);
+        LOG_E("Can't create a block device on '%s' partition.", FS_PARTITION_NAME);
     }
     else
     {
-        rt_kprintf("Create a block device on the %s partition of flash successful.\n", FS_PARTITION_NAME);
+        LOG_D("Create a block device on the %s partition of flash successful.", FS_PARTITION_NAME);
     }
 
-    /* mount the file system from "filesystem" partition of spi flash. */
-    if (dfs_mount(FS_PARTITION_NAME, "/", "elm", 0, 0) == 0)
+    /* 挂载 spi flash 中名为 "filesystem" 的分区上的文件系统 */
+    if (dfs_mount(flash_dev->parent.name, "/", "elm", 0, 0) == 0)
     {
-        rt_kprintf("Filesystem initialized!\n");
+        LOG_I("Filesystem initialized!");
     }
     else
     {
-        rt_kprintf("Failed to initialize filesystem!\n");
-        rt_kprintf("You should create a filesystem on the block device first!\n");
+        LOG_E("Failed to initialize filesystem!");
+        LOG_D("You should create a filesystem on the block device first!");
     }
 
     return 0;

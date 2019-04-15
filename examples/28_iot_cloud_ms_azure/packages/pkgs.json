@@ -6,7 +6,7 @@
  }, 
  {
   "path": "/packages/iot/iot_cloud/azure-iot-sdk", 
-  "ver": "v1.2.8", 
+  "ver": "v1.2.9", 
   "name": "AZURE"
  }, 
  {

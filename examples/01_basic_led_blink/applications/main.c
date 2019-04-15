@@ -12,25 +12,30 @@
 #include <rtdevice.h>
 #include <board.h>
 
-/* using RED LED in RGB */
+#define DBG_SECTION_NAME  "main"
+#define DBG_LEVEL         DBG_LOG
+#include <rtdbg.h>
+
+/* 配置 LED 灯引脚 */
 #define LED_PIN              PIN_LED_R
 
 int main(void)
 {
     unsigned int count = 1;
-    /* set LED pin mode to output */
+
+    /* 设置 LED 引脚为输出模式 */
     rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
 
     while (count > 0)
     {
-        /* led on */
+        /* LED 灯亮 */
         rt_pin_write(LED_PIN, PIN_LOW);
-        rt_kprintf("led on, count: %d\n", count);
+        LOG_D("led on, count: %d", count);
         rt_thread_mdelay(500);
 
-        /* led off */
+        /* LED 灯灭 */
         rt_pin_write(LED_PIN, PIN_HIGH);
-        rt_kprintf("led off\n");
+        LOG_D("led off");
         rt_thread_mdelay(500);
 
         count++;
@@ -38,4 +43,3 @@ int main(void)
 
     return 0;
 }
-

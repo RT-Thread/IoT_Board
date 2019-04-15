@@ -11,19 +11,22 @@
 #include <rtthread.h>
 #include <dfs_fs.h>
 
+#define DBG_SECTION_NAME "main"
+#define DBG_LEVEL DBG_LOG
+#include <rtdbg.h>
+
 int main(void)
 {
 #ifdef BSP_USING_TF_CARD
-    /* mount the file system from tf card */
+    /* 挂载 TF 卡中的文件系统，参数 elm 表示挂载的文件系统类型为 elm-fat 文件系统*/
     if (dfs_mount("sd0", "/", "elm", 0, 0) == 0)
     {
-        rt_kprintf("Filesystem initialized!\n");
+        LOG_I("Filesystem initialized!");
     }
     else
     {
-        rt_kprintf("Failed to initialize filesystem!\n");
+        LOG_E("Failed to initialize filesystem!");
     }
 #endif /*BSP_USING_TF_CARD*/
     return 0;
 }
-

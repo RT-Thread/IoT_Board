@@ -959,7 +959,7 @@ rt_err_t lcd_show_qrcode(rt_uint16_t x, rt_uint16_t y, rt_uint8_t version, rt_ui
     }
     else
     {
-        LOG_E("QRCODE(%s) generate falied(%d)\n", qrstr, result);
+        LOG_E("QRCODE(%s) generate falied(%d)\n", data, result);
         result = -RT_ENOMEM;
         goto __exit;
     }

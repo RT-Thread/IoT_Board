@@ -327,11 +327,27 @@ static rt_err_t stm32l4_DMA_Init(void)
     return RT_EOK;
 }
 
+#ifdef RT_USING_DEVICE_OPS
+const static struct rt_device_ops _stm_udc_ops =
+{
+    _init,
+    RT_NULL,
+    RT_NULL,
+    RT_NULL,
+    RT_NULL,
+    RT_NULL
+};
+#endif
+
 int stm32l4_usbd_register(void)
 {
     rt_memset((void *)&_stm_udc, 0, sizeof(struct udcd));
     _stm_udc.parent.type = RT_Device_Class_USBDevice;
+#ifdef RT_USING_DEVICE_OPS
+    _stm_udc.parent.ops  = &_stm_udc_ops;
+#else
     _stm_udc.parent.init = _init;
+#endif
     _stm_udc.parent.user_data = &_stm_pcd;
     _stm_udc.ops = &_udc_ops;
     /* Register endpoint infomation */

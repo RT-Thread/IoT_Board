@@ -67,15 +67,15 @@ static void pm_mode_init(void)
 
 int main(void)
 {
-    /* wakup event and callback init */
+    /* 唤醒回调函数初始化 */
     wakeup_init();
 
-    /* pm mode init */
+    /* 电源管理初始化 */
     pm_mode_init();
 
     while (1)
     {
-        /* wait for wakeup event */
+        /* 等待唤醒事件 */
         if (rt_event_recv(wakeup_event,
                           WAKEUP_EVENT_BUTTON,
                           RT_EVENT_FLAG_AND | RT_EVENT_FLAG_CLEAR,

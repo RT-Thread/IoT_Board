@@ -53,8 +53,8 @@ int main(void)
     result = rt_sem_take(&net_ready, RT_WAITING_FOREVER);
     if (result != RT_EOK)
     {
-        rt_kprintf("Wait net ready failed!\n");
-        rt_sem_delete(&net_ready);
+        rt_sem_detach(&net_ready);
+        LOG_E("Wait net ready failed!");
         return -RT_ERROR;
     }
 
@@ -234,16 +234,16 @@ if (ret == 0)
 ```shell
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.0 build Sep 10 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 27 2019
+ 2006 - 2019 Copyright by rt-thread team
 lwIP-2.0.2 initialized!
-[I/SAL_SOC] Socket Abstraction Layer initialize success.
-[SFUD] Find a Winbond flash chip. Size is 8388608 bytes.
+[I/SAL_SKT] Socket Abstraction Layer initialize success.
+[SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
 msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
 [I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.
-[I/WICED] wifi library initialize done!
+[I/WICED] wifi initialize done. wiced version 3.3.1
 [I/WLAN.dev] wlan init success
 [I/WLAN.lwip] eth device init ok name:w0
 [Flash] EasyFlash V3.2.1 is initialize success.

@@ -12,28 +12,35 @@
 #include <rtdevice.h>
 #include <board.h>
 
+#define DBG_SECTION_NAME  "main"
+#define DBG_LEVEL         DBG_LOG
+#include <rtdbg.h>
+
 int main(void)
 {
     unsigned int count = 1;
-    /* set RGB_LED pin mode to output */
+
+    /* 设置 RGB 红灯引脚的模式为输出模式 */
     rt_pin_mode(PIN_LED_R, PIN_MODE_OUTPUT);
-    /* set KEY0 pin mode to input */
+    /* 设置 KEY0 引脚的模式为输入模式 */
     rt_pin_mode(PIN_KEY0, PIN_MODE_INPUT);
 
     while (count > 0)
     {
-        /* read PIN_KEY0 pin state */
+        /* 读取按键 KEY0 的引脚状态 */
         if (rt_pin_read(PIN_KEY0) == PIN_LOW)
         {
             rt_thread_mdelay(50);
             if (rt_pin_read(PIN_KEY0) == PIN_LOW)
             {
-                rt_kprintf("KEY0 pressed!\n");
+                /* 按键已被按下，输出 log，点亮 LED 灯 */
+                LOG_D("KEY0 pressed!");
                 rt_pin_write(PIN_LED_R, PIN_LOW);
             }
         }
         else
         {
+            /* 按键没被按下，熄灭 LED 灯 */
             rt_pin_write(PIN_LED_R, PIN_HIGH);
         }
         rt_thread_mdelay(10);

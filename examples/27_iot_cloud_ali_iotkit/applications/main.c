@@ -14,10 +14,10 @@
 
 int main(void)
 {
-    /* Config the dependencies of the wlan autoconnect function */
+    /* 初始化wlan 自动连接 */
     wlan_autoconnect_init();
 
-    /* Enable wlan auto connect function */
+    /* 使能 wlan 自动连接 */
     rt_wlan_config_autoreconnect(RT_TRUE);
 
     return 0;

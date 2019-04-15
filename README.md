@@ -27,7 +27,7 @@ IoT Board 开发板核心芯片资源如下：
 例程列表如下所示：
 
 | 编号 | 类别   | 例程名           | 说明                                                         |
-| ---- | ------ | ---------------- | ----------------------------------------------------- |
+| ---- | ------ | ---------------- | ------------------------------------------------------------ |
 | 01   | 基础   | led_blink        | 红色 LED 不间断闪烁                                          |
 | 02   | 基础   | rgb_led          | RGB LED 变色                                                 |
 | 03   | 基础   | key              | 板载按键                                                     |
@@ -56,8 +56,9 @@ IoT Board 开发板核心芯片资源如下：
 | 26   | 物联网 | cloud_onenet     | 接入中国移动 OneNET 云平台                                   |
 | 27   | 物联网 | cloud_ali_iotkit | 接入阿里云物联网平台                                         |
 | 28   | 物联网 | cloud_ms_azure   | 接入微软 Azure 物联网平台                                    |
-| 29   | 物联网 | web_server       | 创建一个 Web 服务器|
+| 29   | 物联网 | web_server       | 创建一个 Web 服务器                                          |
 | 30   | 综合   | demo             | 综合性示例演示                                               |
+| 31   |        | micropython      | MicroPython 例程                                             |
 
 ## 文档说明
 
@@ -109,3 +110,4 @@ docs 文件夹下的文档列表如下所示：
 - RT-Thread 开发环境
 
 学习 RT-Thread 基本知识可以从文档中心的 [《RT-Thread 入门指南》](https://www.RT-Thread.org/document/site/rtthread-tutorial/gd0001-rtthread-introducing/) 开始，深入开发 RT-Thread 可以阅读 [《RT-Thread 开发指南》](https://www.RT-Thread.org/document/site/rtthread-development-guide/README/) 。
+

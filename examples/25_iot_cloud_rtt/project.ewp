@@ -373,7 +373,6 @@
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\impl</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\packages\cJSON-v1.0.2</state>
-          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.0</state>
           <state>$PROJ_DIR$\packages\webclient-v2.0.1\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\spi</state>
@@ -387,6 +386,7 @@
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif</state>
           <state>$PROJ_DIR$\packages\EasyFlash-v3.2.1\inc</state>
           <state>$PROJ_DIR$\ports\wifi</state>
+          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.1</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1437,7 +1437,6 @@
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\impl</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\packages\cJSON-v1.0.2</state>
-          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.0</state>
           <state>$PROJ_DIR$\packages\webclient-v2.0.1\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\spi</state>
@@ -1451,6 +1450,7 @@
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif</state>
           <state>$PROJ_DIR$\packages\EasyFlash-v3.2.1\inc</state>
           <state>$PROJ_DIR$\ports\wifi</state>
+          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.1</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2129,6 +2129,57 @@
     </settings>
   </configuration>
   <group>
+    <name>Kernel</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\clock.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\components.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\cpu.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\device.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\idle.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\ipc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\irq.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\kservice.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\mem.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\memheap.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\mempool.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\object.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\scheduler.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\signal.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\thread.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\src\timer.c</name>
+    </file>
+  </group>
+  <group>
     <name>Applications</name>
     <file>
       <name>$PROJ_DIR$\applications\main.c</name>
@@ -2233,7 +2284,7 @@
   <group>
     <name>stm32_sdio</name>
     <file>
-      <name>$PROJ_DIR$\packages\stm32_sdio-v1.0.0\stm32_sdio.c</name>
+      <name>$PROJ_DIR$\packages\stm32_sdio-v1.0.1\stm32_sdio.c</name>
     </file>
   </group>
   <group>
@@ -2276,61 +2327,7 @@
     </file>
   </group>
   <group>
-    <name>Kernel</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\clock.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\components.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\cpu.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\device.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\idle.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\ipc.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\irq.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\kservice.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\mem.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\mempool.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\object.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\scheduler.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\signal.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\thread.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\src\timer.c</name>
-    </file>
-  </group>
-  <group>
-    <name>CORTEX-M4</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\cpuport.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\context_iar.S</name>
-    </file>
+    <name>cpu</name>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common\backtrace.c</name>
     </file>
@@ -2339,6 +2336,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common\showmem.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\cpuport.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4\context_iar.S</name>
     </file>
   </group>
   <group>
@@ -2645,33 +2648,6 @@
     </file>
   </group>
   <group>
-    <name>Drivers</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\board.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_clock.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_gpio.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_qspi_flash.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_usart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_sdio_adapter.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_qspi.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\drivers\drv_wlan.c</name>
-    </file>
-  </group>
-  <group>
     <name>STM32L4xx_HAL_Driver</name>
     <file>
       <name>$PROJ_DIR$\..\..\libraries\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c</name>
@@ -2730,5 +2706,32 @@
   </group>
   <group>
     <name>rt_ota</name>
+  </group>
+  <group>
+    <name>Drivers</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\board.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_clock.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_gpio.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_qspi_flash.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_usart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_sdio_adapter.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_qspi.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\drivers\drv_wlan.c</name>
+    </file>
   </group>
 </project>

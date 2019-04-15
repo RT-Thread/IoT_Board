@@ -32,7 +32,7 @@
 
 在使用本例程前需要先在 [RT-Thread 云平台](http://iot.rt-thread.com) 注册账号，使用该账号在云平台中创建新产品，然后使用设备唯一标识符**SN**（该示例中 **SN** 可以由用户自定义）在云端创建新设备，具体的流程参考《RT-Thread 云平台用户手册》(docs/UM1008-RT-Thread-设备维护云平台用户手册.pdf)。
 
-产品和设备创建完成后，记录下**产品信息**页面的**产品ID（ProductID**）和 **产品密钥（ProductKey）**。下图为本次演示使用的 **ProductID** 和 **ProductKey** 位置：
+产品和设备创建完成后，记录下**产品信息**页面的**产品ID（ProductID**）和 **产品密钥（ProductKey，通常需要手动点开查看）**。下图为本次演示使用的 **ProductID** 和 **ProductKey** 位置：
 
 ![产品信息](../../docs/figures/25_iot_cloud_rtt/product_info.jpg)
 
@@ -165,10 +165,10 @@ Find user application success.
 The Bootloader will go to user application now.    /* bootloader 跳转到 app */
  \ | /
 - RT -     Thread Operating System
- / | \     3.1.1 build Oct 13 2018
- 2006 - 2018 Copyright by rt-thread team
+ / | \     4.0.1 build Mar 27 2019
+ 2006 - 2019 Copyright by rt-thread team
 lwIP-2.0.2 initialized!
-[I/SAL_SOC] Socket Abstraction Layer initialize success.
+[I/SAL_SKT] Socket Abstraction Layer initialize success.
 [SFUD] Find a Winbond flash chip. Size is 16777216 bytes.
 [SFUD] w25q128 flash device is initialize success.
 msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
@@ -179,8 +179,7 @@ msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [I/WLAN.lwip] eth device init ok name:w0
 [Flash] EasyFlash V3.2.1 is initialize success.
 [Flash] You can get the latest version on https://github.com/armink/EasyFlash .
-The current version of APP firmware is 1.0.0
-
+[D/main] The current version of APP firmware is 1.0.0
 ```
 
 ### 连接无线网络
@@ -212,7 +211,7 @@ msh />[I/WLAN.lwip] Got IP address : 152.10.200.224
 
 Web Shell 的实现基于 TCP/IP 协议和 MQTT 协议， 主要作用是实现远程 Shell 控制功能，用户无需连接串口设备即可在云端完成设备的管理和调试，并且实时显示设备打印信息。
 
-设备上线成功，云端点击`设备信息`->`设备详情`->`shell：连接`，在云端实现 Shell 控制台功能：
+设备上线成功，云端点击`设备信息`->（设备)详情`->`shell：连接`，在云端实现 Shell 控制台功能：
 
 ![Web Shell 位置](../../docs/figures/25_iot_cloud_rtt/web_shell.jpg)
 

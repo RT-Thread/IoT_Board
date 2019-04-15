@@ -20,12 +20,12 @@ index.html 文件是访问 web 服务器时默认展示的页面，我们提供�
 
 **WebNet** 位于 `/examples/29_iot_web_server` 目录下，重要文件摘要说明如下表所示：
 
-| 文件                         | 说明   |
-| :-----                       | :-----    |
-| applications/main.c     | app 入口 |
-| ports/webnet        | 示例网页 |
-| ../../drivers/drv_spi_tfcard.c | TF 卡驱动 |
-| ../../libraries/wifi | WiFi 模组库文件 |
+| 文件                           | 说明            |
+| :----------------------------- | :-------------- |
+| applications/main.c            | app 入口        |
+| ports/webnet                   | 示例网页        |
+| ../../drivers/drv_spi_tfcard.c | TF 卡驱动       |
+| ../../libraries/wifi           | WiFi 模组库文件 |
 
 本例程主要展示了 WebNet 的几个常用功能，程序代码位于 `/examples/29_iot_web_server/applications/main.c` 文件中。
 
@@ -38,6 +38,7 @@ index.html 文件是访问 web 服务器时默认展示的页面，我们提供�
 main函数代码如下所示：
 
 ```c
+
 int main(void)
 {
     int result = RT_EOK;
@@ -48,11 +49,11 @@ int main(void)
     /* 挂载文件系统 */
     if (dfs_mount("sd0", "/", "elm", 0, 0) == 0)
     {
-        rt_kprintf("Filesystem initialized!\n");
+        LOG_I("Filesystem initialized!");
     }
     else
     {
-        rt_kprintf("Failed to initialize filesystem!\n");
+        LOG_E("Failed to initialize filesystem!");
     }
 
     /* 创建信号量 */
@@ -71,7 +72,7 @@ int main(void)
     result = rt_sem_take(&net_ready, RT_WAITING_FOREVER);
     if (result != RT_EOK)
     {
-        rt_kprintf("Wait net ready failed!\n");
+        LOG_E("Wait net ready failed!");
         return -RT_ERROR;
     }
 
@@ -102,7 +103,6 @@ void webnet_demo(void)
 }
 ```
 
-
 ## 运行
 
 ### 编译&下载
@@ -117,27 +117,27 @@ void webnet_demo(void)
 按下复位按键重启开发板，正常运行后，终端输出信息如下：
 
 ```shell
- \ | /
-- RT -     Thread Operating System
- / | \     3.1.1 build Nov  6 2018
- 2006 - 2018 Copyright by rt-thread team
-lwIP-2.0.2 initialized!
-[I/SAL_SOC] Socket Abstraction Layer initialize success.
-[SFUD] Find a Winbond flash chip. Size is 8388608 bytes.
-[SFUD] w25q128 flash device is initialize success.
-msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
-[I/OTA] RT-Thread OTA package(V0.1.3) initialize success.
-[I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.
-[I/WICED] wifi initialize done. wiced version 3.3.1
-[I/WLAN.dev] wlan init success
-[I/WLAN.lwip] eth device init ok name:w0
-Filesystem initialized!									   #文件系统挂载成功
-[Flash] EasyFlash V3.2.1 is initialize success.
-[Flash] You can get the latest version on https://github.com/armink/EasyFlash .
-join ssid:realthread1
-[I/WLAN.mgnt] wifi connect success ssid:test_wifi
-[I/wn] RT-Thread webnet package (V2.0.0) initialize success.
-[I/WLAN.lwip] Got IP address : 192.168.12.29				#网络连接成功
+ \ | /                                                                                                                              
+- RT -     Thread Operating System                                                                                                  
+ / | \     4.0.1 build Mar 27 2019                                                                                                  
+ 2006 - 2019 Copyright by rt-thread team                                                                                            
+lwIP-2.0.2 initialized!                                                                                                             
+[I/SAL_SKT] Socket Abstraction Layer initialize success.                                                                            
+[SFUD] Find a Winbond flash chip. Size is 16777216 bytes.                                                                           
+[SFUD] w25q128 flash device is initialize success.                                                                                  
+msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.                                                        
+[I/OTA] RT-Thread OTA package(V0.1.3) initialize success.                                                                           
+[I/OTA] Verify 'wifi_image' partition(fw ver: 1.0, timestamp: 1529386280) success.                                                  
+[I/WICED] wifi initialize done. wiced version 3.3.1                                                                                 
+[I/WLAN.dev] wlan init success                                                                                                      
+[I/WLAN.lwip] eth device init ok name:w0                                                                                            
+[I/main] Filesystem initialized!                            #文件系统挂载成功                                                                        
+[Flash] EasyFlash V3.2.1 is initialize success.                                                                                     
+[Flash] You can get the latest version on https://github.com/armink/EasyFlash .                                                     
+join ssid:aptest                                                                                                                    
+[I/WLAN.mgnt] wifi connect success ssid:aptest                                                                                      
+[I/wn] RT-Thread webnet package (V2.0.0) initialize success.                                                                        
+[I/WLAN.lwip] Got IP address : 192.168.12.29                 #网络连接成功
 ```
 
 ### 静态页面展示

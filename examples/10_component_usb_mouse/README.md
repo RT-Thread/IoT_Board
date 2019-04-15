@@ -64,34 +64,34 @@ USB 鼠标例程位于 `/examples/10_component_usb_mouse` 目录下，重要文�
 ### USB 鼠标功能指标定义 
 
 ```c
-const static float mouse_rang_scope = 6.0f;   /* compare scope */   
+const static float mouse_rang_scope = 6.0f;   /* 变动识别值 */   
 ```
 这个值设定开发板上下、左右移动变动识别值，可以自定义，值越小，鼠标越灵敏，越大鼠标越迟钝，但是应该大于 0，小于 45。
 
 ```c
-const static float mouse_angle_range = 80.0f;     /* valid angle */
+const static float mouse_angle_range = 80.0f;     /* 读取角度有效角度 */
 ```
 这个值决定了六轴传感器 `icm20608` 读取角度控制值，范围为 0 - 90 度。
 
 ```c
-const static float mouse_move_range = 127.0f;  /* movement range,default max range */
+const static float mouse_move_range = 127.0f;  /* 移动值的最大值 */
 ```
 这个值决定了开发板倾斜角度转换成鼠标移动值的最大值，默认为最大值。
 
 ```c
-#define mouse_ratio  (mouse_move_range / mouse_angle_range) /* ratio of icm20608/usb  */
+#define mouse_ratio  (mouse_move_range / mouse_angle_range) /* 角度移动比 */
 ```
 这个值由上面两个值决定，是将传感器读到的角度值转换成鼠标移动距离的比率。在角度一定的情况下，值越大，鼠标移动的距离越大，值越小，鼠标移动距离就小。
 
 ```c
-const static rt_uint8_t mouse_pixel_len = 5;      /* move pixel */
+const static rt_uint8_t mouse_pixel_len = 5; /* 移动步长 */
 ```
 这个值决定了每次鼠标移动的步长，值越小，鼠标单次移动的就小，鼠标指针精度就越高，取值范围0 - 127。
 
 ```c
-const static rt_uint32_t mouse_sample_times = 0;    /* control mouse point response speed */
+const static rt_uint32_t mouse_sample_times = 0; /* 鼠标响应时间 */
 ```
-这个值决定了鼠标响应时间，默认立即响应程序调度。初始使用，可以调大，便于观察日志。
+这个值决定了鼠标响应时间，默认立即响应程序调度。初次使用，可以调大，便于观察日志。
 
 ### 原理性介绍
 
@@ -110,14 +110,18 @@ USB HID 鼠标实现流程图如下所示：
 ```c
 static int application_usb_init(void)
 {
-    rt_device_t device = rt_device_find("hidd"); // 查找名称为 hidd 的设备
-    icm_device = mouse_init_icm();               // 初始化六轴传感器设备
-    mouse_init_key();                            // 初始化按键
+    /* 查找名称为 hidd 的设备 */
+    rt_device_t device = rt_device_find("hidd"); 
+    /* 初始化六轴传感器设备 */
+    icm_device = mouse_init_icm(); 
+    /* 初始化按键 */ 
+    mouse_init_key();
 
     RT_ASSERT(device != RT_NULL);
     RT_ASSERT(icm_device != RT_NULL);
 
-    rt_device_open(device, RT_DEVICE_FLAG_WRONLY); // 打开查找到的 hid 设备
+    /*打开查找到的 hid 设备 */
+    rt_device_open(device, RT_DEVICE_FLAG_WRONLY);
 
     /* 初始化 USB 线程*/
     rt_thread_init(&usb_thread,
@@ -165,9 +169,26 @@ static int application_usb_init(void)
 
 打开串口，重启后，分别进行相关操作即可显示响应的日志，具体解释如下：
 
-   ![运行日志](../../docs/figures/10_component_usb_mouse/log.png)
-
-
+```shell
+ \ | /
+- RT -     Thread Operating System
+ / | \     4.0.1 build Mar 28 2019
+ 2006 - 2019 Copyright by rt-thread team
+[D/3D_mouse] The 3D mouse initializes success                          #鼠标初始化成功
+msh >[D/3D_mouse] left down                                            #左键按下
+[D/3D_mouse] left down
+[D/3D_mouse] left down
+[D/3D_mouse] right down                                                #右键按下
+[D/3D_mouse] right down
+[D/3D_mouse] right down
+[D/3D_mouse] right down
+[D/3D_mouse] move_max :   5, x:    0, y :   5                          #鼠标移动
+[D/3D_mouse] move_max :   7, x:    3, y :   7
+[D/3D_mouse] move_max :   7, x:    0, y :   7
+[D/3D_mouse] move_max :  14, x:    0, y :  14
+[D/3D_mouse] move_max :  14, x:    0, y :  14
+[D/3D_mouse] move_max :  21, x:    0, y :  21
+```
 
 ## 使用说明
 

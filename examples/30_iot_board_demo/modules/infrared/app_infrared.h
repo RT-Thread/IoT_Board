@@ -16,7 +16,5 @@
 int app_infrared_init(void);
 rt_err_t app_infrared_nec_decode(rt_uint8_t* key);
 void app_infrared_nec_send(rt_uint8_t addrcode, rt_uint8_t keycode, rt_uint8_t times);
-int app_infrared_start(void);
-int app_infrared_stop(void);
 
 #endif

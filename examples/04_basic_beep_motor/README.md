@@ -44,7 +44,7 @@ int main(void)
 {
     unsigned int count = 1;
 
-    /* 设置 KEY 引脚的模式为输入模式 */
+    /* 设置按键引脚为输入模式 */
     rt_pin_mode(PIN_KEY0, PIN_MODE_INPUT_PULLUP);
     rt_pin_mode(PIN_KEY1, PIN_MODE_INPUT_PULLUP);
     rt_pin_mode(PIN_KEY2, PIN_MODE_INPUT_PULLUP);
@@ -57,7 +57,7 @@ int main(void)
     /* 设置蜂鸣器引脚为输出模式 */
     rt_pin_mode(PIN_BEEP, PIN_MODE_OUTPUT);
 
-    /* 设置 KEY 引脚中断模式以及设置中断的回调函数 */
+    /* 设置按键中断模式与中断回调函数 */
     rt_pin_attach_irq(PIN_KEY0, PIN_IRQ_MODE_FALLING, irq_callback, (void *)PIN_KEY0);
     rt_pin_attach_irq(PIN_KEY1, PIN_IRQ_MODE_FALLING, irq_callback, (void *)PIN_KEY1);
     rt_pin_attach_irq(PIN_KEY2, PIN_IRQ_MODE_FALLING, irq_callback, (void *)PIN_KEY2);
@@ -74,7 +74,7 @@ int main(void)
             rt_thread_mdelay(50);
             if (rt_pin_read(PIN_WK_UP) == PIN_HIGH)
             {
-                rt_kprintf("WK_UP pressed. beep on.\n");
+                LOG_D("WK_UP pressed. beep on.");
                 beep_ctrl(1);
             }
         }
@@ -100,18 +100,18 @@ void irq_callback(void *args)
     {
     case PIN_KEY0:
         motor_ctrl(MOTOR_LEFT);
-        rt_kprintf("KEY0 interrupt. motor turn left.\n");
+        LOG_D("KEY0 interrupt. motor turn left.");
         break;
     case PIN_KEY1:
         motor_ctrl(MOTOR_RIGHT);
-        rt_kprintf("KEY1 interrupt. motor turn right.\n");
+        LOG_D("KEY1 interrupt. motor turn right.");
         break;
     case PIN_KEY2:
         motor_ctrl(MOTOR_STOP);
-        rt_kprintf("KEY2 interrupt. motor stop.\n");
+        LOG_D("KEY2 interrupt. motor stop.");
         break;
     default:
-        rt_kprintf("error sign= %d !\n", sign);
+        LOG_D("error sign= %d !", sign);
         break;
     }
 }
@@ -140,14 +140,11 @@ void irq_callback(void *args)
 此时也可以在 PC 端使用终端工具打开开发板的 ST-Link 提供的虚拟串口，设置 115200 8 1 N 。开发板的运行日志信息即可实时输出出来。
 
 ```shell
-KEY0 interrupt. motor turn left.
-KEY0 interrupt. motor turn left.
-KEY1 interrupt. motor turn right.
-KEY1 interrupt. motor turn right.
-KEY2 interrupt. motor stop.
-KEY2 interrupt. motor stop.
-KEY2 interrupt. motor stop.
-WK_UP pressed. beep on.
+[D/main] KEY0 interrupt. motor turn left.
+[D/main] KEY1 interrupt. motor turn right.
+[D/main] KEY2 interrupt. motor stop.
+[D/main] KEY2 interrupt. motor stop.
+[D/main] WK_UP pressed. beep on.
 ```
 
 ## 注意事项

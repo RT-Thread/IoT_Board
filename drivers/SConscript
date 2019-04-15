@@ -62,10 +62,14 @@ if GetDepend('BSP_USING_WIFI'):
 if GetDepend('BSP_USING_PM'):
     src = src + ['drv_pm.c', 'drv_pmtimer.c', 'drv_wakeup.c']
 
+# add hwtimer driver code
+if GetDepend('BSP_USING_PWM3_CH3'):
+    src = src + ['drv_pwm.c']
+
 # add infrared driver code
-if GetDepend('BSP_USING_INFRARED'):
-    src = src + ['drv_infrared.c']
-    
+if GetDepend('BSP_USING_TIM15') or GetDepend('BSP_USING_TIM16'):
+    src = src + ['drv_hwtimer.c']
+
 # add HID USB driver code
 if GetDepend('BSP_USING_USBD'):
     src = src + ['drv_usbd.c']
