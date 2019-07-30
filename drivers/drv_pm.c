@@ -17,31 +17,40 @@
 #include <stm32l4xx_hal.h>
 
 /**
- * This function will put STM32L4xx into run/sleep mode.
+ * This function will put STM32L4xx into sleep mode.
  *
  * @param pm pointer to power manage structure
  */
-static void _drv_pm_enter(struct rt_pm *pm)
+static void sleep(struct rt_pm *pm, uint8_t mode)
 {
-    rt_uint32_t mode;
-
-    mode = pm->current_mode;
-
     switch (mode)
     {
-    case PM_RUN_MODE_NORMAL:
+    case PM_SLEEP_MODE_NONE:
         break;
 
-    case PM_SLEEP_MODE_SLEEP:
+    case PM_SLEEP_MODE_IDLE:
+        // __WFI();
+        break;
+
+    case PM_SLEEP_MODE_LIGHT:
+        /* Enter SLEEP Mode, Main regulator is ON */
         HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
         break;
 
-    case PM_SLEEP_MODE_TIMER:
+    case PM_SLEEP_MODE_DEEP:
+        /* Enter STOP 2 mode  */
         HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+        /* Re-configure the system clock */
         rt_update_system_clock();
         break;
 
+    case PM_SLEEP_MODE_STANDBY:
+        /* Enter STANDBY mode */
+        HAL_PWR_EnterSTANDBYMode();
+        break;
+
     case PM_SLEEP_MODE_SHUTDOWN:
+        /* Enter SHUTDOWNN mode */
         HAL_PWREx_EnterSHUTDOWNMode();
         break;
 
@@ -50,52 +59,6 @@ static void _drv_pm_enter(struct rt_pm *pm)
         break;
     }
 }
-
-/**
- * This function will cause STM32L4xx to exit run/sleep mode
- *
- * @param pm pointer to power manage structure
- */
-static void _drv_pm_exit(struct rt_pm *pm)
-{
-    rt_uint32_t mode;
-
-    RT_ASSERT(pm != RT_NULL);
-
-    mode = pm->current_mode;
-
-    switch (mode)
-    {
-    case PM_RUN_MODE_NORMAL:
-        break;
-
-    case PM_SLEEP_MODE_SLEEP:
-        break;
-
-    case PM_SLEEP_MODE_TIMER:
-        break;
-
-    case PM_SLEEP_MODE_SHUTDOWN:
-        break;
-
-    default:
-        RT_ASSERT(0);
-        break;
-    }
-}
-
-#if PM_RUN_MODE_COUNT > 1
-/**
- * This function will cause STM32L4xx to change the system clock.
- *
- * @param pm pointer to power manage structure
- * @param frequency new frequency to run mode
- */
-static void _drv_pm_frequency_change(struct rt_pm *pm, rt_uint32_t frequency)
-{
-    return;
-}
-#endif
 
 /**
  * This function caculate the PM tick from OS tick
@@ -195,11 +158,8 @@ static int drv_pm_hw_init(void)
 {
     static const struct rt_pm_ops _ops =
     {
-        _drv_pm_enter,
-        _drv_pm_exit,
-#if PM_RUN_MODE_COUNT > 1
-        _drv_pm_frequency_change,
-#endif
+        sleep,
+        RT_NULL,
         _drv_pm_timer_start,
         _drv_pm_timer_stop,
         _drv_pm_timer_get_tick
@@ -208,7 +168,7 @@ static int drv_pm_hw_init(void)
     rt_uint8_t timer_mask;
 
     /* initialize timer mask */
-    timer_mask = 1UL << PM_SLEEP_MODE_TIMER;
+    timer_mask = 1UL << PM_SLEEP_MODE_DEEP;
 
     /* initialize system pm module */
     rt_system_pm_init(&_ops, timer_mask, RT_NULL);

@@ -15,8 +15,8 @@
 
 #include <rt_cld.h>
 
-#define DBG_SECTION_NAME "main"
-#define DBG_LEVEL DBG_LOG
+#define DBG_TAG "main"
+#define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
 #define APP_VERSION  "1.0.0"

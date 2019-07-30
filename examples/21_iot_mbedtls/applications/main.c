@@ -13,8 +13,8 @@
 #include <wlan_mgnt.h>
 #include "wifi_config.h"
 
-#define DBG_SECTION_NAME "main"
-#define DBG_LEVEL DBG_LOG
+#define DBG_TAG "main"
+#define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
 static struct rt_semaphore net_ready;

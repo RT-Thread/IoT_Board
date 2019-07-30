@@ -12,7 +12,7 @@
 
 ![LED 电路原理图](../../docs/figures/01_basic_led_blink/led_pcb_1.png)
 
-如上图所示，RBG-LED 属于共阳 LED ，**阴极** 分别与单片机的 38，39，40 号引脚连接，其中红色 LED 对应 **38** 号引脚。单片机引脚输出低电平即可点亮 LED ，输出高电平则会熄灭 LED。
+如上图所示，RBG-LED 属于共阳 LED ，**阴极** 分别与单片机的引脚连接，其中红色 LED 对应 **PE7** 引脚。单片机引脚输出低电平即可点亮 LED ，输出高电平则会熄灭 LED。
 
 LED 在开发板中的位置如下图所示：
 
@@ -20,7 +20,7 @@ LED 在开发板中的位置如下图所示：
 
 ## 软件说明
 
-闪灯的源代码位于 `/examples/01_basic_led_blink/applications/main.c` 中。首先定义了一个宏 `LED_PIN` ，代表闪灯的 LED 引脚编号，然后与 `PIN_LED_R`（38）对应
+闪灯的源代码位于 `/examples/01_basic_led_blink/applications/main.c` 中。首先定义了一个宏 `LED_PIN` ，代表闪灯的 LED 引脚编号，然后与 `PIN_LED_R`（**PE7**）对应：
 
 ```c
 /* 配置 LED 灯引脚 */

@@ -14,15 +14,16 @@
 #include "drv_spi.h"
 #include "drv_lcd.h"
 #include "drv_lcd_font.h"
+#include "drv_gpio.h"
 
 #define DBG_SECTION_NAME    "LCD"
 #define DBG_COLOR
 #define DBG_LEVEL           DBG_LOG
 #include <rtdbg.h>
 
-#define LCD_PWR_PIN 93
-#define LCD_DC_PIN  90
-#define LCD_RES_PIN 92
+#define LCD_PWR_PIN           GET_PIN(B, 7)
+#define LCD_DC_PIN            GET_PIN(B, 4)
+#define LCD_RES_PIN           GET_PIN(B, 6)
 #define LCD_CLEAR_SEND_NUMBER 5760
 
 rt_uint16_t BACK_COLOR = WHITE, FORE_COLOR = BLACK;
@@ -340,6 +341,21 @@ void lcd_draw_point(rt_uint16_t x, rt_uint16_t y)
 {
     lcd_address_set(x, y, x, y);
     lcd_write_half_word(FORE_COLOR);
+}
+
+/**
+ * display a point on the lcd using the given colour.
+ *
+ * @param   x       x position
+ * @param   y       y position
+ * @param   color   color of point
+ *
+ * @return  void
+ */
+void lcd_draw_point_color(rt_uint16_t x, rt_uint16_t y, rt_uint16_t color)
+{
+    lcd_address_set(x, y, x, y);
+    lcd_write_half_word(color);
 }
 
 /**

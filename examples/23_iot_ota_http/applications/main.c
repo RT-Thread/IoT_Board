@@ -13,8 +13,8 @@
 #include "wifi_config.h"
 #include "board.h"
 
-#define DBG_SECTION_NAME "main"
-#define DBG_LEVEL DBG_LOG
+#define DBG_TAG "main"
+#define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
 #define APP_VERSION  "2.0.0"
@@ -33,7 +33,7 @@ INIT_BOARD_EXPORT(ota_app_vtor_reconfig);
 
 int main(void)
 {
-    wlan_manager_init();
+    wlan_autoconnect_init();
 
     LOG_D("The current version of APP firmware is %s", APP_VERSION);
 

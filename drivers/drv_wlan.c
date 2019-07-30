@@ -90,12 +90,12 @@ int wiced_platform_resource_read(int resource, uint32_t offset, void *buffer, ui
 #ifdef RT_USING_PM
 void wiced_platform_keep_awake(void)
 {
-    rt_pm_request(PM_RUN_MODE_NORMAL);
+    rt_pm_request(PM_SLEEP_MODE_NONE);
 }
 
 void wiced_platform_let_sleep(void)
 {
-    rt_pm_release(PM_RUN_MODE_NORMAL);
+    rt_pm_release(PM_SLEEP_MODE_NONE);
 }
 #endif
 
@@ -157,8 +157,6 @@ static void wifi_init_thread_entry(void *parameter)
     /* set wifi work mode */
     rt_wlan_set_mode(RT_WLAN_DEVICE_STA_NAME, RT_WLAN_STATION);
 
-    /* set wifi use lwip protocol */
-    rt_wlan_prot_attach(RT_WLAN_DEVICE_STA_NAME, RT_WLAN_PROT_LWIP);
     init_flag = 1;
 }
 

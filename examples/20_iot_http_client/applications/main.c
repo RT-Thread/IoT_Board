@@ -13,8 +13,8 @@
 #include <wifi_config.h>
 #include <webclient.h>
 
-#define DBG_SECTION_NAME "main"
-#define DBG_LEVEL DBG_LOG
+#define DBG_TAG "main"
+#define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
 #define HTTP_GET_URL "http://www.rt-thread.com/service/rt-thread.txt"

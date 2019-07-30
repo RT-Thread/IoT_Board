@@ -352,7 +352,6 @@
           <state>$PROJ_DIR$\packages\icm20608-v1.0.0</state>
           <state>$PROJ_DIR$\modules\player</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\audio</state>
-          <state>$PROJ_DIR$\..\..\rt-thread\components\utilities\ulog</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include\dfs_net</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\libc\compilers\dlib</state>
@@ -366,6 +365,7 @@
           <state>$PROJ_DIR$\packages\pahomqtt-v1.0.0\MQTTPacket\src</state>
           <state>$PROJ_DIR$\..\..\rt-thread\include</state>
           <state>$PROJ_DIR$\ports\cloudsdk</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\sensors</state>
           <state>$PROJ_DIR$\..\..\libraries\wifi</state>
           <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\modules\iotb_workqeue</state>
@@ -387,8 +387,8 @@
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\impl</state>
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\packages\cJSON-v1.0.2</state>
-          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.0</state>
           <state>$PROJ_DIR$\packages\webclient-v2.0.1\inc</state>
+          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.2</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\spi</state>
           <state>$PROJ_DIR$\modules\lcd</state>
@@ -400,6 +400,7 @@
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\utilities\ymodem</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\include</state>
           <state>$PROJ_DIR$\packages\ap3216c-v1.0.0</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common</state>
           <state>$PROJ_DIR$\modules\ymodem</state>
@@ -872,7 +873,7 @@
           <name>IlinkAdditionalLibs</name>
           <state />
           <state>$PROJ_DIR$\..\..\libraries\cloudsdk\libs\libcloudsdk_2.0.0_armcm4_iar.a</state>
-          <state>$PROJ_DIR$\..\..\libraries\wifi\libwifi_6181_0.2.4_armcm4_iar.a</state>
+          <state>$PROJ_DIR$\..\..\libraries\wifi\libwifi_6181_0.2.5_armcm4_iar.a</state>
           <state>$PROJ_DIR$\..\..\libraries\rt_ota\libs\librt_ota_noalgo_0.1.2_stm32l4_iar.a</state>
           <state>$PROJ_DIR$\..\..\libraries\smartconfig\libs\libsmartconfig_1.0.0_armcm4_iar.a</state>
         </option>
@@ -1438,7 +1439,6 @@
           <state>$PROJ_DIR$\packages\icm20608-v1.0.0</state>
           <state>$PROJ_DIR$\modules\player</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\audio</state>
-          <state>$PROJ_DIR$\..\..\rt-thread\components\utilities\ulog</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include\dfs_net</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\libc\compilers\dlib</state>
@@ -1452,6 +1452,7 @@
           <state>$PROJ_DIR$\packages\pahomqtt-v1.0.0\MQTTPacket\src</state>
           <state>$PROJ_DIR$\..\..\rt-thread\include</state>
           <state>$PROJ_DIR$\ports\cloudsdk</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\sensors</state>
           <state>$PROJ_DIR$\..\..\libraries\wifi</state>
           <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\modules\iotb_workqeue</state>
@@ -1473,8 +1474,8 @@
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\impl</state>
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\packages\cJSON-v1.0.2</state>
-          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.0</state>
           <state>$PROJ_DIR$\packages\webclient-v2.0.1\inc</state>
+          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.2</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\spi</state>
           <state>$PROJ_DIR$\modules\lcd</state>
@@ -1486,6 +1487,7 @@
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\utilities\ymodem</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\include</state>
           <state>$PROJ_DIR$\packages\ap3216c-v1.0.0</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common</state>
           <state>$PROJ_DIR$\modules\ymodem</state>
@@ -1958,7 +1960,7 @@
           <name>IlinkAdditionalLibs</name>
           <state />
           <state>$PROJ_DIR$\..\..\libraries\cloudsdk\libs\libcloudsdk_2.0.0_armcm4_iar.a</state>
-          <state>$PROJ_DIR$\..\..\libraries\wifi\libwifi_6181_0.2.4_armcm4_iar.a</state>
+          <state>$PROJ_DIR$\..\..\libraries\wifi\libwifi_6181_0.2.5_armcm4_iar.a</state>
           <state>$PROJ_DIR$\..\..\libraries\rt_ota\libs\librt_ota_noalgo_0.1.2_stm32l4_iar.a</state>
           <state>$PROJ_DIR$\..\..\libraries\smartconfig\libs\libsmartconfig_1.0.0_armcm4_iar.a</state>
         </option>
@@ -2421,7 +2423,7 @@
   <group>
     <name>stm32_sdio</name>
     <file>
-      <name>$PROJ_DIR$\packages\stm32_sdio-v1.0.0\stm32_sdio.c</name>
+      <name>$PROJ_DIR$\packages\stm32_sdio-v1.0.2\stm32_sdio.c</name>
     </file>
   </group>
   <group>
@@ -2629,6 +2631,15 @@
     </file>
   </group>
   <group>
+    <name>Sensors</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\drivers\sensors\sensor.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\drivers\sensors\sensor_cmd.c</name>
+    </file>
+  </group>
+  <group>
     <name>finsh</name>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\finsh\shell.c</name>
@@ -2806,10 +2817,16 @@
     </file>
   </group>
   <group>
-    <name>SAL</name>
+    <name>netdev</name>
     <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\src\sal_ipaddr.c</name>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\src\netdev.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\src\netdev_ipaddr.c</name>
+    </file>
+  </group>
+  <group>
+    <name>SAL</name>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\src\sal_socket.c</name>
     </file>
@@ -2828,12 +2845,6 @@
   </group>
   <group>
     <name>Utilities</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\components\utilities\ulog\ulog.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\components\utilities\ulog\backend\console_be.c</name>
-    </file>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\utilities\ymodem\ymodem.c</name>
     </file>

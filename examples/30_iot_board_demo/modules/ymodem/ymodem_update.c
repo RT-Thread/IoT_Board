@@ -17,11 +17,11 @@
 #include <ymodem.h>
 
 #define DBG_ENABLE
-#define DBG_SECTION_NAME               "ymodem"
+#define DBG_TAG               "ymodem"
 #ifdef YMODEM_DEBUG
-#define DBG_LEVEL                      DBG_LOG
+#define DBG_LVL                      DBG_LOG
 #else
-#define DBG_LEVEL                      DBG_INFO
+#define DBG_LVL                      DBG_INFO
 #endif 
 #define DBG_COLOR
 #include <rtdbg.h>

@@ -20,11 +20,11 @@
 #define IOTB_PLAYER_DEBUG
 
 // #define DBG_ENABLE
-#define DBG_SECTION_NAME               "IOTB_PLAYER"
+#define DBG_TAG               "IOTB_PLAYER"
 #ifdef IOTB_PLAYER_DEBUG
-#define DBG_LEVEL                      DBG_LOG
+#define DBG_LVL                      DBG_LOG
 #else
-#define DBG_LEVEL                      DBG_INFO /* DBG_ERROR */
+#define DBG_LVL                      DBG_INFO /* DBG_ERROR */
 #endif
 #define DBG_COLOR
 #include <rtdbg.h>
@@ -300,9 +300,9 @@ static int wav_player_play(char *uri)
                 uint16_t *ptr;
 
                 ptr = (uint16_t *)((uint8_t *)buffer + BUFSZ * 2);
-                for (index = 1; index < BUFSZ / 2; index ++)
+                for (index = 1; index <= BUFSZ / 2; index ++)
                 {
-                    *ptr = *(ptr - 1) = buffer[BUFSZ / 2 - index];
+                    *(ptr - 1) = *(ptr - 2) = buffer[BUFSZ / 2 - index];
                     ptr -= 2;
                 }
 

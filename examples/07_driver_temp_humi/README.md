@@ -1,8 +1,8 @@
-# ATH10 温湿度传感器例程
+# AHT10 温湿度传感器例程
 
 ## 简介
 
-本例程主要功能是利用 RT-Thread 的 AHT10 软件包的读取传感器 `ath10` 所测量的温度（temperature）与湿度（humidity）。
+本例程主要功能是利用 RT-Thread 的 AHT10 软件包的读取传感器 `aht10` 所测量的温度（temperature）与湿度（humidity）。
 
 ## AHT10 软件包简介
 

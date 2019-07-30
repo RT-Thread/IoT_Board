@@ -19,8 +19,8 @@
 #include <easyflash.h>
 #include <drv_gpio.h>
 
-#define DBG_SECTION_NAME "main"
-#define DBG_LEVEL DBG_LOG
+#define DBG_TAG "main"
+#define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
 #define I2C_BUS_NAME "i2c1"
@@ -42,8 +42,6 @@ int main(void)
         return 0;
     }
 
-    /* 注册 wlan 事件回调函数 */
-    rt_wlan_register_event_handler(RT_WLAN_EVT_READY, (void (*)(int, struct rt_wlan_buff *, void *))onenet_mqtt_init, RT_NULL);
     /* 初始化 wlan 自动连接 */
     wlan_autoconnect_init();
     /* 使能 wlan 自动连接 */
@@ -72,7 +70,7 @@ static void onenet_upload_entry(void *parameter)
             LOG_D("buffer : {\"light\":%d}", value);
         }
 
-        rt_thread_mdelay(5 * 100);
+        rt_thread_mdelay(5 * 1000);
     }
 }
 
@@ -95,6 +93,7 @@ void onenet_upload_cycle(void)
         rt_thread_startup(tid);
     }
 }
+MSH_CMD_EXPORT(onenet_upload_cycle, upload data to onenet);
 
 rt_err_t onenet_port_save_device_info(char *dev_id, char *api_key)
 {
@@ -215,7 +214,7 @@ static void onenet_cmd_rsp_cb(uint8_t *recv_data, size_t recv_size, uint8_t **re
     LOG_D("recv data is %.*s", recv_size, recv_data);
 
     /* 命令匹配 */
-    if (rt_strncmp(recv_data, "ledon", 5) == 0)
+    if (rt_strncmp((const char *)recv_data, "ledon", 5) == 0)
     {
         /* 开灯 */
         rt_pin_write(LED_PIN, PIN_LOW);
@@ -224,7 +223,7 @@ static void onenet_cmd_rsp_cb(uint8_t *recv_data, size_t recv_size, uint8_t **re
 
         LOG_D("led is on");
     }
-    else if (rt_strncmp(recv_data, "ledoff", 6) == 0)
+    else if (rt_strncmp((const char *)recv_data, "ledoff", 6) == 0)
     {
         /* 关灯 */
         rt_pin_write(LED_PIN, PIN_HIGH);
@@ -237,7 +236,7 @@ static void onenet_cmd_rsp_cb(uint8_t *recv_data, size_t recv_size, uint8_t **re
     /* 开发者必须使用 ONENET_MALLOC 为响应数据申请内存 */
     *resp_data = (uint8_t *)ONENET_MALLOC(strlen(res_buf) + 1);
 
-    strncpy(*resp_data, res_buf, strlen(res_buf));
+    strncpy((char *)resp_data, res_buf, strlen(res_buf));
 
     *resp_size = strlen(res_buf);
 }

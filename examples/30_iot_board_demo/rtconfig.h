@@ -94,6 +94,9 @@
 
 #define RT_USING_DEVICE_IPC
 #define RT_PIPE_BUFSZ 512
+#define RT_USING_SYSTEM_WORKQUEUE
+#define RT_SYSTEM_WORKQUEUE_STACKSIZE 2048
+#define RT_SYSTEM_WORKQUEUE_PRIORITY 23
 #define RT_USING_SERIAL
 #define RT_SERIAL_USING_DMA
 #define RT_SERIAL_RB_BUFSZ 64
@@ -120,6 +123,8 @@
 #define RT_SFUD_USING_SFDP
 #define RT_SFUD_USING_FLASH_INFO_TABLE
 #define RT_USING_AUDIO
+#define RT_USING_SENSOR
+#define RT_USING_SENSOR_CMD
 
 /* Using WiFi */
 
@@ -159,13 +164,16 @@
 
 #define SAL_USING_LWIP
 #define SAL_USING_POSIX
-#define SAL_PROTO_FAMILIES_NUM 4
+
+/* Network interface device */
+
+#define RT_USING_NETDEV
+#define NETDEV_USING_AUTO_DEFAULT
 
 /* light weight TCP/IP stack */
 
 #define RT_USING_LWIP
 #define RT_USING_LWIP202
-#define RT_LWIP_ICMP
 #define RT_LWIP_DNS
 #define RT_LWIP_DHCP
 #define IP_SOF_BROADCAST 1
@@ -195,6 +203,7 @@
 #define RT_LWIP_ETHTHREAD_STACKSIZE 1024
 #define RT_LWIP_ETHTHREAD_MBOX_SIZE 8
 #define LWIP_NETIF_STATUS_CALLBACK 1
+#define LWIP_NETIF_LINK_CALLBACK 1
 #define SO_REUSE 1
 #define LWIP_SO_RCVTIMEO 1
 #define LWIP_SO_SNDTIMEO 1
@@ -213,19 +222,6 @@
 /* Utilities */
 
 #define RT_USING_RYM
-#define RT_USING_ULOG
-#define ULOG_OUTPUT_LVL_D
-#define ULOG_OUTPUT_LVL 7
-#define ULOG_ASSERT_ENABLE
-#define ULOG_LINE_BUF_SIZE 256
-
-/* log format */
-
-#define ULOG_USING_COLOR
-#define ULOG_OUTPUT_TIME
-#define ULOG_OUTPUT_LEVEL
-#define ULOG_OUTPUT_TAG
-#define ULOG_BACKEND_USING_CONSOLE
 
 /* RT-Thread online packages */
 
@@ -295,9 +291,11 @@
 #define FAL_PART_TABLE_FLASH_DEV_NAME "onchip_flash"
 #define FAL_PART_TABLE_END_OFFSET 65536
 #define PKG_USING_FAL_V00200
+#define PKG_FAL_VER_NUM 0x00200
 
 /* peripheral libraries and drivers */
 
+#define PKG_USING_SENSORS_DRIVERS
 #define PKG_USING_AHT10
 #define PKG_USING_AHT10_V100
 #define PKG_USING_AP3216C
@@ -306,7 +304,7 @@
 #define SDIO_BUFF_SIZE 4096
 #define SDIO_MAX_FREQ 24000000
 #define SDIO_ALIGN_LEN 32
-#define PKG_USING_STM32_SDIO_V100
+#define PKG_USING_STM32_SDIO_V102
 #define PKG_USING_ICM20608
 #define PKG_USING_ICM20608_V100
 #define PKG_USING_INFRARED
@@ -314,6 +312,7 @@
 /* Select infrared decoder */
 
 #define INFRARED_NEC_DECODER
+#define PKG_USING_DRV_INFRARED
 #define INFRARED_SEND
 #define INFRARED_SEND_PWM "pwm3"
 #define INFRARED_PWM_DEV_CHANNEL 3

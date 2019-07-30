@@ -334,7 +334,7 @@
               <MiscControls />
               <Define>USE_HAL_DRIVER, STM32L475xx, RT_USING_ARM_LIBC</Define>
               <Undefine />
-              <IncludePath>.;..\..\rt-thread\include;.;applications;modules\event;modules\infrared;modules\iotb_workqeue;modules\key;modules\lcd;modules\player;modules\sensors;modules\ymodem;packages\aht10-v1.0.0;packages\ap3216c-v1.0.0;packages\cJSON-v1.0.2;packages\EasyFlash-v3.2.1\inc;ports\easyflash;packages\fal-v0.2.0\inc;ports\fal;packages\FlexibleButton;packages\icm20608-v1.0.0;packages\infrared-v0.1.0\inc;packages\netutils-v1.0.0\ntp;packages\pahomqtt-v1.0.0\MQTTPacket\src;packages\pahomqtt-v1.0.0\MQTTClient-RT;packages\qrcode-v0.1.0\inc;packages\stm32_sdio-v1.0.0;packages\tinycrypt-v1.0.0\include;packages\webclient-v2.0.1\inc;ports\cloudsdk;..\..\libraries\cloudsdk\inc;ports\wifi;..\..\libraries\wifi;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\components\dfs\include;..\..\rt-thread\components\dfs\filesystems\devfs;..\..\rt-thread\components\dfs\filesystems\elmfat;..\..\rt-thread\components\drivers\audio;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi\sfud\inc;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\wlan;..\..\rt-thread\components\finsh;..\..\rt-thread\components\libc\compilers\armlibc;..\..\rt-thread\components\libc\compilers\common;..\..\rt-thread\components\net\lwip-2.0.2\src;..\..\rt-thread\components\net\lwip-2.0.2\src\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\ipv4;..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif;..\..\rt-thread\components\net\sal_socket\include;..\..\rt-thread\components\net\sal_socket\include\socket;..\..\rt-thread\components\net\sal_socket\impl;..\..\rt-thread\components\net\sal_socket\include\dfs_net;..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select;..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket;..\..\rt-thread\components\utilities\ulog;..\..\rt-thread\components\utilities\ymodem;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\libraries\rt_ota\inc;..\..\libraries\smartconfig\inc;..\..\drivers;..\..\drivers\audio</IncludePath>
+              <IncludePath>.;..\..\rt-thread\include;.;applications;modules\event;modules\infrared;modules\iotb_workqeue;modules\key;modules\lcd;modules\player;modules\sensors;modules\ymodem;packages\aht10-v1.0.0;packages\ap3216c-v1.0.0;packages\cJSON-v1.0.2;packages\EasyFlash-v3.2.1\inc;ports\easyflash;packages\fal-v0.2.0\inc;ports\fal;packages\FlexibleButton;packages\icm20608-v1.0.0;packages\infrared-v0.1.0\inc;packages\netutils-v1.0.0\ntp;packages\pahomqtt-v1.0.0\MQTTPacket\src;packages\pahomqtt-v1.0.0\MQTTClient-RT;packages\qrcode-v0.1.0\inc;packages\stm32_sdio-v1.0.2;packages\tinycrypt-v1.0.0\include;packages\webclient-v2.0.1\inc;ports\cloudsdk;..\..\libraries\cloudsdk\inc;ports\wifi;..\..\libraries\wifi;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\components\dfs\include;..\..\rt-thread\components\dfs\filesystems\devfs;..\..\rt-thread\components\dfs\filesystems\elmfat;..\..\rt-thread\components\drivers\audio;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi\sfud\inc;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\wlan;..\..\rt-thread\components\drivers\sensors;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\finsh;..\..\rt-thread\components\libc\compilers\armlibc;..\..\rt-thread\components\libc\compilers\common;..\..\rt-thread\components\net\lwip-2.0.2\src;..\..\rt-thread\components\net\lwip-2.0.2\src\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\ipv4;..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif;..\..\rt-thread\components\net\netdev\include;..\..\rt-thread\components\net\sal_socket\include;..\..\rt-thread\components\net\sal_socket\include\socket;..\..\rt-thread\components\net\sal_socket\impl;..\..\rt-thread\components\net\sal_socket\include\dfs_net;..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select;..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket;..\..\rt-thread\components\utilities\ymodem;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\libraries\rt_ota\inc;..\..\libraries\smartconfig\inc;..\..\drivers;..\..\drivers\audio</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -883,7 +883,7 @@
             <File>
               <FileName>stm32_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\stm32_sdio-v1.0.0\stm32_sdio.c</FilePath>
+              <FilePath>packages\stm32_sdio-v1.0.2\stm32_sdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -951,6 +951,8 @@
               <FilePath>ports\cloudsdk\rt_cld_port.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>cloudsdk<GroupName>cloudsdk</GroupName>
           <Files>
             <File>
               <FileName>libcloudsdk_2.0.0_armcm4_keil.lib</FileName>
@@ -968,11 +970,13 @@
               <FilePath>ports\wifi\wifi_config.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>wifi<GroupName>wifi</GroupName>
           <Files>
             <File>
-              <FileName>libwifi_6181_0.2.4_armcm4_keil.lib</FileName>
+              <FileName>libwifi_6181_0.2.5_armcm4_keil.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\libraries\wifi\libwifi_6181_0.2.4_armcm4_keil.lib</FilePath>
+              <FilePath>..\..\libraries\wifi\libwifi_6181_0.2.5_armcm4_keil.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -1362,6 +1366,23 @@
           </GroupOption>
         </Group>
         <Group>
+          <GroupName>Sensors</GroupName>
+          <Files>
+            <File>
+              <FileName>sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\drivers\sensors\sensor.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>sensor_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\drivers\sensors\sensor_cmd.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>finsh</GroupName>
           <Files>
             <File>
@@ -1707,14 +1728,24 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>SAL</GroupName>
+          <GroupName>netdev</GroupName>
           <Files>
             <File>
-              <FileName>sal_ipaddr.c</FileName>
+              <FileName>netdev.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\net\sal_socket\src\sal_ipaddr.c</FilePath>
+              <FilePath>..\..\rt-thread\components\net\netdev\src\netdev.c</FilePath>
             </File>
           </Files>
+          <Files>
+            <File>
+              <FileName>netdev_ipaddr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\net\netdev\src\netdev_ipaddr.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SAL</GroupName>
           <Files>
             <File>
               <FileName>sal_socket.c</FileName>
@@ -1753,20 +1784,6 @@
         </Group>
         <Group>
           <GroupName>Utilities</GroupName>
-          <Files>
-            <File>
-              <FileName>ulog.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\utilities\ulog\ulog.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>console_be.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\utilities\ulog\backend\console_be.c</FilePath>
-            </File>
-          </Files>
           <Files>
             <File>
               <FileName>ymodem.c</FileName>
@@ -1932,8 +1949,7 @@
             </File>
           </Files>
         </Group>
-        <Group>
-          <GroupName>rt_ota</GroupName>
+        <Group>rt_ota<GroupName>rt_ota</GroupName>
           <Files>
             <File>
               <FileName>librt_ota_noalgo_0.1.2_stm32l4_keil.lib</FileName>
@@ -1942,8 +1958,7 @@
             </File>
           </Files>
         </Group>
-        <Group>
-          <GroupName>smartconfig</GroupName>
+        <Group>smartconfig<GroupName>smartconfig</GroupName>
           <Files>
             <File>
               <FileName>libsmartconfig_1.0.0_armcm4_keil.lib</FileName>

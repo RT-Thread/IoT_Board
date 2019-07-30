@@ -135,6 +135,11 @@ menu "Hardware Drivers Config"
             select RT_USING_HOOK
             default n
 
+        config BSP_USING_ADC1_CH13
+            bool "Enable ADC1_CH13"
+            select RT_USING_ADC
+            default n
+
         config BSP_USING_PWM3_CH3
             bool "Enable PWM3_CH3"
             select RT_USING_PWM
@@ -152,6 +157,11 @@ menu "Hardware Drivers Config"
 
         config BSP_USING_USBD
             bool "Enable USBD"
+            default n
+
+        config BSP_USING_WDT
+            select RT_USING_WDT
+            bool "Enable Watch Dog"
             default n
     endmenu
 

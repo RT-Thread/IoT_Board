@@ -334,7 +334,7 @@
               <MiscControls />
               <Define>USE_HAL_DRIVER, STM32L475xx, RT_USING_ARM_LIBC</Define>
               <Undefine />
-              <IncludePath>.;..\..\rt-thread\include;.;applications;packages\EasyFlash-v3.2.1\inc;ports\easyflash;packages\fal-v0.2.0\inc;ports\fal;packages\netutils-v1.0.0\iperf;packages\netutils-v1.0.0\netio;packages\netutils-v1.0.0\ntp;packages\netutils-v1.0.0\ping;packages\netutils-v1.0.0\telnet;packages\netutils-v1.0.0\tftp;packages\stm32_sdio-v1.0.1;ports\wifi;..\..\libraries\wifi;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\components\dfs\include;..\..\rt-thread\components\dfs\filesystems\devfs;..\..\rt-thread\components\dfs\filesystems\elmfat;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi\sfud\inc;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\wlan;..\..\rt-thread\components\finsh;..\..\rt-thread\components\libc\compilers\armlibc;..\..\rt-thread\components\libc\compilers\common;..\..\rt-thread\components\net\lwip-2.0.2\src;..\..\rt-thread\components\net\lwip-2.0.2\src\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\ipv4;..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif;..\..\rt-thread\components\net\sal_socket\include;..\..\rt-thread\components\net\sal_socket\include\socket;..\..\rt-thread\components\net\sal_socket\impl;..\..\rt-thread\components\net\sal_socket\include\dfs_net;..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select;..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\libraries\rt_ota\inc;..\..\drivers</IncludePath>
+              <IncludePath>.;..\..\rt-thread\include;.;applications;packages\EasyFlash-v3.2.1\inc;ports\easyflash;packages\fal-v0.2.0\inc;ports\fal;packages\netutils-v1.0.0\iperf;packages\netutils-v1.0.0\netio;packages\netutils-v1.0.0\ntp;packages\netutils-v1.0.0\telnet;packages\netutils-v1.0.0\tftp;packages\stm32_sdio-v1.0.2;ports\wifi;..\..\libraries\wifi;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\components\dfs\include;..\..\rt-thread\components\dfs\filesystems\devfs;..\..\rt-thread\components\dfs\filesystems\elmfat;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi\sfud\inc;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\wlan;..\..\rt-thread\components\finsh;..\..\rt-thread\components\libc\compilers\armlibc;..\..\rt-thread\components\libc\compilers\common;..\..\rt-thread\components\net\lwip-2.0.2\src;..\..\rt-thread\components\net\lwip-2.0.2\src\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\ipv4;..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif;..\..\rt-thread\components\net\netdev\include;..\..\rt-thread\components\net\sal_socket\include;..\..\rt-thread\components\net\sal_socket\include\socket;..\..\rt-thread\components\net\sal_socket\impl;..\..\rt-thread\components\net\sal_socket\include\dfs_net;..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select;..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\libraries\rt_ota\inc;..\..\drivers</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -641,13 +641,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>ping.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\netutils-v1.0.0\ping\ping.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>telnet.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\netutils-v1.0.0\telnet\telnet.c</FilePath>
@@ -674,7 +667,7 @@
             <File>
               <FileName>stm32_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\stm32_sdio-v1.0.1\stm32_sdio.c</FilePath>
+              <FilePath>packages\stm32_sdio-v1.0.2\stm32_sdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -687,11 +680,13 @@
               <FilePath>ports\wifi\wifi_config.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>wifi<GroupName>wifi</GroupName>
           <Files>
             <File>
-              <FileName>libwifi_6181_0.2.4_armcm4_keil.lib</FileName>
+              <FileName>libwifi_6181_0.2.5_armcm4_keil.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\libraries\wifi\libwifi_6181_0.2.4_armcm4_keil.lib</FilePath>
+              <FilePath>..\..\libraries\wifi\libwifi_6181_0.2.5_armcm4_keil.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -1361,16 +1356,33 @@
               <FilePath>..\..\rt-thread\components\net\lwip-2.0.2\src\core\ipv4\ip4_frag.c</FilePath>
             </File>
           </Files>
+          <Files>
+            <File>
+              <FileName>ping.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\net\lwip-2.0.2\src\apps\ping\ping.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>netdev</GroupName>
+          <Files>
+            <File>
+              <FileName>netdev.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\net\netdev\src\netdev.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>netdev_ipaddr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\net\netdev\src\netdev_ipaddr.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>SAL</GroupName>
-          <Files>
-            <File>
-              <FileName>sal_ipaddr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\net\sal_socket\src\sal_ipaddr.c</FilePath>
-            </File>
-          </Files>
           <Files>
             <File>
               <FileName>sal_socket.c</FileName>
@@ -1536,8 +1548,7 @@
             </File>
           </Files>
         </Group>
-        <Group>
-          <GroupName>rt_ota</GroupName>
+        <Group>rt_ota<GroupName>rt_ota</GroupName>
           <Files>
             <File>
               <FileName>librt_ota_noalgo_0.1.2_stm32l4_keil.lib</FileName>

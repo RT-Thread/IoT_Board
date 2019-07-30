@@ -348,7 +348,7 @@
           <state>$PROJ_DIR$\ports\fal</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include\dfs_net</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
-          <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\spi</state>
+          <state>$PROJ_DIR$\packages\netutils-v1.0.0\telnet</state>
           <state>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\dfs\filesystems\elmfat</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select</state>
@@ -373,15 +373,15 @@
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\impl</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
-          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.1</state>
+          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.2</state>
           <state>$PROJ_DIR$\ports\wifi</state>
-          <state>$PROJ_DIR$\packages\netutils-v1.0.0\telnet</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\spi</state>
           <state>$PROJ_DIR$\packages\netutils-v1.0.0\iperf</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket</state>
           <state>$PROJ_DIR$\..\..\libraries\rt_ota\inc</state>
-          <state>$PROJ_DIR$\packages\netutils-v1.0.0\ping</state>
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\dfs\filesystems\devfs</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif</state>
@@ -850,7 +850,7 @@
         <option>
           <name>IlinkAdditionalLibs</name>
           <state />
-          <state>$PROJ_DIR$\..\..\libraries\wifi\libwifi_6181_0.2.4_armcm4_iar.a</state>
+          <state>$PROJ_DIR$\..\..\libraries\wifi\libwifi_6181_0.2.5_armcm4_iar.a</state>
           <state>$PROJ_DIR$\..\..\libraries\rt_ota\libs\librt_ota_noalgo_0.1.2_stm32l4_iar.a</state>
         </option>
         <option>
@@ -1411,7 +1411,7 @@
           <state>$PROJ_DIR$\ports\fal</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include\dfs_net</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
-          <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\spi</state>
+          <state>$PROJ_DIR$\packages\netutils-v1.0.0\telnet</state>
           <state>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\dfs\filesystems\elmfat</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select</state>
@@ -1436,15 +1436,15 @@
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\impl</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
-          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.1</state>
+          <state>$PROJ_DIR$\packages\stm32_sdio-v1.0.2</state>
           <state>$PROJ_DIR$\ports\wifi</state>
-          <state>$PROJ_DIR$\packages\netutils-v1.0.0\telnet</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\spi</state>
           <state>$PROJ_DIR$\packages\netutils-v1.0.0\iperf</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket</state>
           <state>$PROJ_DIR$\..\..\libraries\rt_ota\inc</state>
-          <state>$PROJ_DIR$\packages\netutils-v1.0.0\ping</state>
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\dfs\filesystems\devfs</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif</state>
@@ -1913,7 +1913,7 @@
         <option>
           <name>IlinkAdditionalLibs</name>
           <state />
-          <state>$PROJ_DIR$\..\..\libraries\wifi\libwifi_6181_0.2.4_armcm4_iar.a</state>
+          <state>$PROJ_DIR$\..\..\libraries\wifi\libwifi_6181_0.2.5_armcm4_iar.a</state>
           <state>$PROJ_DIR$\..\..\libraries\rt_ota\libs\librt_ota_noalgo_0.1.2_stm32l4_iar.a</state>
         </option>
         <option>
@@ -2243,9 +2243,6 @@
       <name>$PROJ_DIR$\packages\netutils-v1.0.0\ntp\ntp.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\packages\netutils-v1.0.0\ping\ping.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\packages\netutils-v1.0.0\telnet\telnet.c</name>
     </file>
     <file>
@@ -2258,7 +2255,7 @@
   <group>
     <name>stm32_sdio</name>
     <file>
-      <name>$PROJ_DIR$\packages\stm32_sdio-v1.0.1\stm32_sdio.c</name>
+      <name>$PROJ_DIR$\packages\stm32_sdio-v1.0.2\stm32_sdio.c</name>
     </file>
   </group>
   <group>
@@ -2581,12 +2578,21 @@
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\core\ipv4\ip4_frag.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\net\lwip-2.0.2\src\apps\ping\ping.c</name>
+    </file>
+  </group>
+  <group>
+    <name>netdev</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\src\netdev.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\src\netdev_ipaddr.c</name>
+    </file>
   </group>
   <group>
     <name>SAL</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\src\sal_ipaddr.c</name>
-    </file>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\src\sal_socket.c</name>
     </file>

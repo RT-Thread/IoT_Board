@@ -17,19 +17,19 @@
 #include "iotb_event.h"
 #include <rthw.h>
 
-#undef DBG_SECTION_NAME
-#undef DBG_LEVEL
+#undef DBG_TAG
+#undef DBG_LVL
 #undef DBG_COLOR
 #undef DBG_ENABLE
 
 // #define IOTB_KEY_DEBUG
 
 #define DBG_ENABLE
-#define DBG_SECTION_NAME               "IOTB_KEY"
+#define DBG_TAG               "IOTB_KEY"
 #ifdef IOTB_KEY_DEBUG
-#define DBG_LEVEL                      DBG_LOG
+#define DBG_LVL                      DBG_LOG
 #else
-#define DBG_LEVEL                      DBG_INFO /* DBG_ERROR */
+#define DBG_LVL                      DBG_INFO /* DBG_ERROR */
 #endif 
 #define DBG_COLOR
 #include <rtdbg.h>

@@ -12,13 +12,13 @@
 
 int main(void)
 {
-    extern int esp8266_ping(int argc, char **argv);
+    extern int netdev_ping(int argc, char **argv);
 
     char *cmd[] = {"esp8266_ping", "www.rt-thread.org"};
 
     while (1)
     {
-        if (esp8266_ping(2, cmd) == RT_EOK)
+        if (netdev_ping(2, cmd) == RT_EOK)
         {
             break;
         }

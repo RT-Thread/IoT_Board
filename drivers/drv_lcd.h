@@ -45,6 +45,7 @@ void lcd_address_set(rt_uint16_t x1, rt_uint16_t y1, rt_uint16_t x2, rt_uint16_t
 void lcd_set_color(rt_uint16_t back, rt_uint16_t fore);
 
 void lcd_draw_point(rt_uint16_t x, rt_uint16_t y);
+void lcd_draw_point_color(rt_uint16_t x, rt_uint16_t y, rt_uint16_t color);
 void lcd_draw_circle(rt_uint16_t x0, rt_uint16_t y0, rt_uint8_t r);
 void lcd_draw_line(rt_uint16_t x1, rt_uint16_t y1, rt_uint16_t x2, rt_uint16_t y2);
 void lcd_draw_rectangle(rt_uint16_t x1, rt_uint16_t y1, rt_uint16_t x2, rt_uint16_t y2);

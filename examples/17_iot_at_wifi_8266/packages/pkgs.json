@@ -1,7 +1,7 @@
 [
  {
   "path": "/packages/iot/at_device", 
-  "ver": "v1.4.0", 
+  "ver": "v1.6.0", 
   "name": "AT_DEVICE"
  }
 ]

@@ -10,7 +10,7 @@
 
 ![红外发射接收电路原理图](../../docs/figures/05_basic_ir/infrared2.png)
 
-如上图所示，红外发射脚 EMISSION 接单片机引脚 PB0（35号） ，红外接收头引脚 RECEPTION 接单片机引脚 PB1（36号，TIM3_CH4 通道）。
+如上图所示，红外发射脚 EMISSION 接单片机引脚 PB0，红外接收头引脚 RECEPTION 接单片机引脚 PB1（TIM3_CH4 通道）。
 
 红外传感器在开发板中的位置如下图所示：
 

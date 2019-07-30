@@ -10,7 +10,7 @@
 
 ![RGB 电路原理图](../../docs/figures/02_basic_rgb_led/led_pcb_1.png)
 
-如上图所示，RGB-LED 属于共阳 LED ，**阴极** 分别与单片机的 38，39，40 号引脚连接，其中红色 LED 对应 **38** 号引脚，蓝色 LED 对应 **39** 号引脚，绿色 LED 对应 **40** 号引脚。单片机对应的引脚输出低电平即可点亮对应的 LED ，输出高电平则会熄灭对应的 LED。
+如上图所示，RGB-LED 属于共阳 LED ，**阴极** 分别与单片机的引脚连接，其中红色 LED 对应 **PE7** 号引脚，蓝色 绿色 LED 对应 **PE8** 号引脚，LED 对应 **PE9** 号引脚。单片机对应的引脚输出低电平即可点亮对应的 LED ，输出高电平则会熄灭对应的 LED。
 
 RGB-LED 在开发板中的位置如下图所示：
 
@@ -21,9 +21,9 @@ RGB-LED 在开发板中的位置如下图所示：
 RGB-LED 对应的单片机引脚定义可以通过查阅头文件 `/drivers/drv_gpio.h` 获知。
 
 ```c
-#define PIN_LED_R     38        // PE7 :  LED_R        --> LED
-#define PIN_LED_B     39        // PE8 :  LED_B        --> LED
-#define PIN_LED_G     40        // PE9 :  LED_G        --> LED
+#define PIN_LED_R       GET_PIN(E, 7)      // PE7 :  LED_R        --> LED
+#define PIN_LED_G       GET_PIN(E, 8)      // PE8 :  LED_B        --> LED
+#define PIN_LED_B       GET_PIN(E, 9)      // PE9 :  LED_G        --> LED
 ```
 
 RGB-LED 灯变换的源代码位于 `/examples/02_basic_rgb_led/applications/main.c` 中。

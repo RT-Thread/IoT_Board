@@ -59,8 +59,6 @@ static void _wakeup_callback(void *args)
     //while (rt_pin_read(USER_WAKEUP_PIN) == 0);
 
     _wakeup_button_update();
-    
-    rt_pm_exit();
 
     if (_wakeup_hook)
         _wakeup_hook();

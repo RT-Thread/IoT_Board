@@ -35,8 +35,6 @@ void HAL_LPTIM_CompareMatchCallback(LPTIM_HandleTypeDef *hlptim)
     /* enter interrupt */
     rt_interrupt_enter();
 
-    rt_pm_exit();
-
     /* leave interrupt */
     rt_interrupt_leave();
 }

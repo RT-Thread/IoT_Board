@@ -19,8 +19,8 @@
 
 #define IOTB_MAIN_DEBUG
 
-#define DBG_SECTION_NAME               "main"
-#define DBG_LEVEL                      DBG_INFO
+#define DBG_TAG "main"
+#define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
 static int ota_app_vtor_reconfig(void)

@@ -7,171 +7,239 @@
  * Date           Author            Notes
  * 2017-11-20     DQL               the first version
  * 2018-08-16     Tanek             add IO function description
+ * 2019-06-28     SummerGift        update to the latest version
  */
 
+#include <board.h>
+#include <rtthread.h>
 #include <rthw.h>
 #include <rtdevice.h>
-#include <board.h>
+#include "drv_gpio.h"
 
 #ifdef BSP_USING_GPIO
 
-#define __STM32_PIN(index, gpio, gpio_index)                                \
-    {                                                                       \
-        index, GPIO##gpio##_CLK_ENABLE, GPIO##gpio, GPIO_PIN_##gpio_index   \
-    }
-
-#define __STM32_PIN_DEFAULT                                                 \
-    {                                                                       \
-        -1, 0, 0, 0                                                         \
-    }
-
-static void GPIOA_CLK_ENABLE(void)
+static const struct pin_index pins[] = 
 {
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-}
-
-static void GPIOB_CLK_ENABLE(void)
-{
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-}
-
-static void GPIOC_CLK_ENABLE(void)
-{
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-}
-
-static void GPIOD_CLK_ENABLE(void)
-{
-    __HAL_RCC_GPIOD_CLK_ENABLE();
-}
-
-static void GPIOE_CLK_ENABLE(void)
-{
-    __HAL_RCC_GPIOE_CLK_ENABLE();
-}
-
-/* STM32 GPIO driver */
-struct pin_index
-{
-    int index;
-    void (*rcc)(void);
-    GPIO_TypeDef *gpio;
-    uint32_t pin;
-};
-
-static const struct pin_index pins[] =
-{
-    __STM32_PIN_DEFAULT,
-    __STM32_PIN(1, E, 2),       // PE2 :  SAI1_MCLK_A  --> ES8388
-    __STM32_PIN(2, E, 3),       // PE3 :  SAI1_SD_B    --> ES8388
-    __STM32_PIN(3, E, 4),       // PE4 :  SAI1_FS_A    --> ES8388
-    __STM32_PIN(4, E, 5),       // PE5 :  SAI1_SCK_A   --> ES8388
-    __STM32_PIN(5, E, 6),       // PE6 :  SAI1_SD_A    --> ES8388
-    __STM32_PIN_DEFAULT,        //     :  VBAT
-    __STM32_PIN(7, C, 13),      // PC13:  SD_CS        --> SD_CARD
-    __STM32_PIN(8, C, 14),      // PC14:  OSC32_IN
-    __STM32_PIN(9, C, 15),      // PC15:  OSC32_OUT
-    __STM32_PIN_DEFAULT,        //     :  VSS
-    __STM32_PIN_DEFAULT,        //     :  VDD
-    __STM32_PIN_DEFAULT,        // PH0 :  OSC_IN
-    __STM32_PIN_DEFAULT,        // PH1 :  OSC_OUT
-    __STM32_PIN_DEFAULT,        //     :  RESET
-    __STM32_PIN(15, C, 0),      // PC0 :  I2C_SCL      --> ES8388
-    __STM32_PIN(16, C, 1),      // PC1 :  I2C_SDA      --> ES8388
-    __STM32_PIN(17, C, 2),      // PC2 :  GBC_LED      --> ATK MODULE
-    __STM32_PIN(18, C, 3),      // PC3 :  GBC_KEY      --> ATK MODULE
-    __STM32_PIN_DEFAULT,        //     :  VSSA
-    __STM32_PIN_DEFAULT,        //     :  VREF-
-    __STM32_PIN_DEFAULT,        //     :  VREF+
-    __STM32_PIN_DEFAULT,        //     :  VDDA
-    __STM32_PIN(23, A, 0),      // PA0 :  MOTOR_A      --> MOTOR
-    __STM32_PIN(24, A, 1),      // PA1 :  MOTOR_B      --> MOTOR
-    __STM32_PIN(25, A, 2),      // PA2 :  UART2_TX     --> EXTERNAL MODULE
-    __STM32_PIN(26, A, 3),      // PA3 :  UART2_RX     --> EXTERNAL MODULE
-    __STM32_PIN_DEFAULT,        //     :  VSS
-    __STM32_PIN_DEFAULT,        //     :  VDD
-    __STM32_PIN(29, A, 4),      // PA4 :  ADC12_IN9    --> EXTERNAL MODULE
-    __STM32_PIN(30, A, 5),      // PA5 :  SPI1_SCK     --> SD_CARD
-    __STM32_PIN(31, A, 6),      // PA6 :  SPI1_MISO    --> SD_CARD
-    __STM32_PIN(32, A, 7),      // PA7 :  SPI1_MOSI    --> SD_CARD
-    __STM32_PIN(33, C, 4),      // PC4 :  GBC_RX       --> ATK MODULE
-    __STM32_PIN(34, C, 5),      // PC5 :  WIFI_INT     --> WIFI
-    __STM32_PIN(35, B, 0),      // PB0 :  EMISSION     --> INFRARED EMISSION
-    __STM32_PIN(36, B, 1),      // PB1 :  RECEPTION    --> INFRARED EMISSION
-    __STM32_PIN(37, B, 2),      // PB2 :  BEEP         --> BEEP
-    __STM32_PIN(38, E, 7),      // PE7 :  LED_R        --> LED
-    __STM32_PIN(39, E, 8),      // PE8 :  LED_G        --> LED
-    __STM32_PIN(40, E, 9),      // PE9 :  LED_B        --> LED
-    __STM32_PIN(41, E, 10),     // PE10:  QSPI_BK1_CLK --> SPI_FLASH
-    __STM32_PIN(42, E, 11),     // PE11:  QSPI_BK1_NCS --> SPI_FLASH
-    __STM32_PIN(43, E, 12),     // PE12:  QSPI_BK1_IO0 --> SPI_FLASH
-    __STM32_PIN(44, E, 13),     // PE13:  QSPI_BK1_IO1 --> SPI_FLASH
-    __STM32_PIN(45, E, 14),     // PE14:  QSPI_BK1_IO2 --> SPI_FLASH
-    __STM32_PIN(46, E, 15),     // PE15:  QSPI_BK1_IO3 --> SPI_FLASH
-    __STM32_PIN(47, B, 10),     // PB10:  AP_INT       --> ALS&PS SENSOR
-    __STM32_PIN(48, B, 11),     // PB11:  ICM_INT      --> AXIS SENSOR
-    __STM32_PIN_DEFAULT,        //     :  VSS
-    __STM32_PIN_DEFAULT,        //     :  VDD
-    __STM32_PIN(51, B, 12),     // PB12:  SPI2_CS      --> EXTERNAL MODULE
-    __STM32_PIN(52, B, 13),     // PB13:  SPI2_SCK     --> EXTERNAL MODULE
-    __STM32_PIN(53, B, 14),     // PB14:  SPI2_MISO    --> EXTERNAL MODULE
-    __STM32_PIN(54, B, 15),     // PB15:  SPI2_MOSI    --> EXTERNAL MODULE
-    __STM32_PIN(55, D, 8),      // PD8 :  KEY0         --> KEY
-    __STM32_PIN(56, D, 9),      // PD9 :  KEY1         --> KEY
-    __STM32_PIN(57, D, 10),     // PD10:  KEY2         --> KEY
-    __STM32_PIN(58, D, 11),     // PD11:  WK_UP        --> KEY
-    __STM32_PIN(59, D, 12),     // PD12:  IO_PD12      --> EXTERNAL MODULEL
-    __STM32_PIN(60, D, 13),     // PD13:  IO_PD13      --> EXTERNAL MODULE
-    __STM32_PIN(61, D, 14),     // PD14:  IO_PD14      --> EXTERNAL MODULE
-    __STM32_PIN(62, D, 15),     // PD15:  IO_PD15      --> EXTERNAL MODULE
-    __STM32_PIN(63, C, 6),      // PC6 :  TIM3_CH1     --> EXTERNAL MODULE
-    __STM32_PIN(64, C, 7),      // PC7 :  TIM3_CH2     --> EXTERNAL MODULE
-    __STM32_PIN(65, C, 8),      // PC8 :  SDIO_D0      --> WIFI
-    __STM32_PIN(66, C, 9),      // PC9 :  SDIO_D1      --> WIFI
-    __STM32_PIN(67, A, 8),      // PA8 :  IO_PA8       --> EXTERNAL MODULE
-    __STM32_PIN(68, A, 9),      // PA9 :  UART1_TX     --> STLINK_RX
-    __STM32_PIN(69, A, 10),     // PA10:  UART1_RX     --> STLINK_RX
-    __STM32_PIN(70, A, 11),     // PA11:  USB_D-       --> USB OTG && EXTERNAL MODULE
-    __STM32_PIN(71, A, 12),     // PA12:  USB_D+       --> USB OTG && EXTERNAL MODULE
-    __STM32_PIN(72, A, 13),     // PA13:  T_JTMS       --> STLINK
-    __STM32_PIN_DEFAULT,        //     :  VDDUSB
-    __STM32_PIN_DEFAULT,        //     :  VSS
-    __STM32_PIN_DEFAULT,        //     :  VDD
-    __STM32_PIN(76, A, 14),     // PA14:  T_JTCK       --> STLINK
-    __STM32_PIN(77, A, 15),     // PA15:  AUDIO_PWR    --> AUDIO && POWER
-    __STM32_PIN(78, C, 10),     // PC10:  SDIO_D2      --> WIFI
-    __STM32_PIN(79, C, 11),     // PC11:  SDIO_D3      --> WIFI
-    __STM32_PIN(80, C, 12),     // PC12:  SDIO_CLK     --> WIFI
-    __STM32_PIN(81, D, 0),      //
-    __STM32_PIN(82, D, 1),      // PD1 :  WIFI_REG_ON  --> WIFI
-    __STM32_PIN(83, D, 2),      // PD2 :  SDIO_CMD     --> WIFI
-    __STM32_PIN(84, D, 3),      // PD3 :  IO_PD3       --> EXTERNAL MODULE
-    __STM32_PIN(85, D, 4),      // PD4 :  NRF_IRQ      --> WIRELESS
-    __STM32_PIN(86, D, 5),      // PD5 :  NRF_CE       --> WIRELESS
-    __STM32_PIN(87, D, 6),      // PD6 :  NRF_CS       --> WIRELESS
-    __STM32_PIN(88, D, 7),      // PD7 :  LCD_CS       --> LCD
-    __STM32_PIN(89, B, 3),      // PB3 :  LCD_SPI_SCK  --> LCD
-    __STM32_PIN(90, B, 4),      // PB4 :  LCD_WR       --> LCD
-    __STM32_PIN(91, B, 5),      // PB5 :  LCD_SPI_SDA  --> LCD
-    __STM32_PIN(92, B, 6),      // PB6 :  LCD_RESET    --> LCD
-    __STM32_PIN(93, B, 7),      // PB7 :  LCD_PWR      --> LCD
-    __STM32_PIN_DEFAULT,        //     :  BOOT0
-    __STM32_PIN(95, B, 8),      // PB8 :  I2C1_SCL     --> EXTERNAL MODULE
-    __STM32_PIN(96, B, 9),      // PB9 :  I2C1_SDA     --> EXTERNAL MODULE
-    __STM32_PIN(97, E, 0),      // PE0 :  IO_PE0       --> EXTERNAL MODULE
-    __STM32_PIN(98, E, 1),      // PE1 :  IO_PE1       --> EXTERNAL MODULE
-    __STM32_PIN_DEFAULT,        //     :  VSS
-    __STM32_PIN_DEFAULT,        //     :  VDD
-};
-
-struct pin_irq_map
-{
-    rt_uint16_t pinbit;
-    IRQn_Type irqno;
+#if defined(GPIOA)
+    __STM32_PIN(0 ,  A, 0 ),
+    __STM32_PIN(1 ,  A, 1 ),
+    __STM32_PIN(2 ,  A, 2 ),
+    __STM32_PIN(3 ,  A, 3 ),
+    __STM32_PIN(4 ,  A, 4 ),
+    __STM32_PIN(5 ,  A, 5 ),
+    __STM32_PIN(6 ,  A, 6 ),
+    __STM32_PIN(7 ,  A, 7 ),
+    __STM32_PIN(8 ,  A, 8 ),
+    __STM32_PIN(9 ,  A, 9 ),
+    __STM32_PIN(10,  A, 10),
+    __STM32_PIN(11,  A, 11),
+    __STM32_PIN(12,  A, 12),
+    __STM32_PIN(13,  A, 13),
+    __STM32_PIN(14,  A, 14),
+    __STM32_PIN(15,  A, 15),
+#if defined(GPIOB)
+    __STM32_PIN(16,  B, 0),
+    __STM32_PIN(17,  B, 1),
+    __STM32_PIN(18,  B, 2),
+    __STM32_PIN(19,  B, 3),
+    __STM32_PIN(20,  B, 4),
+    __STM32_PIN(21,  B, 5),
+    __STM32_PIN(22,  B, 6),
+    __STM32_PIN(23,  B, 7),
+    __STM32_PIN(24,  B, 8),
+    __STM32_PIN(25,  B, 9),
+    __STM32_PIN(26,  B, 10),
+    __STM32_PIN(27,  B, 11),
+    __STM32_PIN(28,  B, 12),
+    __STM32_PIN(29,  B, 13),
+    __STM32_PIN(30,  B, 14),
+    __STM32_PIN(31,  B, 15),
+#if defined(GPIOC)
+    __STM32_PIN(32,  C, 0),
+    __STM32_PIN(33,  C, 1),
+    __STM32_PIN(34,  C, 2),
+    __STM32_PIN(35,  C, 3),
+    __STM32_PIN(36,  C, 4),
+    __STM32_PIN(37,  C, 5),
+    __STM32_PIN(38,  C, 6),
+    __STM32_PIN(39,  C, 7),
+    __STM32_PIN(40,  C, 8),
+    __STM32_PIN(41,  C, 9),
+    __STM32_PIN(42,  C, 10),
+    __STM32_PIN(43,  C, 11),
+    __STM32_PIN(44,  C, 12),
+    __STM32_PIN(45,  C, 13),
+    __STM32_PIN(46,  C, 14),
+    __STM32_PIN(47,  C, 15),
+#if defined(GPIOD)
+    __STM32_PIN(48,  D, 0),
+    __STM32_PIN(49,  D, 1),
+    __STM32_PIN(50,  D, 2),
+    __STM32_PIN(51,  D, 3),
+    __STM32_PIN(52,  D, 4),
+    __STM32_PIN(53,  D, 5),
+    __STM32_PIN(54,  D, 6),
+    __STM32_PIN(55,  D, 7),
+    __STM32_PIN(56,  D, 8),
+    __STM32_PIN(57,  D, 9),
+    __STM32_PIN(58,  D, 10),
+    __STM32_PIN(59,  D, 11),
+    __STM32_PIN(60,  D, 12),
+    __STM32_PIN(61,  D, 13),
+    __STM32_PIN(62,  D, 14),
+    __STM32_PIN(63,  D, 15),
+#if defined(GPIOE)
+    __STM32_PIN(64,  E, 0),
+    __STM32_PIN(65,  E, 1),
+    __STM32_PIN(66,  E, 2),
+    __STM32_PIN(67,  E, 3),
+    __STM32_PIN(68,  E, 4),
+    __STM32_PIN(69,  E, 5),
+    __STM32_PIN(70,  E, 6),
+    __STM32_PIN(71,  E, 7),
+    __STM32_PIN(72,  E, 8),
+    __STM32_PIN(73,  E, 9),
+    __STM32_PIN(74,  E, 10),
+    __STM32_PIN(75,  E, 11),
+    __STM32_PIN(76,  E, 12),
+    __STM32_PIN(77,  E, 13),
+    __STM32_PIN(78,  E, 14),
+    __STM32_PIN(79,  E, 15),
+#if defined(GPIOF)
+    __STM32_PIN(80,  F, 0),
+    __STM32_PIN(81,  F, 1),
+    __STM32_PIN(82,  F, 2),
+    __STM32_PIN(83,  F, 3),
+    __STM32_PIN(84,  F, 4),
+    __STM32_PIN(85,  F, 5),
+    __STM32_PIN(86,  F, 6),
+    __STM32_PIN(87,  F, 7),
+    __STM32_PIN(88,  F, 8),
+    __STM32_PIN(89,  F, 9),
+    __STM32_PIN(90,  F, 10),
+    __STM32_PIN(91,  F, 11),
+    __STM32_PIN(92,  F, 12),
+    __STM32_PIN(93,  F, 13),
+    __STM32_PIN(94,  F, 14),
+    __STM32_PIN(95,  F, 15),
+#if defined(GPIOG)
+    __STM32_PIN(96,  G, 0),
+    __STM32_PIN(97,  G, 1),
+    __STM32_PIN(98,  G, 2),
+    __STM32_PIN(99,  G, 3),
+    __STM32_PIN(100, G, 4),
+    __STM32_PIN(101, G, 5),
+    __STM32_PIN(102, G, 6),
+    __STM32_PIN(103, G, 7),
+    __STM32_PIN(104, G, 8),
+    __STM32_PIN(105, G, 9),
+    __STM32_PIN(106, G, 10),
+    __STM32_PIN(107, G, 11),
+    __STM32_PIN(108, G, 12),
+    __STM32_PIN(109, G, 13),
+    __STM32_PIN(110, G, 14),
+    __STM32_PIN(111, G, 15),
+#if defined(GPIOH)
+    __STM32_PIN(112, H, 0),
+    __STM32_PIN(113, H, 1),
+    __STM32_PIN(114, H, 2),
+    __STM32_PIN(115, H, 3),
+    __STM32_PIN(116, H, 4),
+    __STM32_PIN(117, H, 5),
+    __STM32_PIN(118, H, 6),
+    __STM32_PIN(119, H, 7),
+    __STM32_PIN(120, H, 8),
+    __STM32_PIN(121, H, 9),
+    __STM32_PIN(122, H, 10),
+    __STM32_PIN(123, H, 11),
+    __STM32_PIN(124, H, 12),
+    __STM32_PIN(125, H, 13),
+    __STM32_PIN(126, H, 14),
+    __STM32_PIN(127, H, 15),
+#if defined(GPIOI)
+    __STM32_PIN(128, I, 0),
+    __STM32_PIN(129, I, 1),
+    __STM32_PIN(130, I, 2),
+    __STM32_PIN(131, I, 3),
+    __STM32_PIN(132, I, 4),
+    __STM32_PIN(133, I, 5),
+    __STM32_PIN(134, I, 6),
+    __STM32_PIN(135, I, 7),
+    __STM32_PIN(136, I, 8),
+    __STM32_PIN(137, I, 9),
+    __STM32_PIN(138, I, 10),
+    __STM32_PIN(139, I, 11),
+    __STM32_PIN(140, I, 12),
+    __STM32_PIN(141, I, 13),
+    __STM32_PIN(142, I, 14),
+    __STM32_PIN(143, I, 15),
+#if defined(GPIOJ)
+    __STM32_PIN(144, J, 0),
+    __STM32_PIN(145, J, 1),
+    __STM32_PIN(146, J, 2),
+    __STM32_PIN(147, J, 3),
+    __STM32_PIN(148, J, 4),
+    __STM32_PIN(149, J, 5),
+    __STM32_PIN(150, J, 6),
+    __STM32_PIN(151, J, 7),
+    __STM32_PIN(152, J, 8),
+    __STM32_PIN(153, J, 9),
+    __STM32_PIN(154, J, 10),
+    __STM32_PIN(155, J, 11),
+    __STM32_PIN(156, J, 12),
+    __STM32_PIN(157, J, 13),
+    __STM32_PIN(158, J, 14),
+    __STM32_PIN(159, J, 15),
+#if defined(GPIOK)
+    __STM32_PIN(160, K, 0),
+    __STM32_PIN(161, K, 1),
+    __STM32_PIN(162, K, 2),
+    __STM32_PIN(163, K, 3),
+    __STM32_PIN(164, K, 4),
+    __STM32_PIN(165, K, 5),
+    __STM32_PIN(166, K, 6),
+    __STM32_PIN(167, K, 7),
+    __STM32_PIN(168, K, 8),
+    __STM32_PIN(169, K, 9),
+    __STM32_PIN(170, K, 10),
+    __STM32_PIN(171, K, 11),
+    __STM32_PIN(172, K, 12),
+    __STM32_PIN(173, K, 13),
+    __STM32_PIN(174, K, 14),
+    __STM32_PIN(175, K, 15),
+#endif /* defined(GPIOK) */
+#endif /* defined(GPIOJ) */
+#endif /* defined(GPIOI) */
+#endif /* defined(GPIOH) */
+#endif /* defined(GPIOG) */
+#endif /* defined(GPIOF) */
+#endif /* defined(GPIOE) */
+#endif /* defined(GPIOD) */
+#endif /* defined(GPIOC) */
+#endif /* defined(GPIOB) */
+#endif /* defined(GPIOA) */
 };
 
 static const struct pin_irq_map pin_irq_map[] =
 {
+#if defined(SOC_SERIES_STM32F0) || defined(SOC_SERIES_STM32L0) || defined(SOC_SERIES_STM32G0)
+    {GPIO_PIN_0, EXTI0_1_IRQn},
+    {GPIO_PIN_1, EXTI0_1_IRQn},
+    {GPIO_PIN_2, EXTI2_3_IRQn},
+    {GPIO_PIN_3, EXTI2_3_IRQn},
+    {GPIO_PIN_4, EXTI4_15_IRQn},
+    {GPIO_PIN_5, EXTI4_15_IRQn},
+    {GPIO_PIN_6, EXTI4_15_IRQn},
+    {GPIO_PIN_7, EXTI4_15_IRQn},
+    {GPIO_PIN_8, EXTI4_15_IRQn},
+    {GPIO_PIN_9, EXTI4_15_IRQn},
+    {GPIO_PIN_10, EXTI4_15_IRQn},
+    {GPIO_PIN_11, EXTI4_15_IRQn},
+    {GPIO_PIN_12, EXTI4_15_IRQn},
+    {GPIO_PIN_13, EXTI4_15_IRQn},
+    {GPIO_PIN_14, EXTI4_15_IRQn},
+    {GPIO_PIN_15, EXTI4_15_IRQn}, 
+#else
     {GPIO_PIN_0, EXTI0_IRQn},
     {GPIO_PIN_1, EXTI1_IRQn},
     {GPIO_PIN_2, EXTI2_IRQn},
@@ -188,6 +256,7 @@ static const struct pin_irq_map pin_irq_map[] =
     {GPIO_PIN_13, EXTI15_10_IRQn},
     {GPIO_PIN_14, EXTI15_10_IRQn},
     {GPIO_PIN_15, EXTI15_10_IRQn},
+#endif
 };
 
 static struct rt_pin_irq_hdr pin_irq_hdr_tab[] =
@@ -209,6 +278,7 @@ static struct rt_pin_irq_hdr pin_irq_hdr_tab[] =
     {-1, 0, RT_NULL, RT_NULL},
     {-1, 0, RT_NULL, RT_NULL},
 };
+static uint32_t pin_irq_enable_mask=0;
 
 #define ITEM_NUM(items) sizeof(items) / sizeof(items[0])
 static const struct pin_index *get_pin(uint8_t pin)
@@ -270,9 +340,6 @@ static void stm32_pin_mode(rt_device_t dev, rt_base_t pin, rt_base_t mode)
     {
         return;
     }
-
-    /* GPIO Periph clock enable */
-    index->rcc();
 
     /* Configure GPIO_InitStructure */
     GPIO_InitStruct.Pin = index->pin;
@@ -443,22 +510,21 @@ static rt_err_t stm32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
 
         irqmap = &pin_irq_map[irqindex];
 
-        /* GPIO Periph clock enable */
-        index->rcc();
-
         /* Configure GPIO_InitStructure */
-        GPIO_InitStruct.Pin = index->pin;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
+        GPIO_InitStruct.Pin = index->pin;        
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
         switch (pin_irq_hdr_tab[irqindex].mode)
         {
         case PIN_IRQ_MODE_RISING:
+            GPIO_InitStruct.Pull = GPIO_PULLDOWN;
             GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
             break;
         case PIN_IRQ_MODE_FALLING:
+            GPIO_InitStruct.Pull = GPIO_PULLUP;
             GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
             break;
         case PIN_IRQ_MODE_RISING_FALLING:
+            GPIO_InitStruct.Pull = GPIO_NOPULL;
             GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
             break;
         }
@@ -466,6 +532,7 @@ static rt_err_t stm32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
 
         HAL_NVIC_SetPriority(irqmap->irqno, 5, 0);
         HAL_NVIC_EnableIRQ(irqmap->irqno);
+        pin_irq_enable_mask |= irqmap->pinbit;
 
         rt_hw_interrupt_enable(level);
     }
@@ -477,11 +544,63 @@ static rt_err_t stm32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
             return RT_ENOSYS;
         }
 
-        HAL_NVIC_DisableIRQ(irqmap->irqno);
+        level = rt_hw_interrupt_disable();
+
+        HAL_GPIO_DeInit(index->gpio, index->pin);
+
+        pin_irq_enable_mask &= ~irqmap->pinbit;
+#if defined(SOC_SERIES_STM32F0) || defined(SOC_SERIES_STM32G0)
+        if (( irqmap->pinbit>=GPIO_PIN_0 )&&( irqmap->pinbit<=GPIO_PIN_1 ))
+        {
+            if(!(pin_irq_enable_mask&(GPIO_PIN_0|GPIO_PIN_1)))
+            {    
+                HAL_NVIC_DisableIRQ(irqmap->irqno);
+            }
+        }
+        else if (( irqmap->pinbit>=GPIO_PIN_2 )&&( irqmap->pinbit<=GPIO_PIN_3 ))
+        {
+            if(!(pin_irq_enable_mask&(GPIO_PIN_2|GPIO_PIN_3)))
+            {    
+                HAL_NVIC_DisableIRQ(irqmap->irqno);
+            }
+        }
+        else if (( irqmap->pinbit>=GPIO_PIN_4 )&&( irqmap->pinbit<=GPIO_PIN_15 ))
+        {
+            if(!(pin_irq_enable_mask&(GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9|
+                                      GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15)))
+            {    
+                HAL_NVIC_DisableIRQ(irqmap->irqno);
+            }
+        }    
+        else
+        {
+            HAL_NVIC_DisableIRQ(irqmap->irqno);
+        }         
+#else      
+        if (( irqmap->pinbit>=GPIO_PIN_5 )&&( irqmap->pinbit<=GPIO_PIN_9 ))
+        {
+            if(!(pin_irq_enable_mask&(GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9)))
+            {    
+                HAL_NVIC_DisableIRQ(irqmap->irqno);
+            }
+        }
+        else if (( irqmap->pinbit>=GPIO_PIN_10 )&&( irqmap->pinbit<=GPIO_PIN_15 ))
+        {
+            if(!(pin_irq_enable_mask&(GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15)))
+            {    
+                HAL_NVIC_DisableIRQ(irqmap->irqno);
+            }
+        }
+        else
+        {
+            HAL_NVIC_DisableIRQ(irqmap->irqno);
+        }        
+#endif          
+        rt_hw_interrupt_enable(level);  
     }
     else
     {
-        return RT_ENOSYS;
+        return -RT_ENOSYS;
     }
 
     return RT_EOK;
@@ -496,11 +615,6 @@ const static struct rt_pin_ops _stm32_pin_ops =
     stm32_pin_irq_enable,
 };
 
-int rt_hw_pin_init(void)
-{
-    return rt_device_pin_register("pin", &_stm32_pin_ops, RT_NULL);
-}
-
 rt_inline void pin_irq_hdr(int irqno)
 {
     if (pin_irq_hdr_tab[irqno].hdr)
@@ -509,10 +623,56 @@ rt_inline void pin_irq_hdr(int irqno)
     }
 }
 
+#if defined(SOC_SERIES_STM32G0)
+void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+{
+    pin_irq_hdr(bit2bitno(GPIO_Pin));
+}
+
+void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+{
+    pin_irq_hdr(bit2bitno(GPIO_Pin));
+}
+#else
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     pin_irq_hdr(bit2bitno(GPIO_Pin));
 }
+#endif
+
+#if defined(SOC_SERIES_STM32F0) || defined(SOC_SERIES_STM32G0)
+void EXTI0_1_IRQHandler(void)
+{
+    rt_interrupt_enter();
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
+    rt_interrupt_leave();
+}
+
+void EXTI2_3_IRQHandler(void)
+{
+    rt_interrupt_enter();
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
+    rt_interrupt_leave();
+}
+void EXTI4_15_IRQHandler(void)
+{
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_9);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_11);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_12);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_14);
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
+}
+
+#else
 
 void EXTI0_IRQHandler(void)
 {
@@ -571,5 +731,58 @@ void EXTI15_10_IRQHandler(void)
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
     rt_interrupt_leave();
 }
-
 #endif
+
+int rt_hw_pin_init(void)
+{
+#if defined(__HAL_RCC_GPIOA_CLK_ENABLE)
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+#endif
+    
+#if defined(__HAL_RCC_GPIOB_CLK_ENABLE)
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+#endif
+    
+#if defined(__HAL_RCC_GPIOC_CLK_ENABLE)
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+#endif
+    
+#if defined(__HAL_RCC_GPIOD_CLK_ENABLE)
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_GPIOE_CLK_ENABLE)
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_GPIOF_CLK_ENABLE)
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_GPIOG_CLK_ENABLE)
+    #ifdef SOC_SERIES_STM32L4
+        HAL_PWREx_EnableVddIO2();
+    #endif
+    __HAL_RCC_GPIOG_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_GPIOH_CLK_ENABLE)
+    __HAL_RCC_GPIOH_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_GPIOI_CLK_ENABLE)
+    __HAL_RCC_GPIOI_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_GPIOJ_CLK_ENABLE)
+    __HAL_RCC_GPIOJ_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_GPIOK_CLK_ENABLE)
+    __HAL_RCC_GPIOK_CLK_ENABLE();
+#endif
+
+    return rt_device_pin_register("pin", &_stm32_pin_ops, RT_NULL);
+}
+
+#endif /* RT_USING_PIN */

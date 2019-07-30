@@ -30,13 +30,13 @@
   "name": "FAL"
  }, 
  {
-  "path": "/packages/peripherals/ap3216c", 
+  "path": "/packages/peripherals/sensors/ap3216c", 
   "ver": "v1.0.0", 
   "name": "AP3216C"
  }, 
  {
   "path": "/packages/peripherals/stm32_sdio", 
-  "ver": "v1.0.1", 
+  "ver": "v1.0.2", 
   "name": "STM32_SDIO"
  }
 ]

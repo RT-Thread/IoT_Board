@@ -26,7 +26,7 @@
  }, 
  {
   "path": "/packages/peripherals/stm32_sdio", 
-  "ver": "v1.0.0", 
+  "ver": "v1.0.2", 
   "name": "STM32_SDIO"
  }
 ]

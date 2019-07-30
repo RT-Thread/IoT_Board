@@ -257,7 +257,7 @@ static void onenet_cmd_rsp_cb(uint8_t *recv_data, size_t recv_size, uint8_t **re
 
 程序运行日志如下所示：
 
-```text
+```shell
  \ | /
 - RT -     Thread Operating System
  / | \     4.0.1 build Mar 28 2019
@@ -273,6 +273,17 @@ msh />[I/FAL] RT-Thread Flash Abstraction Layer (V0.2.0) initialize success.
 [Flash] You can get the latest version on https://github.com/armink/EasyFlash .
 ```
 
+### 清零注册标志
+
+注册标志存储在 flash 中，连接之后，会保存注册信息与注册标志。第一次初始化下面的 OneNET mqtt 客户端，返回注册的设备信息，flash 对设备信息进行保存，并且将注册标志置为 1。如果需要重新注册设备，则需要将这个标志位清零。使用命令如下：
+
+```shell
+msh />setenv already_register 0    # 清零注册标志
+msh />saveenv                      # 保存设置的变量    
+```
+
+- 注：第一次初始化 OneNET mqtt 客户端建议清零，避免 already_register 为 1
+
 ### 连接无线网络
 
 程序运行后会进行 MSH 命令行，等待用户配置设备接入网络。使用 MSH 命令 `wifi join ssid password` 配置网络，如下所示：
@@ -285,20 +296,30 @@ join ssid:ssid
 msh />[I/WLAN.lwip] Got IP address : 152.10.200.224    
 ```
 
-### 数据上传
+### 初始化 OneNET mqtt 客户端
 
-在 WiFi 连接成功后，开发板会自动连接 OneNET 平台，如果是第一次连接云平台，会自动注册设备，如下所示：
+在 WiFi 连接成功后，输入命令 `onenet_mqtt_init` 对 OneNET mqtt 客户端进行初始化，日志如下：
 
 ```shell
-msh />[D/ONENET] (response_register_handlers:266) response is {"errno":0,"data":{"device_id":"42940432","key":"GZz=nP9xGMENrsBFFPMDUUe66Q8="},"error":"succ"}    #注册返回的设备信息
-[D/ONENET] (mqtt_connect_callback:87) Enter mqtt_connect_callback!
-[D/MQTT] ipv4 address port: 6002
-[D/MQTT] HOST = '183.230.40.39'
+msh />onenet_mqtt_init                  
+[D/ONENET] (response_register_handlers:266) response is {"errno":0,"data":{"device_id":"532439787","key":"XGfOT4oeMZ0wzDsg2Y=ugQaUgD
+M="},"error":"succ"}          #注册返回的设备信息            
+[D/ONENET] (mqtt_connect_callback:85) Enter mqtt_connect_callback! 
+[D/MQTT] ipv4 address port: 6002          
+[D/MQTT] HOST = '183.230.40.39'         
 [I/ONENET] RT-Thread OneNET package(V1.0.0) initialize success.
-[I/WLAN.lwip] Got IP address : 152.10.200.224
-[I/MQTT] MQTT server connect success
-[D/ONENET] (mqtt_online_callback:92) Enter mqtt_online_callback!
-[D/ONENET] (onenet_upload_entry:82) buffer : {"light":20}    #开始上传数据
+msh />[I/MQTT] MQTT server connect success 
+[D/ONENET] (mqtt_online_callback:90) Enter mqtt_online_callback!   # 链接成功 
+```
+- 注：建立 WiFi 连接后才可能初始化成功
+
+### 数据上传
+
+成功建立连接之后，输入命令 `onenet_upload_cycle`，完成数据发送
+
+```shell
+msh /> onenet_upload_cycle
+[D/ONENET] (onenet_upload_entry:82) buffer : {"light":20}    #上传的数据
 [D/ONENET] (onenet_upload_entry:82) buffer : {"light":28}
 ```
 

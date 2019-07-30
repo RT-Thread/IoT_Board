@@ -79,6 +79,9 @@
 
 #define RT_USING_DEVICE_IPC
 #define RT_PIPE_BUFSZ 512
+#define RT_USING_SYSTEM_WORKQUEUE
+#define RT_SYSTEM_WORKQUEUE_STACKSIZE 2048
+#define RT_SYSTEM_WORKQUEUE_PRIORITY 23
 #define RT_USING_SERIAL
 #define RT_SERIAL_USING_DMA
 #define RT_SERIAL_RB_BUFSZ 64
@@ -95,6 +98,8 @@
 #define RT_USING_SFUD
 #define RT_SFUD_USING_SFDP
 #define RT_SFUD_USING_FLASH_INFO_TABLE
+#define RT_USING_SENSOR
+#define RT_USING_SENSOR_CMD
 
 /* Using WiFi */
 
@@ -132,7 +137,14 @@
 
 #define SAL_USING_LWIP
 #define SAL_USING_POSIX
-#define SAL_PROTO_FAMILIES_NUM 4
+
+/* Network interface device */
+
+#define RT_USING_NETDEV
+#define NETDEV_USING_IFCONFIG
+#define NETDEV_USING_PING
+#define NETDEV_USING_NETSTAT
+#define NETDEV_USING_AUTO_DEFAULT
 
 /* light weight TCP/IP stack */
 
@@ -152,6 +164,7 @@
 #define RT_LWIP_MSKADDR "255.255.255.0"
 #define RT_LWIP_UDP
 #define RT_LWIP_TCP
+#define RT_LWIP_RAW
 #define RT_MEMP_NUM_NETCONN 8
 #define RT_LWIP_PBUF_NUM 8
 #define RT_LWIP_RAW_PCB_NUM 4
@@ -169,11 +182,13 @@
 #define RT_LWIP_ETHTHREAD_STACKSIZE 1024
 #define RT_LWIP_ETHTHREAD_MBOX_SIZE 8
 #define LWIP_NETIF_STATUS_CALLBACK 1
+#define LWIP_NETIF_LINK_CALLBACK 1
 #define SO_REUSE 1
 #define LWIP_SO_RCVTIMEO 1
 #define LWIP_SO_SNDTIMEO 1
 #define LWIP_SO_RCVBUF 1
 #define LWIP_NETIF_LOOPBACK 0
+#define RT_LWIP_USING_PING
 
 /* Modbus master and slave stack */
 
@@ -249,16 +264,18 @@
 #define FAL_DEBUG 0
 #define FAL_PART_HAS_TABLE_CFG
 #define PKG_USING_FAL_V00200
+#define PKG_FAL_VER_NUM 0x00200
 
 /* peripheral libraries and drivers */
 
+#define PKG_USING_SENSORS_DRIVERS
 #define PKG_USING_AP3216C
 #define PKG_USING_AP3216C_V100
 #define PKG_USING_STM32_SDIO
 #define SDIO_BUFF_SIZE 4096
 #define SDIO_MAX_FREQ 24000000
 #define SDIO_ALIGN_LEN 32
-#define PKG_USING_STM32_SDIO_V101
+#define PKG_USING_STM32_SDIO_V102
 
 /* miscellaneous packages */
 

@@ -24,7 +24,7 @@
 #include <rtdbg.h>
 
 /* 42-PE11 */
-#define QSPI10_CS 42
+#define QSPI10_CS    GET_PIN(E, 11)
 
 static void qspi_send_cmd(rt_uint32_t instruction, rt_uint32_t address, rt_uint32_t dummyCycles, rt_uint32_t instructionMode, rt_uint32_t addressMode, rt_uint32_t addressSize, rt_uint32_t dataMode, rt_uint32_t datasize);
 

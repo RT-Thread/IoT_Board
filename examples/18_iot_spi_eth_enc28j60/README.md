@@ -20,26 +20,29 @@ ENC28J60 初始化的源代码位于 `/drivers/drv_enc28j60.c` 中。
 
 因为 ENC28J60 是通过 SPI 和单片机进行通讯的，所以需要通过 enc28j60_attach() 函数将 ENC28J60 连接到 SPI 设备上，IOT Board 提供了专门的接口，对应 SPI21 设备。这样，就能利用 RT-Thread 的 SPI 框架和 ENC28J60 进行通讯了。
 
-然后就是将 ENC28J60 的中断处理函数通过 rt_pin_attach_irq() 函数绑定到对应的管脚上去，这里用到的是85号管脚（PD4）。
+然后就是将 ENC28J60 的中断处理函数通过 rt_pin_attach_irq() 函数绑定到对应的管脚上去，这里用到的是 **PD3** 号管脚。
 
 最后利用 RT-Thread 的 INIT_COMPONENT_EXPORT 宏定义，将 enc28j60_init() 函数加入开机自动初始化。这样，板子上电后，就会自动执行 ENC28J60 的初始化函数，无需用户手动调用。
 
 ```c
 #include <drivers/pin.h>
 #include <enc28j60.h>
-
-#define ENC28J60_IRQ_PIN 85
+#include "drv_spi.h"
+#include "board.h"
 
 int enc28j60_init(void)
 {
-    /* 连接 ENC28J60 和 SPI设备. spi21 cs - PD6 */
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    rt_hw_spi_device_attach("spi2", "spi21", GPIOD, GPIO_PIN_5);
+
+    /* attach enc28j60 to spi. spi21 cs - PD6 */
     enc28j60_attach("spi21");
 
-    /* 初始化中断管脚 */
-    rt_pin_mode(ENC28J60_IRQ_PIN, PIN_MODE_INPUT_PULLUP);
-    rt_pin_attach_irq(ENC28J60_IRQ_PIN, PIN_IRQ_MODE_FALLING, enc28j60_isr, RT_NULL);
-    rt_pin_irq_enable(ENC28J60_IRQ_PIN, PIN_IRQ_ENABLE);
-    
+    /* init interrupt pin */
+    rt_pin_mode(PIN_NRF_IRQ, PIN_MODE_INPUT_PULLUP);
+    rt_pin_attach_irq(PIN_NRF_IRQ, PIN_IRQ_MODE_FALLING, (void(*)(void*))enc28j60_isr, RT_NULL);
+    rt_pin_irq_enable(PIN_NRF_IRQ, PIN_IRQ_ENABLE);
+
     return 0;
 }
 INIT_COMPONENT_EXPORT(enc28j60_init);

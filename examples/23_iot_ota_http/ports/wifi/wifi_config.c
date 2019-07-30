@@ -20,6 +20,7 @@
  * Change Logs:
  * Date           Author       Notes
  * 2018-09-04     ZeroFree     first implementation
+ * 2019-06-14     armink       add easyflash v4.0 support
  */
 
 #include <rtthread.h>
@@ -35,6 +36,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if (EF_SW_VERSION_NUM < 0x40000)
 
 static char *str_base64_encode_len(const void *src, char *out, int input_length);
 static int   str_base64_decode(const char *data, int input_length, char *decoded_data);
@@ -138,8 +141,6 @@ static int str_base64_decode(const char *data, int input_length, char *decoded_d
         if (j < out_len) decoded_data[j++] = (triple >> 0 * 8) & 0xFF;
     }
 
-    decoded_data[out_len] = '\0';
-
     return out_len;
 }
 
@@ -202,6 +203,48 @@ static int write_cfg(void *buff, int len)
     return len;
 }
 
+#else
+
+static int read_cfg(void *buff, int len)
+{
+    size_t saved_len;
+
+    ef_get_env_blob("wlan_cfg_info", buff, len, &saved_len);
+    if (saved_len == 0)
+    {
+        return 0;
+    }
+    
+    return len;
+}
+
+static int get_len(void)
+{
+    int len;
+    size_t saved_len;
+
+    ef_get_env_blob("wlan_cfg_len", &len, sizeof(len), &saved_len);
+    if (saved_len == 0)
+    {
+        return 0;
+    }
+
+    return len;
+}
+
+static int write_cfg(void *buff, int len)
+{
+    /* set and store the wlan config lengths to Env */
+    ef_set_env_blob("wlan_cfg_len", &len, sizeof(len));
+
+    /* set and store the wlan config information to Env */
+    ef_set_env_blob("wlan_cfg_info", buff, len);
+
+    return len;
+}
+
+#endif /* (EF_SW_VERSION_NUM < 0x40000) */
+
 static const struct rt_wlan_cfg_ops ops =
 {
     read_cfg,
@@ -209,16 +252,13 @@ static const struct rt_wlan_cfg_ops ops =
     write_cfg
 };
 
-void wlan_manager_init(void)
+void wlan_autoconnect_init(void)
 {
     fal_init();
     easyflash_init();
 
     rt_wlan_cfg_set_ops(&ops);
     rt_wlan_cfg_cache_refresh();
-
-    /* enable wlan auto connect */
-    rt_wlan_config_autoreconnect(RT_TRUE);
 }
 
 #endif

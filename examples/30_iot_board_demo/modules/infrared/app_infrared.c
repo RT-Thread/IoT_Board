@@ -15,9 +15,9 @@
 #include "app_infrared.h"
 
 // #define DBG_ENABLE
-#define DBG_SECTION_NAME  "app.infrared"
+#define DBG_TAG  "app.infrared"
 #define DBG_COLOR
-#define DBG_LEVEL DBG_INFO
+#define DBG_LVL DBG_INFO
 #include <rtdbg.h>
 
 int app_infrared_init(void)

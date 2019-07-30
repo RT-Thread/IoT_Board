@@ -12,8 +12,8 @@
 #include <fal.h>
 #include <dfs_fs.h>
 
-#define DBG_SECTION_NAME "main"
-#define DBG_LEVEL DBG_LOG
+#define DBG_TAG "main"
+#define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
 #define FS_PARTITION_NAME "filesystem"

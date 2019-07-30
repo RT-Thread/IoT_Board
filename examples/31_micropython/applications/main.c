@@ -5,7 +5,7 @@
  *
  * Change Logs:
  * Date           Author       Notes
- * 2019-01-15     armink      first implementation
+ * 2019-01-15     armink       first implementation
  */
 
 #include <stdio.h>
@@ -49,6 +49,10 @@ int main(void)
         }
     }
 
+    /* 配置 wifi 工作模式 */
+    rt_wlan_set_mode(RT_WLAN_DEVICE_STA_NAME, RT_WLAN_STATION);
+    rt_wlan_set_mode(RT_WLAN_DEVICE_AP_NAME, RT_WLAN_AP);
+
     extern void wlan_autoconnect_init(void);
     /* 自动连接初始化 */
     wlan_autoconnect_init();
@@ -62,6 +66,6 @@ int main(void)
     extern void mpy_main(const char *filename);
     mpy_main(NULL);
 
-   LOG_D("MicroPython will reset by user");
-   rt_hw_cpu_reset();
+//    LOG_D("You can enter repl mode by typing python commands.");
+    rt_hw_cpu_reset();
 }

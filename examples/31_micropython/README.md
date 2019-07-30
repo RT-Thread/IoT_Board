@@ -8,7 +8,7 @@ MicroPython 是 Python 3 编程语言的一种精简而高效的实现，它包�
 
 ## 硬件说明
 
-本例程将点亮LED灯，因此请确保硬件平台上的LED灯能够正常工作。
+本例程将使用 MicroPython 控制 IoT Board 上的各种硬件，请确保开发板上的相关硬件可以正常工作。
 
 ## 软件说明
 
@@ -68,8 +68,7 @@ int main(void)
     extern void mpy_main(const char *filename);
     mpy_main(NULL);
 
-   LOG_D("MicroPython will reset by user");
-   rt_hw_cpu_reset();
+    rt_hw_cpu_reset();
 }
 ```
 
@@ -113,7 +112,6 @@ Type "help()" for more information.
 [7750] I/WLAN.lwip: Got IP address : 192.168.12.158
 
 >>>
-
 ```
 
 此时 MicroPython 命令交互界面就已经启动，可以通过命令行与 MicroPython 进行交互。下面将使用一个示例展示如何使用 MicroPython 控制硬件。
@@ -169,25 +167,35 @@ MicroPython 提供丰富的内建模块用来完成相关的程序功能。同�
 
 通过 MicroPython 可以用非常简单的方式来控制开发板的硬件资源，使用一个简单的例子来说明：
 
-- 在开发板上: 第 38 号 pin 连接 LED 灯。下面代码将周期闪烁 LED 灯。
+- 在开发板上: PE7 引脚连接 LED 灯，PE7 引脚对应的引脚号为 71，下面代码将周期闪烁 LED 灯。
 
 ```python
-import time
+import utime as time
 from machine import Pin
 
-LED = Pin(("LED1", 38), Pin.OUT_PP)     #将第 38 号 Pin 设备设置为输出模式
+PIN_LED_R = 71    # PE7, get the pin number from get_pin_number.py
+
+# create led object from pin PIN_LED_R, Set pin PIN_LED_R to output mode
+led = Pin(("led_red", PIN_LED_R), Pin.OUT_PP)
+
 while True:
-    LED.value(1)
-    time.sleep_ms(500)
-    LED.value(0)
-    time.sleep_ms(500)
+    led.value(0)  # Set led turn on
+    time.sleep(0.5)
+    led.value(1)  # Set led turn off
+    time.sleep(0.5)
 ```
 
 针对自己的开发板修改引脚号，将以上脚本使用**粘贴模式**输入，即可看到 LED 灯按照指定的频率闪烁。使用 `Ctrl-C` 可以取消当前正在运行程序。
 
+除了 LED 之外，还可以使用 MicroPython 控制各种各样的硬件模块，如 `Pin、I2C、SPI、UART、LCD、RTC、PWM、ADC、WDT、TIMER` 等，想要了解这些硬件的详细控制方式，可以查阅 MicroPython 用户手册，里面有详细的介绍。
+
+除了可以通过阅读用户手册来了解 MicroPython  的使用方式，还可以直接在 VScode  中搜索 `RT-Thread MicroPython` 来使用 RT-Thread  推出的 MicroPython 开发环境，在开发环境中直接运行示例程序来学习  MicroPython  开发。如下图所示：
+
+![run_example](../../docs/figures/31_micropython/run_example.gif)
+
 ## 注意事项
 
-- 想要了解更多的 MicroPython 软件包的功能，可以查阅 MicroPython 用户手册。
+无
 
 ## 引用参考
 

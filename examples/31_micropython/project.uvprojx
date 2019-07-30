@@ -335,7 +335,7 @@
               <MiscControls />
               <Define>USE_HAL_DRIVER, STM32L475xx, RT_USING_ARM_LIBC</Define>
               <Undefine />
-              <IncludePath>.;..\..\rt-thread\include;.;applications;packages\adbd-v1.1.0\inc;packages\adbd-v1.1.0\services;packages\cJSON-v1.0.2;packages\CmBacktrace-v1.2.2;packages\EasyFlash-v3.2.1\inc;ports\easyflash;packages\fal-v0.3.0\inc;ports\fal;packages\micropython-v1.10;packages\micropython-v1.10\port;packages\stm32_sdio-v1.0.0;packages\tinycrypt-v1.0.0\include;ports\wifi;..\..\libraries\wifi;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\components\dfs\include;..\..\rt-thread\components\dfs\filesystems\devfs;..\..\rt-thread\components\dfs\filesystems\elmfat;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi\sfud\inc;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\wlan;..\..\rt-thread\components\drivers\usb\usbdevice;..\..\rt-thread\components\finsh;..\..\rt-thread\components\libc\compilers\armlibc;..\..\rt-thread\components\libc\compilers\common;..\..\rt-thread\components\net\lwip-2.0.2\src;..\..\rt-thread\components\net\lwip-2.0.2\src\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\ipv4;..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif;..\..\rt-thread\components\net\sal_socket\include;..\..\rt-thread\components\net\sal_socket\include\socket;..\..\rt-thread\components\net\sal_socket\impl;..\..\rt-thread\components\net\sal_socket\include\dfs_net;..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select;..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket;..\..\rt-thread\components\utilities\ulog;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\libraries\rt_ota\inc;..\..\drivers</IncludePath>
+              <IncludePath>.;..\..\rt-thread\include;.;applications;packages\EasyFlash-v3.2.1\inc;ports\easyflash;packages\fal-v0.3.0\inc;ports\fal;packages\micropython-v1.10.1;packages\micropython-v1.10.1\port;packages\micropython-v1.10.1\port\modules;packages\micropython-v1.10.1\port\modules\machine;packages\netutils-v1.1.0\ntp;packages\stm32_sdio-v1.0.2;packages\tinycrypt-v1.0.0\include;ports\wifi;..\..\libraries\wifi;..\..\rt-thread\libcpu\arm\common;..\..\rt-thread\libcpu\arm\cortex-m4;..\..\rt-thread\components\dfs\include;..\..\rt-thread\components\dfs\filesystems\devfs;..\..\rt-thread\components\dfs\filesystems\elmfat;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\spi\sfud\inc;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\include;..\..\rt-thread\components\drivers\wlan;..\..\rt-thread\components\libc\compilers\armlibc;..\..\rt-thread\components\libc\compilers\common;..\..\rt-thread\components\net\lwip-2.0.2\src;..\..\rt-thread\components\net\lwip-2.0.2\src\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\ipv4;..\..\rt-thread\components\net\lwip-2.0.2\src\arch\include;..\..\rt-thread\components\net\lwip-2.0.2\src\include\netif;..\..\rt-thread\components\net\lwip_dhcpd;..\..\rt-thread\components\net\netdev\include;..\..\rt-thread\components\net\sal_socket\include;..\..\rt-thread\components\net\sal_socket\include\socket;..\..\rt-thread\components\net\sal_socket\impl;..\..\rt-thread\components\net\sal_socket\include\dfs_net;..\..\rt-thread\components\net\sal_socket\include\dfs_net\sys_select;..\..\rt-thread\components\net\sal_socket\include\socket\sys_socket;..\..\rt-thread\components\utilities\ulog;..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include;..\..\libraries\CMSIS\Include;..\..\libraries\STM32L4xx_HAL_Driver\inc;..\..\libraries\rt_ota\inc;..\..\drivers</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -488,139 +488,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>adb</GroupName>
-          <Files>
-            <File>
-              <FileName>adb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\core\adb.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>adb_pque.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\core\adb_pque.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>adb_service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\core\adb_service.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>adbusb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\core\adbusb.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>transport.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\core\transport.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>transport_socket.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\core\transport_socket.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>transport_usb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\core\transport_usb.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>shell_service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\services\shell_service.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>file_sync_service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\services\file_sync_service.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>file_exmod.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\services\file_exmod.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>file_sync_mod.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\adbd-v1.1.0\services\file_sync_mod.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>cJSON</GroupName>
-          <Files>
-            <File>
-              <FileName>cJSON.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\cJSON-v1.0.2\cJSON.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>cJSON_port.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\cJSON-v1.0.2\cJSON_port.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>cJSON_util.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\cJSON-v1.0.2\cJSON_util.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>cm_backtrace</GroupName>
-          <Files>
-            <File>
-              <FileName>cm_backtrace.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CmBacktrace-v1.2.2\cm_backtrace.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>cmb_port.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CmBacktrace-v1.2.2\cmb_port.c</FilePath>
-            </File>
-          </Files>
-          <GroupOption>
-            <GroupArmAds>
-              <Cads>
-                <VariousControls>
-                  <MiscControls> --c99</MiscControls>
-                  <Define> </Define>
-                  <Undefine> </Undefine>
-                  <IncludePath> </IncludePath>
-                </VariousControls>
-              </Cads>
-            </GroupArmAds>
-          </GroupOption>
-        </Group>
-        <Group>
           <GroupName>EasyFlash</GroupName>
           <Files>
             <File>
@@ -742,1246 +609,1330 @@
             <File>
               <FileName>argcheck.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\argcheck.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\argcheck.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>asmarm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\asmarm.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\asmarm.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>asmbase.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\asmbase.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\asmbase.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>asmthumb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\asmthumb.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\asmthumb.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>asmx64.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\asmx64.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\asmx64.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>asmx86.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\asmx86.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\asmx86.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>asmxtensa.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\asmxtensa.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\asmxtensa.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>bc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\bc.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\bc.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>binary.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\binary.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\binary.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>builtinevex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\builtinevex.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\builtinevex.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>builtinhelp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\builtinhelp.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\builtinhelp.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>builtinimport.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\builtinimport.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\builtinimport.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>compile.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\compile.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\compile.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitbc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitbc.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitbc.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitcommon.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitcommon.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitcommon.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitglue.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitglue.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitglue.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitinlinethumb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitinlinethumb.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitinlinethumb.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitinlinextensa.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitinlinextensa.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitinlinextensa.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitnarm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitnarm.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitnarm.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitnative.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitnative.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitnative.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitnthumb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitnthumb.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitnthumb.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitnx64.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitnx64.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitnx64.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitnx86.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitnx86.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitnx86.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>emitnxtensa.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\emitnxtensa.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\emitnxtensa.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>formatfloat.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\formatfloat.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\formatfloat.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>frozenmod.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\frozenmod.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\frozenmod.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>gc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\gc.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\gc.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>lexer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\lexer.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\lexer.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>malloc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\malloc.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\malloc.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>map.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\map.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\map.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modarray.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modarray.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modarray.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modbuiltins.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modbuiltins.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modbuiltins.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modcmath.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modcmath.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modcmath.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modcollections.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modcollections.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modcollections.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modgc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modgc.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modgc.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modio.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modio.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modmath.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modmath.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modmath.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modmicropython.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modmicropython.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modmicropython.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modstruct.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modstruct.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modstruct.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modsys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modsys.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modsys.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modthread.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\modthread.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\modthread.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>moduerrno.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\moduerrno.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\moduerrno.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>mpprint.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\mpprint.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\mpprint.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>mpstate.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\mpstate.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\mpstate.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>mpy_scheduler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\mpy_scheduler.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\mpy_scheduler.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>mpz.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\mpz.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\mpz.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>nativeglue.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\nativeglue.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\nativeglue.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>nlr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\nlr.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\nlr.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>nlrsetjmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\nlrsetjmp.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\nlrsetjmp.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>nlrthumb.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\nlrthumb.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\nlrthumb.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>nlrx64.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\nlrx64.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\nlrx64.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>nlrx86.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\nlrx86.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\nlrx86.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>nlrxtensa.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\nlrxtensa.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\nlrxtensa.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>obj.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\obj.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\obj.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objarray.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objarray.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objarray.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objattrtuple.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objattrtuple.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objattrtuple.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objbool.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objbool.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objbool.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objboundmeth.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objboundmeth.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objboundmeth.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objcell.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objcell.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objcell.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objclosure.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objclosure.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objclosure.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objcomplex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objcomplex.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objcomplex.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objdeque.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objdeque.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objdeque.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objdict.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objdict.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objdict.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objenumerate.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objenumerate.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objenumerate.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objexcept.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objexcept.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objexcept.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objfilter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objfilter.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objfilter.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objfloat.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objfloat.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objfloat.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objfun.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objfun.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objfun.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objgenerator.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objgenerator.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objgenerator.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objgetitemiter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objgetitemiter.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objgetitemiter.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objint.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objint.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objint.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objint_longlong.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objint_longlong.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objint_longlong.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objint_mpz.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objint_mpz.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objint_mpz.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objlist.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objlist.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objlist.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objmap.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objmap.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objmap.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objmodule.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objmodule.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objmodule.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objnamedtuple.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objnamedtuple.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objnamedtuple.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objnone.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objnone.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objnone.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objobject.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objobject.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objobject.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objpolyiter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objpolyiter.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objpolyiter.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objproperty.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objproperty.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objproperty.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objrange.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objrange.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objrange.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objreversed.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objreversed.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objreversed.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objset.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objset.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objset.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objsingleton.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objsingleton.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objsingleton.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objslice.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objslice.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objslice.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objstr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objstr.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objstr.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objstringio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objstringio.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objstringio.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objstrunicode.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objstrunicode.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objstrunicode.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objtuple.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objtuple.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objtuple.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objtype.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objtype.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objtype.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>objzip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\objzip.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\objzip.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>opmethods.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\opmethods.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\opmethods.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>parse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\parse.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\parse.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>parsenum.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\parsenum.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\parsenum.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>parsenumbase.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\parsenumbase.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\parsenumbase.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>persistentcode.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\persistentcode.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\persistentcode.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>pystack.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\pystack.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\pystack.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>qstr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\qstr.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\qstr.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>reader.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\reader.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\reader.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>repl.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\repl.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\repl.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>runtime.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\runtime.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\runtime.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>runtime_utils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\runtime_utils.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\runtime_utils.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>scope.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\scope.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\scope.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>sequence.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\sequence.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\sequence.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>showbc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\showbc.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\showbc.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>smallint.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\smallint.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\smallint.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>stackctrl.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\stackctrl.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\stackctrl.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>stream.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\stream.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\stream.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>unicode.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\unicode.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\unicode.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\vm.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\vm.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vstr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\vstr.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\vstr.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>warning.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\py\warning.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\py\warning.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>readline.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\mp-readline\readline.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\mp-readline\readline.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>interrupt_char.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\utils\interrupt_char.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\utils\interrupt_char.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>mpirq.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\utils\mpirq.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\utils\mpirq.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\utils\printf.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\utils\printf.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>pyexec.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\utils\pyexec.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\utils\pyexec.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>stdout_helpers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\utils\stdout_helpers.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\utils\stdout_helpers.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>sys_stdio_mphal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\utils\sys_stdio_mphal.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\utils\sys_stdio_mphal.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>machine_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\machine_i2c.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\machine_i2c.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>machine_mem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\machine_mem.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\machine_mem.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>machine_pinbase.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\machine_pinbase.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\machine_pinbase.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>machine_pulse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\machine_pulse.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\machine_pulse.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>machine_signal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\machine_signal.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\machine_signal.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>machine_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\machine_spi.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\machine_spi.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modbtree.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modbtree.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modbtree.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modframebuf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modframebuf.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modframebuf.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modonewire.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modonewire.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modonewire.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modubinascii.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modubinascii.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modubinascii.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>moducryptolib.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\moducryptolib.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\moducryptolib.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>moductypes.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\moductypes.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\moductypes.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>moduhashlib.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\moduhashlib.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\moduhashlib.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>moduheapq.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\moduheapq.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\moduheapq.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modujson.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modujson.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modujson.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modurandom.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modurandom.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modurandom.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modure.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modure.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modure.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>moduselect.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\moduselect.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\moduselect.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modussl_axtls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modussl_axtls.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modussl_axtls.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modussl_mbedtls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modussl_mbedtls.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modussl_mbedtls.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modutimeq.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modutimeq.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modutimeq.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>moduwebsocket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\extmod\moduwebsocket.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>moduzlib.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\moduzlib.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\moduzlib.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modwebrepl.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modwebrepl.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modwebrepl.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>modwebsocket.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\modwebsocket.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\modwebsocket.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>uos_dupterm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\uos_dupterm.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\uos_dupterm.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>utime_mphal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\utime_mphal.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\utime_mphal.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vfs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\vfs.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\vfs.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vfs_fat.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\vfs_fat.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\vfs_fat.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vfs_fat_diskio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\vfs_fat_diskio.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\vfs_fat_diskio.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vfs_fat_file.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\vfs_fat_file.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\vfs_fat_file.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vfs_posix.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\vfs_posix.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\vfs_posix.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vfs_posix_file.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\vfs_posix_file.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\vfs_posix_file.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>vfs_reader.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\vfs_reader.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\vfs_reader.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>virtpin.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\extmod\virtpin.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\extmod\virtpin.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
-              <FileName>_frozen_mpy.c</FileName>
+              <FileName>frozen_mpy.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\_frozen_mpy.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>file.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\file.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\port\frozen_mpy.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>gccollect.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\gccollect.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\port\gccollect.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
-              <FileName>help.c</FileName>
+              <FileName>mpgetcharport.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\help.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>machine_hw_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\machine_hw_i2c.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>machine_hw_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\machine_hw_spi.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>machine_pin.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\machine_pin.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>machine_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\machine_uart.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>modmachine.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\modmachine.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>modnetwork.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\modnetwork.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>modpyb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\modpyb.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>modrtthread.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\modrtthread.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>moduos.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\moduos.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>moduos_file.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\moduos_file.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>modusocket.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\modusocket.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>modutime.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\modutime.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\port\mpgetcharport.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>mphalport.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\mphalport.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\port\mphalport.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>mpputsnport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\mpputsnport.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>mpthreadport.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\mpthreadport.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\port\mpthreadport.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>mpy_main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\mpy_main.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\port\mpy_main.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
-              <FileName>rtt_getchar.c</FileName>
+              <FileName>modffi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\port\rtt_getchar.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modffi.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modfile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modfile.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modnetwork.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modnetwork.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modnetwork_wlan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modnetwork_wlan.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modpyb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modpyb.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modrtthread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modrtthread.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>moduos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\moduos.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>moduos_file.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\moduos_file.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modusocket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modusocket.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modutils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modutils.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modutime.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\modutime.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_adc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_hw_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_hw_i2c.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_hw_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_hw_spi.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_lcd.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_pin.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_pin.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_pwm.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_rtc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_timer.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_uart.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>machine_wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\machine_wdt.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>modmachine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\modules\machine\modmachine.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>netutils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\netutils\netutils.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\netutils\netutils.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>timeutils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\lib\timeutils\timeutils.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\lib\timeutils\timeutils.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>softqspi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\drivers\bus\softqspi.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\drivers\bus\softqspi.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>softspi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\micropython-v1.10\drivers\bus\softspi.c</FilePath>
+              <FilePath>packages\micropython-v1.10.1\drivers\bus\softspi.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>easyflash_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\native\easyflash_module.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>native_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\micropython-v1.10.1\port\native\native_module.c</FilePath>
             </File>
           </Files>
           <GroupOption>
@@ -1998,12 +1949,22 @@
           </GroupOption>
         </Group>
         <Group>
+          <GroupName>NetUtils</GroupName>
+          <Files>
+            <File>
+              <FileName>ntp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\netutils-v1.1.0\ntp\ntp.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>stm32_sdio</GroupName>
           <Files>
             <File>
               <FileName>stm32_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\stm32_sdio-v1.0.0\stm32_sdio.c</FilePath>
+              <FilePath>packages\stm32_sdio-v1.0.2\stm32_sdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2054,11 +2015,13 @@
               <FilePath>ports\wifi\wifi_config.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>wifi<GroupName>wifi</GroupName>
           <Files>
             <File>
-              <FileName>libwifi_6181_0.2.4_armcm4_keil.lib</FileName>
+              <FileName>libwifi_6181_0.2.5_armcm4_keil.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\libraries\wifi\libwifi_6181_0.2.4_armcm4_keil.lib</FilePath>
+              <FilePath>..\..\libraries\wifi\libwifi_6181_0.2.5_armcm4_keil.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -2177,6 +2140,13 @@
           <GroupName>DeviceDrivers</GroupName>
           <Files>
             <File>
+              <FileName>hwtimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\drivers\hwtimer\hwtimer.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>i2c_core.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\rt-thread\components\drivers\i2c\i2c_core.c</FilePath>
@@ -2205,9 +2175,30 @@
           </Files>
           <Files>
             <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\drivers\misc\adc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>rt_drv_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\drivers\misc\rt_drv_pwm.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\rt-thread\components\drivers\rtc\rtc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>soft_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\drivers\rtc\soft_rtc.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -2338,6 +2329,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\drivers\watchdog\watchdog.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>wlan_cfg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\rt-thread\components\drivers\wlan\wlan_cfg.c</FilePath>
@@ -2397,68 +2395,6 @@
               </Cads>
             </GroupArmAds>
           </GroupOption>
-        </Group>
-        <Group>
-          <GroupName>rt_usbd</GroupName>
-          <Files>
-            <File>
-              <FileName>core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\drivers\usb\usbdevice\core\core.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>usbdevice.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\drivers\usb\usbdevice\core\usbdevice.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>finsh</GroupName>
-          <Files>
-            <File>
-              <FileName>shell.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\finsh\shell.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>symbol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\finsh\symbol.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>cmd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\finsh\cmd.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>msh.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\finsh\msh.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>msh_cmd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\finsh\msh_cmd.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>msh_file.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\finsh\msh_file.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>libc</GroupName>
@@ -2759,16 +2695,40 @@
               <FilePath>..\..\rt-thread\components\net\lwip-2.0.2\src\core\ipv4\ip4_frag.c</FilePath>
             </File>
           </Files>
+          <Files>
+            <File>
+              <FileName>ping.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\net\lwip-2.0.2\src\apps\ping\ping.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>dhcp_server_raw.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\net\lwip_dhcpd\dhcp_server_raw.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>netdev</GroupName>
+          <Files>
+            <File>
+              <FileName>netdev.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\net\netdev\src\netdev.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>netdev_ipaddr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\rt-thread\components\net\netdev\src\netdev_ipaddr.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>SAL</GroupName>
-          <Files>
-            <File>
-              <FileName>sal_ipaddr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\rt-thread\components\net\sal_socket\src\sal_ipaddr.c</FilePath>
-            </File>
-          </Files>
           <Files>
             <File>
               <FileName>sal_socket.c</FileName>
@@ -2966,28 +2926,34 @@
           </Files>
           <Files>
             <File>
-              <FileName>stm32l4xx_hal_pcd.c</FileName>
+              <FileName>stm32l4xx_hal_iwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_pcd.c</FilePath>
+              <FilePath>..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_iwdg.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
-              <FileName>stm32l4xx_hal_pcd_ex.c</FileName>
+              <FileName>stm32l4xx_hal_wwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_pcd_ex.c</FilePath>
+              <FilePath>..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_wwdg.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
-              <FileName>stm32l4xx_ll_usb.c</FileName>
+              <FileName>stm32l4xx_hal_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_ll_usb.c</FilePath>
+              <FilePath>..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_adc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>stm32l4xx_hal_adc_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\STM32L4xx_HAL_Driver\src\stm32l4xx_hal_adc_ex.c</FilePath>
             </File>
           </Files>
         </Group>
-        <Group>
-          <GroupName>rt_ota</GroupName>
+        <Group>rt_ota<GroupName>rt_ota</GroupName>
           <Files>
             <File>
               <FileName>librt_ota_noalgo_0.1.2_stm32l4_keil.lib</FileName>
@@ -3028,6 +2994,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>drv_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_lcd.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>drv_usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\drivers\drv_usart.c</FilePath>
@@ -3063,9 +3036,30 @@
           </Files>
           <Files>
             <File>
-              <FileName>drv_usbd.c</FileName>
+              <FileName>drv_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\drivers\drv_usbd.c</FilePath>
+              <FilePath>..\..\drivers\drv_adc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_pwm.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_hwtimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_hwtimer.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\drv_wdt.c</FilePath>
             </File>
           </Files>
         </Group>

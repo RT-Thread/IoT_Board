@@ -297,7 +297,6 @@ static void finsh_wait_auth(void)
                 ch = finsh_getchar();
                 if (ch < 0)
                 {
-                    rt_kprintf("finsh getchar error\n");
                     continue;
                 }
 

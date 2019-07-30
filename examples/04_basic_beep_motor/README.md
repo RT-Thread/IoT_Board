@@ -10,7 +10,7 @@
 
 ![电机电路原理图](../../docs/figures/04_basic_beep_motor/motor_1.png)
 
-如上图所示，`MOTOR_A` PA1（24），`MOTOR_B` PA0（23） 分别连接电机驱动芯片L9110S的控制引脚，控制逻辑如下表格所示。
+如上图所示，`MOTOR_A` PA1，`MOTOR_B` PA0 分别连接电机驱动芯片 `L9110S` 的控制引脚，控制逻辑如下表格所示。
 
 |IA|IB|OA|OB|电机动作|
 |--|--|--|--|--|
@@ -23,7 +23,7 @@
 
 ![蜂鸣器电路原理图](../../docs/figures/04_basic_beep_motor/beep_1.png)
 
-如上图所示，`BEEP` PB0（35）引脚控制板载蜂鸣器。
+如上图所示，`BEEP` PB0 引脚控制板载蜂鸣器。
 
 电机与蜂鸣器在开发板中的位置如下图所示：
 

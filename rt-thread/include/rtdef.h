@@ -58,6 +58,7 @@ extern "C" {
                                          (RT_SUBVERSION * 100) + RT_REVISION)
 
 /* RT-Thread basic data type definitions */
+#ifndef RT_USING_ARCH_DATA_TYPE
 typedef signed   char                   rt_int8_t;      /**<  8bit integer type */
 typedef signed   short                  rt_int16_t;     /**< 16bit integer type */
 typedef signed   int                    rt_int32_t;     /**< 32bit integer type */
@@ -71,6 +72,7 @@ typedef unsigned long                   rt_uint64_t;    /**< 64bit unsigned inte
 #else
 typedef signed long long                rt_int64_t;     /**< 64bit integer type */
 typedef unsigned long long              rt_uint64_t;    /**< 64bit unsigned integer type */
+#endif
 #endif
 
 typedef int                             rt_bool_t;      /**< boolean type */
@@ -490,9 +492,10 @@ typedef siginfo_t rt_siginfo_t;
 #define RT_THREAD_CLOSE                 0x04                /**< Closed status */
 #define RT_THREAD_STAT_MASK             0x0f
 
-#define RT_THREAD_STAT_SIGNAL           0x10
+#define RT_THREAD_STAT_SIGNAL           0x10                /**< task hold signals */
 #define RT_THREAD_STAT_SIGNAL_READY     (RT_THREAD_STAT_SIGNAL | RT_THREAD_READY)
-#define RT_THREAD_STAT_SIGNAL_WAIT      0x20
+#define RT_THREAD_STAT_SIGNAL_WAIT      0x20                /**< task is waiting for signals */
+#define RT_THREAD_STAT_SIGNAL_PENDING   0x40                /**< signals is held and it has not been procressed */
 #define RT_THREAD_STAT_SIGNAL_MASK      0xf0
 
 /**
@@ -594,7 +597,9 @@ struct rt_thread
     rt_sigset_t     sig_pending;                        /**< the pending signals */
     rt_sigset_t     sig_mask;                           /**< the mask bits of signal */
 
+#ifndef RT_USING_SMP
     void            *sig_ret;                           /**< the return stack pointer from signal */
+#endif
     rt_sighandler_t *sig_vectors;                       /**< vectors of signal handler */
     void            *si_list;                           /**< the signal infor list */
 #endif
@@ -654,6 +659,7 @@ struct rt_semaphore
     struct rt_ipc_object parent;                        /**< inherit from ipc_object */
 
     rt_uint16_t          value;                         /**< value of semaphore. */
+    rt_uint16_t          reserved;                      /**< reserved field */
 };
 typedef struct rt_semaphore *rt_sem_t;
 #endif
@@ -1018,6 +1024,7 @@ enum
     RTGRAPHIC_PIXEL_FORMAT_ABGR888,
     RTGRAPHIC_PIXEL_FORMAT_ARGB565,
     RTGRAPHIC_PIXEL_FORMAT_ALPHA,
+    RTGRAPHIC_PIXEL_FORMAT_COLOR,
 };
 
 /**

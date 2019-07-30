@@ -346,14 +346,15 @@
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\include</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include</state>
-          <state>$PROJ_DIR$\packages\at_device-v1.4.0</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\at\at_socket</state>
           <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common</state>
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\inc</state>
+          <state>$PROJ_DIR$\packages\at_device-v1.6.0</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\libc\compilers\dlib</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\libc\compilers\common</state>
@@ -1382,14 +1383,15 @@
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\include</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include</state>
-          <state>$PROJ_DIR$\packages\at_device-v1.4.0</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\net\at\at_socket</state>
           <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\common</state>
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\inc</state>
+          <state>$PROJ_DIR$\packages\at_device-v1.6.0</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\libc\compilers\dlib</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\libc\compilers\common</state>
@@ -2132,7 +2134,7 @@
   <group>
     <name>at_device</name>
     <file>
-      <name>$PROJ_DIR$\packages\at_device-v1.4.0\at_socket_esp8266.c</name>
+      <name>$PROJ_DIR$\packages\at_device-v1.6.0\at_socket_esp8266.c</name>
     </file>
   </group>
   <group>
@@ -2265,10 +2267,16 @@
     </file>
   </group>
   <group>
-    <name>SAL</name>
+    <name>netdev</name>
     <file>
-      <name>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\src\sal_ipaddr.c</name>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\src\netdev.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\rt-thread\components\net\netdev\src\netdev_ipaddr.c</name>
+    </file>
+  </group>
+  <group>
+    <name>SAL</name>
     <file>
       <name>$PROJ_DIR$\..\..\rt-thread\components\net\sal_socket\src\sal_socket.c</name>
     </file>

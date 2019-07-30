@@ -47,11 +47,11 @@ static struct cld_dev_info iotb_rtcld_dev_info;
 // #define IOTB_SENSOR_DEBUG
 
 #define DBG_ENABLE
-#define DBG_SECTION_NAME               "IOTB_SENSOR"
+#define DBG_TAG               "IOTB_SENSOR"
 #ifdef IOTB_SENSOR_DEBUG
-#define DBG_LEVEL                      DBG_LOG
+#define DBG_LVL                      DBG_LOG
 #else
-#define DBG_LEVEL                      DBG_INFO /* DBG_ERROR */
+#define DBG_LVL                      DBG_INFO /* DBG_ERROR */
 #endif
 #define DBG_COLOR
 #include <rtdbg.h>
@@ -1657,7 +1657,7 @@ static void iotb_pm_wakeup_init(void)
 
 static void iotb_pm_mode_init(void)
 {
-    rt_pm_release(PM_SLEEP_MODE_SLEEP);
+    rt_pm_request(PM_SLEEP_MODE_NONE);
 }
 
 void iotb_pm_init(void)
@@ -1684,8 +1684,8 @@ void iotb_pm_start(void)
 
     iotb_event_put_set_disable();
 
-    rt_pm_request(PM_SLEEP_MODE_TIMER);
-    rt_pm_release(PM_RUN_MODE_NORMAL);
+    rt_pm_request(PM_SLEEP_MODE_DEEP);
+    rt_pm_release(PM_SLEEP_MODE_NONE);
 
     iotb_pm_started = 1;
 }
@@ -1697,8 +1697,8 @@ uint8_t iotb_pm_status_get(void)
 
 void iotb_pm_exit(void)
 {
-    rt_pm_request(PM_RUN_MODE_NORMAL);
-    rt_pm_release(PM_SLEEP_MODE_TIMER);
+    rt_pm_request(PM_SLEEP_MODE_NONE);
+    rt_pm_release(PM_SLEEP_MODE_DEEP);
 
     lcd_display_on();
     rt_wlan_set_powersave(0);
