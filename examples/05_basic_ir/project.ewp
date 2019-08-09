@@ -342,7 +342,7 @@
           <name>CCIncludePath2</name>
           <state />
           <state>$PROJ_DIR$\..\..\drivers</state>
-          <state>$PROJ_DIR$\packages\infrared-v0.1.0\inc</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\include</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\.</state>
@@ -350,7 +350,7 @@
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
-          <state>$PROJ_DIR$\..\..\rt-thread\include</state>
+          <state>$PROJ_DIR$\packages\infrared-v0.1.1\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\include</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Include</state>
         </option>
@@ -1369,7 +1369,7 @@
           <name>CCIncludePath2</name>
           <state />
           <state>$PROJ_DIR$\..\..\drivers</state>
-          <state>$PROJ_DIR$\packages\infrared-v0.1.0\inc</state>
+          <state>$PROJ_DIR$\..\..\rt-thread\include</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Device\ST\STM32L4xx\Include</state>
           <state>$PROJ_DIR$\..\..\rt-thread\libcpu\arm\cortex-m4</state>
           <state>$PROJ_DIR$\.</state>
@@ -1377,7 +1377,7 @@
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\..\libraries\STM32L4xx_HAL_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\finsh</state>
-          <state>$PROJ_DIR$\..\..\rt-thread\include</state>
+          <state>$PROJ_DIR$\packages\infrared-v0.1.1\inc</state>
           <state>$PROJ_DIR$\..\..\rt-thread\components\drivers\include</state>
           <state>$PROJ_DIR$\..\..\libraries\CMSIS\Include</state>
         </option>
@@ -2114,13 +2114,13 @@
   <group>
     <name>Infrared_frame</name>
     <file>
-      <name>$PROJ_DIR$\packages\infrared-v0.1.0\src\infrared.c</name>
+      <name>$PROJ_DIR$\packages\infrared-v0.1.1\src\infrared.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\packages\infrared-v0.1.0\src\drv_infrared.c</name>
+      <name>$PROJ_DIR$\packages\infrared-v0.1.1\src\nec_decoder.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\packages\infrared-v0.1.0\src\nec_decoder.c</name>
+      <name>$PROJ_DIR$\packages\infrared-v0.1.1\src\drv_infrared.c</name>
     </file>
   </group>
   <group>
