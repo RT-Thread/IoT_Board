@@ -47,7 +47,7 @@ int main(void)
     else
     {
         /* 创建文件系统 */
-        dfs_mkfs(FS_PARTITION_NAME, "elm");
+        dfs_mkfs("elm", FS_PARTITION_NAME);
         /* 重新挂载文件系统 */
         if (dfs_mount(FS_PARTITION_NAME, "/", "elm", 0, 0) == 0)
         {

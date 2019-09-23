@@ -11,24 +11,39 @@ VSCode 最好用的 MicroPython 插件，为 MicroPython 开发提供了强大�
 - 支持在设备上运行示例代码
 - 支持运行选中的代码片段
 - 支持多款 MicroPython 开发板
+- 支持在 windows 以及 ubuntu 操作系统下运行
 
 ## 准备工作
 
-本插件依赖 Microsoft Python 插件，并且使用 Python 脚本，因此需要做如下准备：
+1. 在 windows 操作系统下使用插件需要将 vscode 的默认终端修改为 powershell，如下图所示：
 
-1. 安装 Microsoft Python 插件
+   ![select_powershell](assets/select_powershell.gif)
 
-2. 按照 Python 插件的提示在 PC 上安装 Python3 并加入到系统环境变量中
+如果想要使用 MicroPython 自动补全功能（如果暂时不需要自动补全功能，可以跳过后续步骤），还需要进行如下操作：
+
+2. 安装 Python 插件
+
+3. 按照 Python 插件的提示在 PC 上安装 Python3 并加入到系统环境变量中
 
 ![Python plug](assets/install_python_plug.png)
 
 如果在 PC 上已经安装过上述插件和程序，可以跳过此准备步骤。
 
+### ubuntu 支持
+
+本插件支持在 **ubuntu 18.04** 版本下运行，为了避免在 ubuntu 系统下频繁获取串口权限，需要将当前用户加入到 `dialout` 用户组中，手动输入如下命令即可，`$USERNAME` 是系统当前用户名：
+
+`sudo usermod -aG dialout $USERNAME`
+
+注意：配置修改后需要 **重启一下操作系统** 使配置生效。
+
 ## 快速入门
 
 ### 创建一个 MicroPython 工程
 
-![open_dir](assets/open_dir.gif)
+![create_blank_dir](assets/create_blank_prj.gif)
+
+![create_demo_dir](assets/create_demo_prj.gif)
 
 ### 连接开发板
 
@@ -79,6 +94,16 @@ VSCode 最好用的 MicroPython 插件，为 MicroPython 开发提供了强大�
 - 基于 MicroPython 的代码智能补全
 
 ![auto_complete](assets/auto_complete.gif)
+
+## 开发资源
+
+- [RT-Thread MicroPython 开发用户手册](https://www.rt-thread.org/document/site/submodules/micropython/docs/)
+- [RT-Thread MicroPython 软件包](https://github.com/RT-Thread-packages/micropython)
+- [RT-Thread MicroPython 示例程序及库](https://github.com/RT-Thread/mpy-snippets)
+- [RT-Thread MicroPython 论坛](https://www.rt-thread.org/qa/forum.php?mod=forumdisplay&fid=2&filter=typeid&typeid=20)
+- [MicroPython IDE 用户指南](https://www.rt-thread.org/document/site/submodules/micropython/docs/MicroPythonPlug-in/MicroPython_IDE_User_Manual/)
+- [MicroPython 固件开发指南](https://www.rt-thread.org/document/site/submodules/micropython/docs/MicroPythonPlug-in/MicroPython_Firmware_Development_Guide/)
+- RT-Thread MicroPython 交流 QQ 群：703840633
 
 ## 注意事项
 

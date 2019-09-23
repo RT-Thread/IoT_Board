@@ -26,9 +26,10 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include <dfs_posix.h>
 #include "py/mphal.h"
 #include "py/runtime.h"
+#include "py/mperrno.h"
 
 #if MICROPY_PY_MACHINE_LCD
 
@@ -189,6 +190,129 @@ STATIC mp_obj_t machine_lcd_set_color(size_t n_args, const mp_obj_t *args) {
 }
 STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_lcd_set_color_obj, 3, 3, machine_lcd_set_color);
 
+/// \method show_image array
+///
+/// display the image on the lcd..
+/// @param   x       x position
+/// @param   y       y position
+/// @param   length  length of image
+/// @param   wide    wide of image
+/// @param   p       image_array
+STATIC mp_obj_t machine_lcd_show_image(size_t n_args, const mp_obj_t *args) {
+    rt_uint16_t x = mp_obj_get_int(args[1]);
+    rt_uint16_t y = mp_obj_get_int(args[2]);
+    rt_uint16_t length = mp_obj_get_int(args[3]);
+    rt_uint16_t wide = mp_obj_get_int(args[4]);
+
+    mp_buffer_info_t bufinfo;
+    if (mp_get_buffer(args[5], &bufinfo, MP_BUFFER_READ)) 
+    {
+        lcd_show_image( x, y, length, wide, (const rt_uint8_t *)bufinfo.buf);
+    }
+
+    return mp_const_none;
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_lcd_show_image_obj, 6, 6, machine_lcd_show_image);
+
+STATIC rt_uint16_t rgb888to565(rt_uint32_t RGB) 
+{
+     int R, G, B; 
+     R = (RGB >> 19) & 0x1F; 
+     G = (RGB >> 10) & 0x3F; 
+     B = (RGB >> 3) & 0x1F; 
+     return (R << 11) | (G << 5) | B; 
+} 
+
+/// \method show_image array
+///
+/// display the image on the lcd.
+/// @param   x       x position
+/// @param   y       y position
+/// @param   file    bmp file pathname
+STATIC mp_obj_t machine_lcd_show_bmp(size_t n_args, const mp_obj_t *args) {
+    #define BMP_INFO_SIZE 54
+    rt_uint16_t x = mp_obj_get_int(args[1]);
+    rt_uint16_t y = mp_obj_get_int(args[2]);
+    const char *pathname = mp_obj_str_get_str(args[3]);
+
+    int fd, len;
+    fd = open(pathname, O_RDONLY, 0);
+    if (fd < 0)
+    {
+         mp_raise_OSError(MP_EINVAL);
+    }
+
+    void *bmp_info = rt_malloc(BMP_INFO_SIZE);
+    if (bmp_info == RT_NULL)
+    {
+        mp_raise_OSError(MP_ENOMEM);
+    }
+
+    len = read(fd, bmp_info, BMP_INFO_SIZE);
+    if (len < 0)
+    {
+        close(fd);
+        mp_raise_OSError(MP_EINVAL);
+    }
+
+    rt_uint32_t width  = *(rt_uint32_t *)(bmp_info + 18);
+    rt_uint32_t heigth = *(rt_uint32_t *)(bmp_info + 22);
+    rt_uint16_t bit_count = *(rt_uint16_t *)(bmp_info + 28);
+    
+    if (bit_count != 32)
+    {
+        nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError,
+              "bit count : %d, only support 32-bit bmp picture", bit_count));
+    }
+
+    void *image_buf = rt_malloc(2 * width);
+    if (image_buf == RT_NULL)
+    {
+        mp_raise_OSError(MP_ENOMEM);
+    }
+
+    void *row_buf = rt_malloc(4 * width);
+    if (row_buf == RT_NULL)
+    {
+        mp_raise_OSError(MP_ENOMEM);
+    }
+
+    int image_index, row_index;
+    rt_uint16_t rgb565_temp;
+
+    for(int i = 0; i < heigth; i++)
+    {
+        image_index = 0;
+        row_index = 0;
+
+        len = read(fd, row_buf, 4 * width);
+        if (len < 0)
+        {
+            close(fd);
+            mp_raise_OSError(MP_EINVAL);
+        }
+
+        while(row_index < (4 * width))
+        {
+            rgb565_temp = rgb888to565(*(rt_uint32_t *)(row_buf + row_index));
+            *(rt_uint8_t *)(image_buf + image_index) = (rgb565_temp >> 8);
+            *(rt_uint8_t *)(image_buf + image_index + 1) = rgb565_temp & 0xff;
+            
+            row_index   += 4;
+            image_index += 2;
+        }
+
+        lcd_show_image( x, y--, width, 1, (const rt_uint8_t *)image_buf);
+    }
+
+    close(fd);
+    rt_free(bmp_info);
+    rt_free(image_buf);
+    rt_free(row_buf);
+    return mp_const_none;
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_lcd_show_bmp_obj, 4, 4, machine_lcd_show_bmp);
+
 STATIC const mp_rom_map_elem_t machine_lcd_locals_dict_table[] = {
     // instance methods
     { MP_ROM_QSTR(MP_QSTR_light), MP_ROM_PTR(&machine_lcd_light_obj) },
@@ -199,6 +323,8 @@ STATIC const mp_rom_map_elem_t machine_lcd_locals_dict_table[] = {
     { MP_ROM_QSTR(MP_QSTR_rectangle), MP_ROM_PTR(&machine_lcd_rectangle_obj) },
     { MP_ROM_QSTR(MP_QSTR_circle), MP_ROM_PTR(&machine_lcd_circle_obj) }, 
     { MP_ROM_QSTR(MP_QSTR_set_color), MP_ROM_PTR(&machine_lcd_set_color_obj) }, 
+    { MP_ROM_QSTR(MP_QSTR_show_image), MP_ROM_PTR(&machine_lcd_show_image_obj) }, 
+    { MP_ROM_QSTR(MP_QSTR_show_bmp), MP_ROM_PTR(&machine_lcd_show_bmp_obj) }, 
     // color
     { MP_ROM_QSTR(MP_QSTR_WHITE), MP_ROM_INT(WHITE) },
     { MP_ROM_QSTR(MP_QSTR_BLACK), MP_ROM_INT(BLACK) },

@@ -49,6 +49,10 @@ WHITE BLACK BLUE BRED GRED GBLUE RED MAGENTA GREEN CYAN YELLOW BROWN BRRED GRAY 
 
 在 LCD 上画一个圆形，圆心的位置为（x1, y1），半径长度为 r。
 
+#### **LCD.show_bmp**( x,  y, pathname)
+
+在 LCD 指定位置上显示 32-bit bmp 格式的图片信息，注意显示 bmp 图片时，(x, y) 坐标是图片的左下角。
+
 ### 示例
 
 ```python
@@ -68,4 +72,5 @@ lcd.line(0, 50, 239, 50)    # 以起点（0，50），终点（239，50）画一
 lcd.line(0, 50, 239, 50)    # 以起点（0，50），终点（239，50）画一条线
 lcd.rectangle(100, 100, 200, 200) # 以左上角为（100,100），右下角（200,200）画矩形
 lcd.circle(150, 150, 80)    # 以圆心位置（150,150），半径为 80 画圆
+lcd.show_bmp(180, 50, "sun.bmp")  # 以位置（180,50）为图片左下角坐标显示文件系统中的 bmp 图片 "sun.bmp"
 ```

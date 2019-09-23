@@ -14,7 +14,9 @@
 
 在 RT-Thread MicroPython 中 `WDT` 对象的构造函数如下：
 
-#### **class machine.WDT**(timeout=5)
+#### **class machine.WDT**(id = "wdt", timeout=5)
+
+- **id**: 使用的 WDT 设备编号，`id = 1` 表示编号为 1 的 WDT 设备，或者表示使用的 WDT 设备名，如 `id = "wdt"` 表示设备名为 `wdt` 的 WDT 设备；
 
 - **timeout**：设置看门狗超时时间，单位：秒（s）；
 

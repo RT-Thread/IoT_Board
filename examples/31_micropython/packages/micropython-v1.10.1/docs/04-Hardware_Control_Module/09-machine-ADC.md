@@ -13,7 +13,7 @@
 
 #### **class machine.ADC**(id, channel)
 
-- **id**：使用的 ADC 设备编号，`id = 1` 表示编号为 1 的 ADC 设备；
+- **id**：使用的 ADC 设备编号，`id = 1` 表示编号为 1 的 ADC 设备，或者表示使用的 ADC 设备名，如 `id = "adc"` 表示设备名为 `adc` 的 ADC 设备；
 - **channel**：使用的 ADC 设备通道号，每个 ADC 设备对应多个通道；
 
 例如：`ADC(1,4)` 表示当前使用编号为 1 的 ADC 设备的 4 通道。

@@ -47,6 +47,7 @@ typedef struct _machine_pin_obj_t {
     mp_obj_base_t base;
     char name[RT_NAME_MAX];
     uint32_t pin;
+    mp_obj_t pin_isr_cb;
 } machine_pin_obj_t;
 
 #endif // _MODMACHINE_H
