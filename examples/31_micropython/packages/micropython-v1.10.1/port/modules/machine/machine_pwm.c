@@ -47,8 +47,9 @@ extern const mp_obj_type_t machine_pwm_type;
 typedef struct _machine_pwm_obj_t {
     mp_obj_base_t base;
     struct rt_device_pwm *pwm_device;
+    char dev_name[RT_NAME_MAX];
     uint8_t is_init;
-    uint8_t id;
+    int8_t id;
     uint8_t channel;
     uint8_t duty;
     uint32_t freq;
@@ -58,7 +59,11 @@ STATIC void machine_pwm_print(const mp_print_t *print, mp_obj_t self_in, mp_prin
     machine_pwm_obj_t *self = self_in;
 
     mp_printf(print, "PWM(%p; ", self);
-    mp_printf(print, "id=%d, ", self->id);
+    if (self->id >= 0) {
+        mp_printf(print, "pwm_id=%d, ", self->id);
+    } else {
+        mp_printf(print, "pwm_name=%s, ", self->dev_name);
+    }
     mp_printf(print, "channel=%d, ", self->channel);
     mp_printf(print, "freq=%d, ", self->freq);
     mp_printf(print, "duty=%d)", self->duty);
@@ -107,10 +112,15 @@ STATIC void machine_pwm_init_helper(machine_pwm_obj_t *self,
     }
     self->duty = tval;
 
-    snprintf(pwm_dev_name, sizeof(pwm_dev_name), "pwm%d", self->id);
+    if (self->id >= 0) {
+        rt_snprintf(pwm_dev_name, sizeof(pwm_dev_name), "pwm%d", self->id);
+    } else {
+        rt_strncpy(pwm_dev_name, self->dev_name, RT_NAME_MAX);
+    }
+
     pwm_device = (struct rt_device_pwm *) rt_device_find(pwm_dev_name);
     if (pwm_device == RT_NULL || pwm_device->parent.type != RT_Device_Class_Miscellaneous) {
-        nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, 
+        nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError,
                                                 "PWM(%s) don't exist", pwm_dev_name));
     }
     self->pwm_device = pwm_device;
@@ -137,7 +147,17 @@ STATIC mp_obj_t machine_pwm_make_new(const mp_obj_type_t *type,
     machine_pwm_obj_t *self = m_new_obj(machine_pwm_obj_t);
     self->base.type = &machine_pwm_type;
     self->is_init = RT_FALSE;
-    self->id = mp_obj_get_int(args[0]);
+
+    // check input PWM device name or ID
+    if (mp_obj_is_small_int(args[0])) {
+        self->id = mp_obj_get_int(args[0]);
+    } else if (mp_obj_is_qstr(args[0])) {
+        self->id = -1;
+        rt_strncpy(self->dev_name, mp_obj_str_get_str(args[0]), RT_NAME_MAX);
+    } else {
+        error_check(0, "Input PWM device name or ID error.");
+    }
+
     self->channel = 0;
     self->freq = 1;
     self->duty = 0;
@@ -187,16 +207,16 @@ STATIC mp_obj_t machine_pwm_freq(size_t n_args, const mp_obj_t *args) {
         nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError,
                                                 "Bad frequency %d", tval));
     }
-    
+
     // get period number by frequency
     period = MP_PWM_PERIOD_GET(tval);
     // get pulse number by duty
     pulse = MP_PWM_PULSE_GET(period, self->duty);
-    
+
     result = rt_pwm_set(self->pwm_device, self->channel, period, pulse);
     error_check(result == RT_EOK, "PWM set information error");
     self->freq = tval;
-    
+
     return mp_const_none;
 }
 
@@ -220,12 +240,12 @@ STATIC mp_obj_t machine_pwm_duty(size_t n_args, const mp_obj_t *args) {
         nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError,
                                                 "Bad duty %d", tval));
     }
-    
+
     // get period number by frequency
     period = MP_PWM_PERIOD_GET(self->freq);
     // get pulse number by duty
     pulse = MP_PWM_PULSE_GET(period, tval);
-    
+
     result = rt_pwm_set(self->pwm_device, self->channel, period, pulse);
     error_check(result == RT_EOK, "PWM set information error");
     self->duty = tval;

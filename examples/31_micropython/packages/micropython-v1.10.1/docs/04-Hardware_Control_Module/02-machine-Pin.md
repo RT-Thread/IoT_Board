@@ -38,9 +38,23 @@
 #### **Pin.name**()
 返回引脚对象在构造时用户自定义的引脚名。
 
+#### **Pin.irq**(handler=None, trigger=(Pin.IRQ_RISING))
+
+配置在引脚的触发源处于活动状态时调用的中断处理程序。如果引脚模式是， `Pin.IN` 则触发源是引脚上的外部值。 如果引脚模式是， `Pin.OUT` 则触发源是引脚的输出缓冲器。 否则，如果引脚模式是， `Pin.OPEN_DRAIN` 那么触发源是状态'0'的输出缓冲器和状态'1'的外部引脚值。
+
+参数:
+
+- `handler` 是一个可选的函数，在中断触发时调用
+- `trigger` 配置可以触发中断的事件。可能的值是：
+    - `Pin.IRQ_FALLING` 下降沿中断
+    - `Pin.IRQ_RISING` 上升沿中断
+    - `Pin.IRQ_RISING_FALLING` 上升沿或下降沿中断
+    - `Pin.IRQ_LOW_LEVEL` 低电平中断
+    - `Pin.IRQ_HIGH_LEVEL` 高电平中断
+
 ### 常量
 
-下面的常量用来配置 `Pin` 对象。  
+下面的常量用来配置 `Pin` 对象。 
 
 #### 选择引脚模式：
 ##### **Pin.IN**
@@ -53,7 +67,16 @@
 ##### **None**  
 使用值 `None` 代表不进行上下拉。
 
-### 示例
+#### 选择中断触发模式：
+##### **Pin.IRQ_FALLING**
+##### **Pin.IRQ_RISING**
+##### **Pin.IRQ_RISING_FALLING**
+##### **Pin.IRQ_LOW_LEVEL** 
+##### **Pin.IRQ_HIGH_LEVEL** 
+
+### 示例一
+
+控制引脚输出高低电平信号，并读取按键引脚电平信号。
 
 ```
 from machine import Pin
@@ -69,4 +92,19 @@ p_in = Pin(("key_0", PIN_IN), Pin.IN, Pin.PULL_UP)
 print(p_in.value() )           # get value, 0 or 1
 ```
 
-  更多内容可参考 [machine.Pin](http://docs.micropython.org/en/latest/pyboard/library/machine.Pin.html)  。
+### 示例二
+
+上升沿信号触发引脚中断后执行中断处理函数。
+
+```
+from machine import Pin
+
+PIN_KEY0 = 58    # PD10
+key_0 = Pin(("key_0", PIN_KEY0), Pin.IN, Pin.PULL_UP)
+
+def func(v):
+    print("Hello rt-thread!")
+
+key_0.irq(trigger=Pin.IRQ_RISING, handler=func)
+```
+更多内容可参考 [machine.Pin](http://docs.micropython.org/en/latest/pyboard/library/machine.Pin.html)  。

@@ -60,7 +60,6 @@ STATIC mp_obj_t machine_adc_make_new(const mp_obj_type_t *type,
     struct rt_adc_device *adc_device = RT_NULL;
     char adc_dev_name[RT_NAME_MAX] = {0};
     rt_err_t result = RT_EOK;
-    int dev_id = 0;
 
     // init machine adc object information
     self->channel = 0;
@@ -69,11 +68,18 @@ STATIC mp_obj_t machine_adc_make_new(const mp_obj_type_t *type,
 
     mp_arg_check_num(n_args, n_kw, 1, 2, true);
 
-    dev_id = mp_obj_get_int(args[0]);
-    rt_snprintf(adc_dev_name, sizeof(adc_dev_name), "adc%d", dev_id);
+    // check input ADC device name or ID
+    if (mp_obj_is_small_int(args[0])) {
+        rt_snprintf(adc_dev_name, sizeof(adc_dev_name), "adc%d", mp_obj_get_int(args[0]));
+    } else if (mp_obj_is_qstr(args[0])) {
+        rt_strncpy(adc_dev_name, mp_obj_str_get_str(args[0]), RT_NAME_MAX);
+    } else {
+        error_check(0, "Input ADC device name or ID error.");
+    }
+
     adc_device = (struct rt_adc_device *) rt_device_find(adc_dev_name);
     if (adc_device == RT_NULL || adc_device->parent.type != RT_Device_Class_Miscellaneous) {
-        nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, 
+        nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError,
                                                 "ADC(%s) don't exist", adc_dev_name));
     }
     self->adc_device = adc_device;

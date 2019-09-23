@@ -15,7 +15,7 @@
 
 #### **class machine.Timer**(id)
 
-- **id**：使用的 Timer 设备编号，`id = 1` 表示编号为 1 的 Timer 设备；
+- **id**：使用的 Timer 设备编号，`id = 1` 表示编号为 1 的 Timer 设备，或者表示使用的 timer 设备名，如 `id = "timer"` 表示设备名为 `timer` 的 Timer 设备；
 
 该函数主要用于通过设备编号创建 Timer 设备对象。
 

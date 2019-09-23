@@ -41,7 +41,7 @@ int main(void)
     else
     {
         /* 创建文件系统 */
-        dfs_mkfs(FS_PARTITION_NAME, "elm");
+        dfs_mkfs("elm", FS_PARTITION_NAME);
         /* 重新挂载文件系统 */
         if (dfs_mount(FS_PARTITION_NAME, "/", "elm", 0, 0) == 0)
         {
@@ -61,11 +61,11 @@ int main(void)
 
     /* 等待系统初始化完毕 */
     rt_thread_mdelay(100);
-
-    /* 打开 MicroPython 命令交互界面 */
-    extern void mpy_main(const char *filename);
-    mpy_main(NULL);
-
-//    LOG_D("You can enter repl mode by typing python commands.");
-    rt_hw_cpu_reset();
+    
+    while(1)
+    {
+        /* 打开 MicroPython 命令交互界面 */
+        extern void mpy_main(const char *filename);
+        mpy_main(NULL);
+    }
 }

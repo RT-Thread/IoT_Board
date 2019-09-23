@@ -51,17 +51,20 @@
     - [手机遥控车](https://www.bilibili.com/video/av15008143?from=search&seid=16285206333541196172)
     - [搭建 MQTT 服务器](http://www.360doc.com/content/17/1218/22/8473307_714341237.shtml)
 
-## MicroPython 开发资源
+## RT-Thread MicroPython 开发资源
 
-- [RT-Thread MicroPython 开发手册](https://www.rt-thread.org/document/site/rtthread-development-guide/micropython/docs/README/)
+- [RT-Thread MicroPython 开发用户手册](https://www.rt-thread.org/document/site/submodules/micropython/docs/)
+- [RT-Thread MicroPython IDE 用户指南](https://www.rt-thread.org/document/site/submodules/micropython/docs/MicroPythonPlug-in/MicroPython_IDE_User_Manual/)
+- [RT-Thread MicroPython 固件开发指南](https://www.rt-thread.org/document/site/submodules/micropython/docs/MicroPythonPlug-in/MicroPython_Firmware_Development_Guide/)
+- [RT-Thread MicroPython 软件包](https://github.com/RT-Thread-packages/micropython)
+- [RT-Thread MicroPython 示例程序及库](https://github.com/RT-Thread/mpy-snippets)
+- [RT-Thread MicroPython 论坛](https://www.rt-thread.org/qa/forum.php?mod=forumdisplay&fid=2&filter=typeid&typeid=20)
+- RT-Thread MicroPython 交流 QQ 群：703840633
 
-- [RT-Thread MicroPython 源码](https://github.com/RT-Thread-packages/micropython)
-
-- [RT-Thread MicroPython 论坛](https://www.rt-thread.org/qa/forum.php)
-
+## MicroPython 官方资料
 - [MicroPython 官方网站](https://micropython.org/)
 
-- [官方在线文档](http://docs.micropython.org/en/latest/pyboard/)
+- [MicroPython 官方在线文档](http://docs.micropython.org/en/latest/pyboard/)
 
 - [MicroPython 在线演示](https://micropython.org/unicorn)
 
@@ -70,3 +73,4 @@
 - [MicroPython 官方论坛](http://forum.micropython.org/)
 
 - [MicroPython 中文社区](http://www.micropython.org.cn/)
+

@@ -330,7 +330,7 @@ typedef long mp_off_t;
 #define MICROPY_HW_MCU_NAME            "RT-Thread"
 #define MICROPY_PY_PATH_FIRST          "/libs/mpy/"
 #define MICROPY_PY_PATH_SECOND         "/scripts/"
-#define MICROPY_MAIN_PY_PATH           "/scripts/main.py"
+#define MICROPY_MAIN_PY_PATH           "/main.py"
 
 #define MICROPY_BEGIN_ATOMIC_SECTION()     rt_hw_interrupt_disable()
 #define MICROPY_END_ATOMIC_SECTION(state)  rt_hw_interrupt_enable(state)
