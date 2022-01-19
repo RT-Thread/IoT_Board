@@ -1,4 +1,7 @@
 # RT-Thread IoT-Board SDK 说明
+## ⚠️注意
+
+最新源码在[此处维护](https://github.com/RT-Thread/rt-thread/tree/master/bsp/stm32/stm32l475-atk-pandora)，您可以结合[本仓库的文档](https://github.com/RT-Thread/IoT_Board/tree/master/docs)并体验最新的源码。
 
 ## 内容简介
 
