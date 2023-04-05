@@ -48,10 +48,10 @@ static void test_env(void)
     /* 启动次数加 1 */
     i_boot_times++;
     LOG_D("===============================================");
-    LOG_D("The system now boot %d times", i_boot_times);
+    LOG_D("The system now boot %u times", i_boot_times);
     LOG_D("===============================================");
     /* 数字转字符串 */
-    sprintf(c_new_boot_times, "%d", i_boot_times);
+    sprintf(c_new_boot_times, "%u", i_boot_times);
     /* 保存开机次数的值 */
     ef_set_env("boot_times", c_new_boot_times);
     ef_save_env();
