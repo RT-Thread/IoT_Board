@@ -132,6 +132,7 @@ static uint32_t stm32_get_sector_size(uint32_t sector) {
 static int init(void)
 {
     /* do nothing now */
+    return 0;
 }
 
 static int read(long offset, uint8_t *buf, size_t size)
